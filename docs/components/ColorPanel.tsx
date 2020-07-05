@@ -1,7 +1,8 @@
 import { FC, useState, useCallback } from "react";
+import styled from "styled-components";
+
 import { HueSlider } from "./HueSlider";
 import { BrightnessSaturationPanel } from "./BrightnessSaturationPanel";
-import styled from "styled-components";
 
 const Panel = styled.div`
   margin-bottom: 5px;
@@ -30,7 +31,11 @@ export const ColorPanel: FC<ColorPanelProps> = ({ width }) => {
       }}
     >
       <Panel>
-        <BrightnessSaturationPanel hue={hue} />
+        <BrightnessSaturationPanel
+          brightness={0.5}
+          saturation={0.5}
+          hue={hue}
+        />
       </Panel>
       <HueSlider hue={hue} onHueChange={handleHueChange} />
     </div>

@@ -1,14 +1,16 @@
 import { FC, MutableRefObject, useEffect, useState, useMemo } from "react";
+import styled from "styled-components";
 import tinycolor from "tinycolor2";
 
 import { useResize } from "./utils";
-import styled from "styled-components";
+import { Cursor } from "./Cursor";
 
 const Panel = styled.div`
   position: relative;
   width: 100%;
   line-height: 0;
   z-index: 1;
+
   & > .brightness,
   & > .saturation {
     position: absolute;
@@ -28,10 +30,14 @@ const Panel = styled.div`
 `;
 
 interface BrightnessSaturationPanelProps {
+  brightness: number;
+  saturation: number;
   hue: number;
 }
 
 export const BrightnessSaturationPanel: FC<BrightnessSaturationPanelProps> = ({
+  brightness,
+  saturation,
   hue,
 }) => {
   const [size, ref] = useResize();
@@ -40,6 +46,11 @@ export const BrightnessSaturationPanel: FC<BrightnessSaturationPanelProps> = ({
   useEffect(() => {
     setHeight(`${size.width}px`);
   }, [size]);
+
+  useEffect(() => {
+    ref.current.addEventListener("mousedown", () => {});
+    ref.current.addEventListener("touchstart", () => {});
+  }, [ref]);
 
   const hueColor = useMemo(
     () =>
@@ -59,6 +70,7 @@ export const BrightnessSaturationPanel: FC<BrightnessSaturationPanelProps> = ({
       style={{ height: height, backgroundColor: hueColor }}
       ref={ref as MutableRefObject<HTMLDivElement>}
     >
+      <Cursor x={brightness} y={saturation} />
       <div className="brightness"></div>
       <div className="saturation"></div>
     </Panel>
