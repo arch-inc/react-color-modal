@@ -1,0 +1,52 @@
+{
+  "name": "react-color-modal",
+  "version": "1.0.0",
+  "description": "Yet another color picker component for React",
+  "main": "dist/index.js",
+  "browser": "dist/index.js",
+  "module": "dist/index.es.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c",
+    "watch": "rollup -cw",
+    "clean": "del-cli dist",
+    "prettify": "prettier --write ./**/*.{ts,tsx}",
+    "dev-pages": "next ./docs",
+    "build-pages": "next build ./docs",
+    "start-pages": "next start ./docs",
+    "export-pages": "next export ./docs",
+    "build-docs": "typedoc --mode library --excludeExternals --excludeNotExported --excludePrivate --excludeProtected --out ./docs/out/api ./lib/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arch-inc/react-color-modal.git"
+  },
+  "keywords": [
+    "color",
+    "picker",
+    "react"
+  ],
+  "author": "Jun Kato <i@junkato.jp> (https://junkato.jp)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arch-inc/react-color-modal/issues"
+  },
+  "homepage": "https://github.com/arch-inc/react-color-modal#readme",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "styled-jsx": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.41",
+    "del-cli": "^3.0.1",
+    "next": "^9.4.4",
+    "prettier": "^2.0.5",
+    "rollup": "^2.19.0",
+    "rollup-plugin-terser": "^6.1.0",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "semantic-ui-react": "^0.88.2",
+    "typedoc": "^0.17.0-3",
+    "typescript": "^3.9.6"
+  }
+}
