@@ -15,7 +15,8 @@
     "build-pages": "next build ./docs",
     "start-pages": "next start ./docs",
     "export-pages": "next export ./docs",
-    "build-docs": "typedoc --mode library --excludeExternals --excludeNotExported --excludePrivate --excludeProtected --out ./docs/out/api ./lib/index.ts"
+    "build-docs": "typedoc --mode library --excludeExternals --excludeNotExported --excludePrivate --excludeProtected --out ./docs/out/api ./lib/index.ts",
+    "postinstall": "del-cli node_modules/@types/react-native"
   },
   "repository": {
     "type": "git",
