@@ -36,7 +36,7 @@ export function useResize(): [Size, MutableRefObject<HTMLElement>] {
     return () => {
       window.removeEventListener("resize", onRawResize);
     };
-  }, []);
+  }, [ref.current]);
 
   return [size, ref];
 }
