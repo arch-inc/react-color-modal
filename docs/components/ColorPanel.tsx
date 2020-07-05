@@ -141,11 +141,11 @@ export const ColorPanel: FC<ColorPanelProps> = ({ width, onColorUpdate }) => {
       style={{
         width: width || "100%",
       }}
-      onMouseDown={handleMouseDown}
-      onTouchStart={handleTouchStart}
       ref={ref}
     >
-      <Panel>
+      <Panel
+        onMouseDown={handleMouseDown}
+        onTouchStart={handleTouchStart}>
         <BrightnessSaturationPanel
           brightness={brightness}
           saturation={saturation}
