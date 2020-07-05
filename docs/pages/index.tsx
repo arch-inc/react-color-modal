@@ -9,6 +9,7 @@ import {
   Icon,
   Header,
 } from "semantic-ui-react";
+import { Body } from "../components/Body";
 
 const basePath = process.env.BASE_PATH.replace(/\/$/, "");
 const packageName = "react-color-modal";
@@ -106,7 +107,7 @@ const Index: NextPage = () => {
             <Header as="h3" content="Live demo" />
             <p>...</p>
             <Divider />
-            <p>...</p>
+            <Body />
           </Container>
         </div>
       </div>
