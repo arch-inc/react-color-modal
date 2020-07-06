@@ -68,8 +68,10 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-interface"><a href="interfaces/colorpanelprops.html" class="tsd-kind-icon">Color<wbr>Panel<wbr>Props</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/huesaturationbrightnessinputprops.html" class="tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Input<wbr>Props</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/huesaturationbrightnesspanelprops.html" class="tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Panel<wbr>Props</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/huesliderprops.html" class="tsd-kind-icon">Hue<wbr>Slider<wbr>Props</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/numberinputprops.html" class="tsd-kind-icon">Number<wbr>Input<wbr>Props</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/redgreenblueinputprops.html" class="tsd-kind-icon">Red<wbr>Green<wbr>Blue<wbr>Input<wbr>Props</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/saturationbrightnesspanelprops.html" class="tsd-kind-icon">Saturation<wbr>Brightness<wbr>Panel<wbr>Props</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/size.html" class="tsd-kind-icon">Size</a></li>
 							</ul>
@@ -85,8 +87,10 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="globals.html#colorpanel" class="tsd-kind-icon">Color<wbr>Panel</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#huesaturationbrightnessinput" class="tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Input</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#huesaturationbrightnesspanel" class="tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Panel</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#hueslider" class="tsd-kind-icon">Hue<wbr>Slider</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#numberinput" class="tsd-kind-icon">Number<wbr>Input</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#redgreenblueinput" class="tsd-kind-icon">Red<wbr>Green<wbr>Blue<wbr>Input</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#saturationbrightnesspanel" class="tsd-kind-icon">Saturation<wbr>Brightness<wbr>Panel</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#throttle" class="tsd-kind-icon">throttle</a></li>
 								<li class="tsd-kind-function tsd-has-type-parameter"><a href="globals.html#useresize" class="tsd-kind-icon">use<wbr>Resize</a></li>
@@ -103,7 +107,7 @@
 					<div class="tsd-signature tsd-kind-icon">Input<wbr>Groups<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">StyledComponentBase</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">"div"</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = styled.div&#x60;display: flex;&amp; &gt; .input.group {padding: 0.5em 0.5em 0.5em 0;}&amp; &gt; .input.group &gt; label {padding-right: 0.3em;font-weight: bold;}&amp; &gt; .input.group &gt; label &gt; .range {font-weight: normal;color: rgba(34, 36, 38, 0.4);}&#x60;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/5865849/lib/InputGroups.tsx#L3">InputGroups.tsx:3</a></li>
+							<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/3e85cca/lib/InputGroups.tsx#L3">InputGroups.tsx:3</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -114,28 +118,25 @@
 					<a name="colorpanel" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> Color<wbr>Panel</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">Color<wbr>Panel<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>onColorUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/colorpanelprops.html#oncolorupdate" class="tsd-signature-type">onColorUpdate</a><span class="tsd-signature-symbol">; </span>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
+						<li class="tsd-signature tsd-kind-icon">Color<wbr>Panel<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">; </span>onColorUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/colorpanelprops.html#oncolorupdate" class="tsd-signature-type">onColorUpdate</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/5865849/lib/ColorPanel.tsx#L30">ColorPanel.tsx:30</a></li>
+									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/3e85cca/lib/ColorPanel.tsx#L16">ColorPanel.tsx:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>onColorUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/colorpanelprops.html#oncolorupdate" class="tsd-signature-type">onColorUpdate</a><span class="tsd-signature-symbol">; </span>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></h5>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">; </span>onColorUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/colorpanelprops.html#oncolorupdate" class="tsd-signature-type">onColorUpdate</a><span class="tsd-signature-symbol"> }</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
-											<h5>class<wbr>Name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+											<h5>color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Instance</span></h5>
 										</li>
 										<li class="tsd-parameter">
 											<h5>on<wbr>Color<wbr>Update<span class="tsd-signature-symbol">: </span><a href="interfaces/colorpanelprops.html#oncolorupdate" class="tsd-signature-type">onColorUpdate</a></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
 										</li>
 									</ul>
 								</li>
@@ -148,28 +149,25 @@
 					<a name="huesaturationbrightnessinput" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> Hue<wbr>Saturation<wbr>Brightness<wbr>Input</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Input<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>brightness<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>hue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>onBrightnessUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnessinputprops.html#onbrightnessupdate" class="tsd-signature-type">onBrightnessUpdate</a><span class="tsd-signature-symbol">; </span>onHueUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnessinputprops.html#onhueupdate" class="tsd-signature-type">onHueUpdate</a><span class="tsd-signature-symbol">; </span>onSaturationUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnessinputprops.html#onsaturationupdate" class="tsd-signature-type">onSaturationUpdate</a><span class="tsd-signature-symbol">; </span>saturation<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
+						<li class="tsd-signature tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Input<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>hsv<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HSV</span><span class="tsd-signature-symbol">; </span>onBrightnessUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnessinputprops.html#onbrightnessupdate" class="tsd-signature-type">onBrightnessUpdate</a><span class="tsd-signature-symbol">; </span>onHueUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnessinputprops.html#onhueupdate" class="tsd-signature-type">onHueUpdate</a><span class="tsd-signature-symbol">; </span>onSaturationUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnessinputprops.html#onsaturationupdate" class="tsd-signature-type">onSaturationUpdate</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/5865849/lib/HueSaturationBrightnessInput.tsx#L27">HueSaturationBrightnessInput.tsx:27</a></li>
+									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/3e85cca/lib/HueSaturationBrightnessInput.tsx#L24">HueSaturationBrightnessInput.tsx:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>brightness<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>hue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>onBrightnessUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnessinputprops.html#onbrightnessupdate" class="tsd-signature-type">onBrightnessUpdate</a><span class="tsd-signature-symbol">; </span>onHueUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnessinputprops.html#onhueupdate" class="tsd-signature-type">onHueUpdate</a><span class="tsd-signature-symbol">; </span>onSaturationUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnessinputprops.html#onsaturationupdate" class="tsd-signature-type">onSaturationUpdate</a><span class="tsd-signature-symbol">; </span>saturation<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></h5>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>hsv<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HSV</span><span class="tsd-signature-symbol">; </span>onBrightnessUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnessinputprops.html#onbrightnessupdate" class="tsd-signature-type">onBrightnessUpdate</a><span class="tsd-signature-symbol">; </span>onHueUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnessinputprops.html#onhueupdate" class="tsd-signature-type">onHueUpdate</a><span class="tsd-signature-symbol">; </span>onSaturationUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnessinputprops.html#onsaturationupdate" class="tsd-signature-type">onSaturationUpdate</a><span class="tsd-signature-symbol"> }</span></h5>
 									<ul class="tsd-parameters">
-										<li class="tsd-parameter">
-											<h5>brightness<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
-										</li>
 										<li class="tsd-parameter">
 											<h5>class<wbr>Name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
 										</li>
 										<li class="tsd-parameter">
-											<h5>hue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<h5>hsv<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HSV</span></h5>
 										</li>
 										<li class="tsd-parameter">
 											<h5>on<wbr>Brightness<wbr>Update<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnessinputprops.html#onbrightnessupdate" class="tsd-signature-type">onBrightnessUpdate</a></h5>
@@ -180,8 +178,39 @@
 										<li class="tsd-parameter">
 											<h5>on<wbr>Saturation<wbr>Update<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnessinputprops.html#onsaturationupdate" class="tsd-signature-type">onSaturationUpdate</a></h5>
 										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="huesaturationbrightnesspanel" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Hue<wbr>Saturation<wbr>Brightness<wbr>Panel</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Panel<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>hsv<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HSV</span><span class="tsd-signature-symbol">; </span>onColorUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnesspanelprops.html#oncolorupdate" class="tsd-signature-type">onColorUpdate</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/3e85cca/lib/HueSaturationBrightnessPanel.tsx#L33">HueSaturationBrightnessPanel.tsx:33</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>hsv<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HSV</span><span class="tsd-signature-symbol">; </span>onColorUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnesspanelprops.html#oncolorupdate" class="tsd-signature-type">onColorUpdate</a><span class="tsd-signature-symbol"> }</span></h5>
+									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
-											<h5>saturation<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<h5>class<wbr>Name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>hsv<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HSV</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>on<wbr>Color<wbr>Update<span class="tsd-signature-symbol">: </span><a href="interfaces/huesaturationbrightnesspanelprops.html#oncolorupdate" class="tsd-signature-type">onColorUpdate</a></h5>
 										</li>
 									</ul>
 								</li>
@@ -200,7 +229,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/5865849/lib/HueSlider.tsx#L35">HueSlider.tsx:35</a></li>
+									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/3e85cca/lib/HueSlider.tsx#L35">HueSlider.tsx:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -302,7 +331,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/5865849/lib/NumberInput.tsx#L38">NumberInput.tsx:38</a></li>
+									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/3e85cca/lib/NumberInput.tsx#L38">NumberInput.tsx:38</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -354,37 +383,65 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="saturationbrightnesspanel" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> Saturation<wbr>Brightness<wbr>Panel</h3>
+					<a name="redgreenblueinput" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Red<wbr>Green<wbr>Blue<wbr>Input</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">Saturation<wbr>Brightness<wbr>Panel<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>brightness<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>hue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>onUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/saturationbrightnesspanelprops.html#onupdate" class="tsd-signature-type">onUpdate</a><span class="tsd-signature-symbol">; </span>saturation<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
+						<li class="tsd-signature tsd-kind-icon">Red<wbr>Green<wbr>Blue<wbr>Input<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>onColorUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/redgreenblueinputprops.html#oncolorupdate" class="tsd-signature-type">onColorUpdate</a><span class="tsd-signature-symbol">; </span>rgb<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RGB</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/5865849/lib/SaturationBrightnessPanel.tsx#L48">SaturationBrightnessPanel.tsx:48</a></li>
+									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/3e85cca/lib/RedGreenBlueInput.tsx#L20">RedGreenBlueInput.tsx:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>brightness<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>hue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>onUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/saturationbrightnesspanelprops.html#onupdate" class="tsd-signature-type">onUpdate</a><span class="tsd-signature-symbol">; </span>saturation<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></h5>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>onColorUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/redgreenblueinputprops.html#oncolorupdate" class="tsd-signature-type">onColorUpdate</a><span class="tsd-signature-symbol">; </span>rgb<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RGB</span><span class="tsd-signature-symbol"> }</span></h5>
 									<ul class="tsd-parameters">
-										<li class="tsd-parameter">
-											<h5>brightness<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
-										</li>
 										<li class="tsd-parameter">
 											<h5>class<wbr>Name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
 										</li>
 										<li class="tsd-parameter">
-											<h5>hue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<h5>on<wbr>Color<wbr>Update<span class="tsd-signature-symbol">: </span><a href="interfaces/redgreenblueinputprops.html#oncolorupdate" class="tsd-signature-type">onColorUpdate</a></h5>
 										</li>
 										<li class="tsd-parameter">
-											<h5>on<wbr>Update<span class="tsd-signature-symbol">: </span><a href="interfaces/saturationbrightnesspanelprops.html#onupdate" class="tsd-signature-type">onUpdate</a></h5>
+											<h5>rgb<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RGB</span></h5>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="saturationbrightnesspanel" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Saturation<wbr>Brightness<wbr>Panel</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">Saturation<wbr>Brightness<wbr>Panel<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>hsv<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HSV</span><span class="tsd-signature-symbol">; </span>onColorUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/saturationbrightnesspanelprops.html#oncolorupdate" class="tsd-signature-type">onColorUpdate</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/3e85cca/lib/SaturationBrightnessPanel.tsx#L44">SaturationBrightnessPanel.tsx:44</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>className<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>hsv<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HSV</span><span class="tsd-signature-symbol">; </span>onColorUpdate<span class="tsd-signature-symbol">: </span><a href="interfaces/saturationbrightnesspanelprops.html#oncolorupdate" class="tsd-signature-type">onColorUpdate</a><span class="tsd-signature-symbol"> }</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>class<wbr>Name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
 										</li>
 										<li class="tsd-parameter">
-											<h5>saturation<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+											<h5>hsv<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HSV</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>on<wbr>Color<wbr>Update<span class="tsd-signature-symbol">: </span><a href="interfaces/saturationbrightnesspanelprops.html#oncolorupdate" class="tsd-signature-type">onColorUpdate</a></h5>
 										</li>
 									</ul>
 								</li>
@@ -403,7 +460,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/5865849/lib/utils.ts#L34">utils.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/3e85cca/lib/utils.ts#L34">utils.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -465,7 +522,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/5865849/lib/utils.ts#L8">utils.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/3e85cca/lib/utils.ts#L8">utils.ts:8</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -497,10 +554,16 @@
 						<a href="interfaces/huesaturationbrightnessinputprops.html" class="tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Input<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/huesaturationbrightnesspanelprops.html" class="tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Panel<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/huesliderprops.html" class="tsd-kind-icon">Hue<wbr>Slider<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/numberinputprops.html" class="tsd-kind-icon">Number<wbr>Input<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/redgreenblueinputprops.html" class="tsd-kind-icon">Red<wbr>Green<wbr>Blue<wbr>Input<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/saturationbrightnesspanelprops.html" class="tsd-kind-icon">Saturation<wbr>Brightness<wbr>Panel<wbr>Props</a>
@@ -518,10 +581,16 @@
 						<a href="globals.html#huesaturationbrightnessinput" class="tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Input</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#huesaturationbrightnesspanel" class="tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Panel</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#hueslider" class="tsd-kind-icon">Hue<wbr>Slider</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#numberinput" class="tsd-kind-icon">Number<wbr>Input</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#redgreenblueinput" class="tsd-kind-icon">Red<wbr>Green<wbr>Blue<wbr>Input</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#saturationbrightnesspanel" class="tsd-kind-icon">Saturation<wbr>Brightness<wbr>Panel</a>

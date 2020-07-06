@@ -77,16 +77,14 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="saturationbrightnesspanelprops.html#brightness" class="tsd-kind-icon">brightness</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="saturationbrightnesspanelprops.html#classname" class="tsd-kind-icon">class<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="saturationbrightnesspanelprops.html#hue" class="tsd-kind-icon">hue</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="saturationbrightnesspanelprops.html#saturation" class="tsd-kind-icon">saturation</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="saturationbrightnesspanelprops.html#hsv" class="tsd-kind-icon">hsv</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="saturationbrightnesspanelprops.html#onupdate" class="tsd-kind-icon">on<wbr>Update</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="saturationbrightnesspanelprops.html#oncolorupdate" class="tsd-kind-icon">on<wbr>Color<wbr>Update</a></li>
 							</ul>
 						</section>
 					</div>
@@ -95,27 +93,12 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="brightness" class="tsd-anchor"></a>
-					<h3>brightness</h3>
-					<div class="tsd-signature tsd-kind-icon">brightness<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/5865849/lib/SaturationBrightnessPanel.tsx#L43">SaturationBrightnessPanel.tsx:43</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>brightness value</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="classname" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> class<wbr>Name</h3>
 					<div class="tsd-signature tsd-kind-icon">class<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/5865849/lib/SaturationBrightnessPanel.tsx#L37">SaturationBrightnessPanel.tsx:37</a></li>
+							<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/3e85cca/lib/SaturationBrightnessPanel.tsx#L37">SaturationBrightnessPanel.tsx:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -125,32 +108,17 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="hue" class="tsd-anchor"></a>
-					<h3>hue</h3>
-					<div class="tsd-signature tsd-kind-icon">hue<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="hsv" class="tsd-anchor"></a>
+					<h3>hsv</h3>
+					<div class="tsd-signature tsd-kind-icon">hsv<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HSV</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/5865849/lib/SaturationBrightnessPanel.tsx#L39">SaturationBrightnessPanel.tsx:39</a></li>
+							<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/3e85cca/lib/SaturationBrightnessPanel.tsx#L39">SaturationBrightnessPanel.tsx:39</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>hue value</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="saturation" class="tsd-anchor"></a>
-					<h3>saturation</h3>
-					<div class="tsd-signature tsd-kind-icon">saturation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/5865849/lib/SaturationBrightnessPanel.tsx#L41">SaturationBrightnessPanel.tsx:41</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>saturation value</p>
+							<p>color value</p>
 						</div>
 					</div>
 				</section>
@@ -158,16 +126,16 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="onupdate" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Update</h3>
+					<a name="oncolorupdate" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Color<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Update<span class="tsd-signature-symbol">(</span>saturation<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, brightness<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Color<wbr>Update<span class="tsd-signature-symbol">(</span>saturation<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, brightness<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/5865849/lib/SaturationBrightnessPanel.tsx#L45">SaturationBrightnessPanel.tsx:45</a></li>
+									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/3e85cca/lib/SaturationBrightnessPanel.tsx#L41">SaturationBrightnessPanel.tsx:41</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -207,10 +175,16 @@
 						<a href="huesaturationbrightnessinputprops.html" class="tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Input<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="huesaturationbrightnesspanelprops.html" class="tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Panel<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="huesliderprops.html" class="tsd-kind-icon">Hue<wbr>Slider<wbr>Props</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="numberinputprops.html" class="tsd-kind-icon">Number<wbr>Input<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="redgreenblueinputprops.html" class="tsd-kind-icon">Red<wbr>Green<wbr>Blue<wbr>Input<wbr>Props</a>
 					</li>
 				</ul>
 				<ul class="current">
@@ -218,19 +192,13 @@
 						<a href="saturationbrightnesspanelprops.html" class="tsd-kind-icon">Saturation<wbr>Brightness<wbr>Panel<wbr>Props</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="saturationbrightnesspanelprops.html#brightness" class="tsd-kind-icon">brightness</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="saturationbrightnesspanelprops.html#classname" class="tsd-kind-icon">class<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="saturationbrightnesspanelprops.html#hue" class="tsd-kind-icon">hue</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="saturationbrightnesspanelprops.html#saturation" class="tsd-kind-icon">saturation</a>
+								<a href="saturationbrightnesspanelprops.html#hsv" class="tsd-kind-icon">hsv</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="saturationbrightnesspanelprops.html#onupdate" class="tsd-kind-icon">on<wbr>Update</a>
+								<a href="saturationbrightnesspanelprops.html#oncolorupdate" class="tsd-kind-icon">on<wbr>Color<wbr>Update</a>
 							</li>
 						</ul>
 					</li>
@@ -249,10 +217,16 @@
 						<a href="../globals.html#huesaturationbrightnessinput" class="tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Input</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="../globals.html#huesaturationbrightnesspanel" class="tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Panel</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="../globals.html#hueslider" class="tsd-kind-icon">Hue<wbr>Slider</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../globals.html#numberinput" class="tsd-kind-icon">Number<wbr>Input</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../globals.html#redgreenblueinput" class="tsd-kind-icon">Red<wbr>Green<wbr>Blue<wbr>Input</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../globals.html#saturationbrightnesspanel" class="tsd-kind-icon">Saturation<wbr>Brightness<wbr>Panel</a>
