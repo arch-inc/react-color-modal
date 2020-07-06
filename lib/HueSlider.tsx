@@ -1,4 +1,4 @@
-import { FC, useMemo, useState, useEffect, useCallback } from "react";
+import React, { FC, useMemo, useState, useEffect, useCallback } from "react";
 import InputSlider from "react-input-slider";
 import { Interpolation } from "@emotion/serialize";
 import styled from "styled-components";

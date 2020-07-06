@@ -26,7 +26,7 @@ export function useResize<E extends HTMLElement>(): [
     };
 
     // throttling
-    let timeoutId = null;
+    let timeoutId: any = null;
     const onRawResize = () => {
       if (timeoutId) {
         return;
@@ -48,7 +48,7 @@ export function throttle(
   f: (...args: any[]) => any,
   delay: number
 ): (...args: any[]) => any {
-  let handler, args: IArguments;
+  let handler: any, args: IArguments;
   return function () {
     // update arguments
     args = arguments;

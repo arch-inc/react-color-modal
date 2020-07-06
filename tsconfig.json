@@ -1,7 +1,31 @@
 {
   "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./dist",
     "target": "es5",
-    "declaration": true
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": false,
+    "resolveJsonModule": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "lib": ["es5", "es6", "es7", "es2017", "dom"],
+    "outDir": "./dist",
+    "allowJs": false,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
-  "include": ["./lib/**/*.ts"]
+  "include": ["lib/**/*", "types/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

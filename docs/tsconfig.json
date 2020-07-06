@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -21,6 +17,13 @@
   "include": [
     "./next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "../lib/HueSlider.tsx",
+    "../lib/HueSaturationBrightnessInput.tsx",
+    "../lib/utils.ts",
+    "../lib/NumberInput.tsx",
+    "../lib/SaturationBrightnessPanel.tsx",
+    "../lib/InputGroups.tsx",
+    "../lib/SaturationBrightnessEventHandler.ts"
   ]
 }

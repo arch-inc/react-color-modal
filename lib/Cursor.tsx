@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
@@ -19,7 +19,7 @@ const StyledSpan = styled.span`
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 `;
 
-interface CursorProps {
+export interface CursorProps {
   className?: string;
   x: number;
   y: number;

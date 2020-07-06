@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 
-import { ColorPanel } from "./ColorPanel";
+import { ColorPanel } from "../../";
 
 export const Body: FC = () => {
   const [color, setColor] = useState<tinycolor.Instance>(null);

@@ -1,11 +1,14 @@
-import typescript from "rollup-plugin-typescript2";
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import babel from "rollup-plugin-babel";
 import { terser } from "rollup-plugin-terser";
 import pkg from "./package.json";
 
-const checkComments = function(_node, comment) {
-  const { value, type } = comment;
-  return type === "comment2" && /@preserve|@license/i.test(value);
-};
+const comments = function (_node, comment) {
+    const { value, type } = comment;
+    return type === "comment2" && /@preserve|@license/i.test(value);
+  },
+  extensions = [".js", ".jsx", ".ts", ".tsx"];
 
 export default [
   {
@@ -13,27 +16,22 @@ export default [
     output: [
       {
         file: pkg.main,
-        format: "cjs"
+        format: "cjs",
       },
       {
         file: pkg.module,
-        format: "es"
-      }
+        format: "es",
+      },
     ],
     external: [
       ...Object.keys(pkg.dependencies || {}),
-      ...Object.keys(pkg.peerDependencies || {})
+      ...Object.keys(pkg.peerDependencies || {}),
     ],
     plugins: [
-      typescript({
-        typescript: require("typescript"),
-        tsconfig: "tsconfig.json"
-      }),
-      terser({
-        output: {
-          comments: checkComments
-        }
-      })
-    ]
-  }
+      resolve({ extensions }),
+      commonjs(),
+      babel({ extensions, include: "lib/**/*", exclude: "node_modules/**/*" }),
+      terser({ output: { comments } }),
+    ],
+  },
 ];

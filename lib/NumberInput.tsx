@@ -1,4 +1,4 @@
-import { FC, useCallback, ChangeEvent, useMemo } from "react";
+import React, { FC, useCallback, ChangeEvent, useMemo } from "react";
 import { Interpolation } from "@emotion/serialize";
 import styled from "styled-components";
 
