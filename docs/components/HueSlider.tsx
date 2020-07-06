@@ -1,5 +1,6 @@
 import { FC, useMemo, useState, useEffect, useCallback } from "react";
-import InputSlider, { InputSliderProps } from "react-input-slider";
+import InputSlider from "react-input-slider";
+import { Interpolation } from "@emotion/serialize";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
@@ -23,7 +24,12 @@ interface IProps {
   /** called when drag ends */
   onHueChangeEnd?: () => void;
   /** CSS style values for the seekbar */
-  styles?: InputSliderProps;
+  styles?: {
+    track?: Interpolation;
+    active?: Interpolation;
+    thumb?: Interpolation;
+    disabled?: Interpolation;
+  };
 }
 
 export const HueSlider: FC<IProps> = ({
@@ -84,6 +90,11 @@ export const HueSlider: FC<IProps> = ({
         },
         active: {
           backgroundColor: "transparent",
+        },
+        thumb: {
+          backgroundColor: "transparent",
+          border: "6px solid #fff",
+          boxShadow: "0 0 2px 1px rgba(0,0,0,.5)",
         },
       },
       styles
