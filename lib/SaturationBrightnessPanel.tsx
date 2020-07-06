@@ -51,10 +51,7 @@ export const SaturationBrightnessPanel: FC<SaturationBrightnessPanelProps> = ({
   onUpdate,
 }) => {
   const [measuredSize, ref] = useResize<HTMLDivElement>();
-  const [size, setSize] = useState<Size>({
-    width: 0,
-    height: 0,
-  });
+  const [size, setSize] = useState<Size>({ width: 0, height: 0 });
   const [s, b, props] = useSaturationBrightnessEventHandler(ref.current, size);
 
   useEffect(() => {

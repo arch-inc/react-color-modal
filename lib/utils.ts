@@ -13,32 +13,19 @@ export function useResize<E extends HTMLElement>(): [
   const [size, setSize] = useState<Size>({ width: 0, height: 0 });
 
   useEffect(() => {
-    if (!window) {
+    if (typeof window === "undefined") {
       return;
     }
 
-    const onResize = () => {
+    const onResize = throttle(() => {
       if (ref.current) {
         const { clientWidth: width, clientHeight: height } = ref.current;
         setSize({ width, height });
       }
-      timeoutId = null;
-    };
-
-    // throttling
-    let timeoutId: any = null;
-    const onRawResize = () => {
-      if (timeoutId) {
-        return;
-      }
-      timeoutId = setTimeout(onResize, 200);
-    };
-    window.addEventListener("resize", onRawResize);
+    }, 200);
     onResize();
-
-    return () => {
-      window.removeEventListener("resize", onRawResize);
-    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, [ref.current]);
 
   return [size, ref];

@@ -97,15 +97,14 @@ export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
 
   const saturation = useMemo(
     () =>
-      Math.max(0, Math.min(1, elSize ? cursorPosition.x / elSize.width : 0)),
+      elSize ? Math.max(0, Math.min(1, cursorPosition.x / elSize.width)) : 0,
     [elSize, cursorPosition]
   );
   const brightness = useMemo(
     () =>
-      Math.max(
-        0,
-        Math.min(1, 1 - (elSize ? cursorPosition.y / elSize.height : 0))
-      ),
+      elSize
+        ? Math.max(0, Math.min(1, 1 - cursorPosition.y / elSize.height))
+        : 1,
     [elSize, cursorPosition]
   );
 
