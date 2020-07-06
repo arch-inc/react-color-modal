@@ -105,7 +105,7 @@ const Index: NextPage = () => {
         <div className="demo-wrapper">
           <Container>
             <Header as="h3" content="Live demo" />
-            <p>A simple color palette example is shown below.</p>
+            <p>Example color pickers are shown below.</p>
             <Divider />
             <Body />
           </Container>
