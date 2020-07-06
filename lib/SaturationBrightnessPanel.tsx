@@ -10,6 +10,7 @@ const StyledDiv = styled.div`
   position: relative;
   width: 100%;
   line-height: 0;
+  border-radius: 2px;
   z-index: 1;
 
   & > .saturation,
@@ -19,6 +20,7 @@ const StyledDiv = styled.div`
     right: 0;
     bottom: 0;
     left: 0;
+    border-radius: 2px;
   }
   & > .saturation {
     z-index: 2;

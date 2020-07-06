@@ -70,9 +70,9 @@ export const HueSlider: FC<HueSliderProps> = ({
   );
 
   const computedStyles = useMemo(() => {
-    return Object.assign(
-      {
-        track: {
+    return {
+      track: Object.assign(
+        {
           backgroundImage: `linear-gradient(
             to right,
             #ff0000 0%,
@@ -88,17 +88,24 @@ export const HueSlider: FC<HueSliderProps> = ({
             #ff0000 100%
           )`,
         },
-        active: {
+        styles.track
+      ),
+      active: Object.assign(
+        {
           backgroundColor: "transparent",
         },
-        thumb: {
+        styles.active
+      ),
+      thumb: Object.assign(
+        {
           backgroundColor: "transparent",
           border: "6px solid #fff",
-          boxShadow: "0 0 2px 1px rgba(0,0,0,.5)",
+          boxShadow: "0 1px 1px rgba(0,0,0,.5)",
         },
-      },
-      styles
-    );
+        styles.thumb
+      ),
+      disabled: styles.disabled,
+    };
   }, [styles]);
 
   return (

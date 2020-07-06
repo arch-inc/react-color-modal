@@ -8,8 +8,11 @@ import { HueSaturationBrightnessInput } from "./HueSaturationBrightnessInput";
 import { throttle } from "./utils";
 
 const StyledSaturationBrightnessPanel = styled(SaturationBrightnessPanel)`
-  margin-bottom: 5px;
+  margin-bottom: 16px;
   user-select: none;
+`;
+const StyledHueSlider = styled(HueSlider)`
+  margin-bottom: 12px;
 `;
 
 /** trigger events at 60 fps at maximum */
@@ -69,7 +72,21 @@ export const ColorPanel: FC<ColorPanelProps> = ({
         brightness={brightness}
         onUpdate={handleSaturationBrightnessUpdate}
       />
-      <HueSlider hue={hue} onHueChange={handleHueUpdate} />
+      <StyledHueSlider
+        hue={hue}
+        onHueChange={handleHueUpdate}
+        styles={{
+          track: {
+            height: "20px",
+            borderRadius: "2px",
+          },
+          thumb: {
+            width: "24px",
+            height: "24px",
+            borderWidth: "8px",
+          },
+        }}
+      />
       <HueSaturationBrightnessInput
         hue={hue}
         saturation={saturation}
