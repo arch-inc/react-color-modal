@@ -9,3 +9,4 @@ export * from "./HueSlider";
 export * from "./HueSaturationBrightnessInput";
 export * from "./HueSaturationBrightnessPanel";
 export * from "./ColorPanel";
+export * from "./RedGreenBlueInput";
