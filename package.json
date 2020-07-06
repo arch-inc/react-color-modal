@@ -23,9 +23,11 @@
     "url": "git+https://github.com/arch-inc/react-color-modal.git"
   },
   "keywords": [
+    "react",
+    "color-picker",
+    "color picker",
     "color",
-    "picker",
-    "react"
+    "picker"
   ],
   "author": "Jun Kato <i@junkato.jp> (https://junkato.jp)",
   "license": "MIT",
