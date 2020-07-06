@@ -55,7 +55,7 @@ export const NumberInput: FC<NumberInputProps> = ({
   const handleValueChange = useCallback(
     (ev: ChangeEvent<HTMLInputElement>) =>
       onValueChange(ev.target.valueAsNumber),
-    []
+    [onValueChange]
   );
 
   return (

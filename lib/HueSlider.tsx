@@ -41,7 +41,7 @@ export const HueSlider: FC<HueSliderProps> = ({
   onHueChangeEnd,
   styles,
 }) => {
-  const [currentHue, setCurrentHue] = useState<number>(hue);
+  const [currentHue, setCurrentHue] = useState<number>(hue || 0);
   const [isDragging, setDragging] = useState<boolean>(false);
 
   useEffect(() => {

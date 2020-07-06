@@ -1,100 +1,44 @@
-import React, { FC, useState, useCallback, useRef, useEffect } from "react";
-import styled from "styled-components";
+import React, { FC, useState, useEffect, useCallback } from "react";
 import tinycolor from "tinycolor2";
 
-import { HueSlider } from "./HueSlider";
-import { SaturationBrightnessPanel } from "./SaturationBrightnessPanel";
-import { HueSaturationBrightnessInput } from "./HueSaturationBrightnessInput";
-import { throttle } from "./utils";
-
-const StyledSaturationBrightnessPanel = styled(SaturationBrightnessPanel)`
-  margin-bottom: 16px;
-  user-select: none;
-`;
-const StyledHueSlider = styled(HueSlider)`
-  margin-bottom: 12px;
-`;
-
-/** trigger events at 60 fps at maximum */
-const wait = 1000 / 60;
+import { HueSaturationBrightnessPanel } from "./HueSaturationBrightnessPanel";
 
 export interface ColorPanelProps {
   /** optional CSS class name */
   className?: string;
-  /** width of this panel */
-  width?: string;
+  /** color value */
+  color?: tinycolor.Instance;
   /** called when color gets updated */
   onColorUpdate?(color: tinycolor.Instance): void;
 }
 
-export const ColorPanel: FC<ColorPanelProps> = ({
-  className,
-  width,
-  onColorUpdate,
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [hue, setHue] = useState<number>(0);
-  const [saturation, setSaturation] = useState<number>(0);
-  const [brightness, setBrightness] = useState<number>(0);
-
-  const handleHueUpdate = useCallback((h: number) => {
-    setHue(h);
-  }, []);
-
-  const handleSaturationBrightnessUpdate = useCallback(
-    throttle((s: number, b: number) => {
-      typeof s === "number" && !isNaN(s) && setSaturation(s);
-      typeof b === "number" && !isNaN(b) && setBrightness(b);
-    }, wait),
-    []
-  );
+export const ColorPanel: FC<ColorPanelProps> = ({ color, onColorUpdate }) => {
+  const [currentColor, setCurrentColor] = useState<tinycolor.Instance>(color);
 
   useEffect(() => {
-    const color = tinycolor.fromRatio({
-      h: hue / 360,
-      s: saturation,
-      v: brightness,
-    });
-    onColorUpdate && onColorUpdate(color);
-  }, [hue, saturation, brightness, onColorUpdate]);
+    if (!color) {
+      return;
+    }
+    setCurrentColor(color);
+  }, [color]);
+
+  const handleColorUpdate = useCallback(
+    (c: tinycolor.Instance) => {
+      if (!c || tinycolor.equals(c, currentColor)) {
+        return;
+      }
+      setCurrentColor(c);
+      onColorUpdate && onColorUpdate(c);
+    },
+    [currentColor, onColorUpdate]
+  );
 
   return (
-    <div
-      className={"color-panel " + (className || "")}
-      style={{
-        width: width || "100%",
-      }}
-      ref={ref}
-    >
-      <StyledSaturationBrightnessPanel
-        hue={hue}
-        saturation={saturation}
-        brightness={brightness}
-        onUpdate={handleSaturationBrightnessUpdate}
+    <>
+      <HueSaturationBrightnessPanel
+        color={currentColor}
+        onColorUpdate={handleColorUpdate}
       />
-      <StyledHueSlider
-        hue={hue}
-        onHueChange={handleHueUpdate}
-        styles={{
-          track: {
-            height: "20px",
-            borderRadius: "2px",
-          },
-          thumb: {
-            width: "24px",
-            height: "24px",
-            borderWidth: "8px",
-          },
-        }}
-      />
-      <HueSaturationBrightnessInput
-        hue={hue}
-        saturation={saturation}
-        brightness={brightness}
-        onHueUpdate={setHue}
-        onSaturationUpdate={setSaturation}
-        onBrightnessUpdate={setBrightness}
-      />
-    </div>
+    </>
   );
 };

@@ -7,4 +7,5 @@ export * from "./InputGroups";
 export * from "./SaturationBrightnessPanel";
 export * from "./HueSlider";
 export * from "./HueSaturationBrightnessInput";
+export * from "./HueSaturationBrightnessPanel";
 export * from "./ColorPanel";

@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useState,
-  useMemo,
-  MouseEventHandler,
-  TouchEventHandler,
-} from "react";
+import { useCallback, MouseEventHandler, TouchEventHandler } from "react";
 
 import { Size } from "./utils";
 
@@ -20,25 +14,25 @@ export interface CursorPosition {
 
 export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
   el: E,
-  elSize: Size
-): [number, number, EventHandlers<E>] {
-  const [cursorPosition, setCursorPosition] = useState<CursorPosition>({
-    x: 0,
-    y: 0,
-  });
-
-  const updateCursorPosition = useCallback(
+  elSize: Size,
+  onUpdate: (saturation: number, brightness: number) => void
+): EventHandlers<E> {
+  const handleCursorPositionUpdate = useCallback(
     ({ x, y }: CursorPosition) => {
       if (!el) {
         return;
       }
       const rect = el.getBoundingClientRect();
-      setCursorPosition({
-        x: x - rect.left,
-        y: y - rect.top,
-      });
+      const cursorPosition = { x: x - rect.left, y: y - rect.top };
+      const saturation = elSize
+        ? Math.max(0, Math.min(1, cursorPosition.x / elSize.width))
+        : 0;
+      const brightness = elSize
+        ? Math.max(0, Math.min(1, 1 - cursorPosition.y / elSize.height))
+        : 1;
+      onUpdate(saturation, brightness);
     },
-    [el]
+    [el, elSize, onUpdate]
   );
 
   const handleMouseMove = useCallback(
@@ -47,9 +41,9 @@ export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
       if (buttons !== 1) {
         return;
       }
-      updateCursorPosition({ x: ev.clientX, y: ev.clientY });
+      handleCursorPositionUpdate({ x: ev.clientX, y: ev.clientY });
     },
-    [updateCursorPosition]
+    [handleCursorPositionUpdate]
   );
 
   const handleMouseDown = useCallback(
@@ -73,12 +67,12 @@ export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
         return;
       }
       ev.preventDefault();
-      updateCursorPosition({
+      handleCursorPositionUpdate({
         x: targetTouches[0].clientX,
         y: targetTouches[0].clientY,
       });
     },
-    [updateCursorPosition]
+    [handleCursorPositionUpdate]
   );
 
   const handleTouchStart = useCallback(
@@ -95,25 +89,8 @@ export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
     [handleTouchMove]
   );
 
-  const saturation = useMemo(
-    () =>
-      elSize ? Math.max(0, Math.min(1, cursorPosition.x / elSize.width)) : 0,
-    [elSize, cursorPosition]
-  );
-  const brightness = useMemo(
-    () =>
-      elSize
-        ? Math.max(0, Math.min(1, 1 - cursorPosition.y / elSize.height))
-        : 1,
-    [elSize, cursorPosition]
-  );
-
-  return [
-    saturation,
-    brightness,
-    {
-      onMouseDown: handleMouseDown,
-      onTouchStart: handleTouchStart,
-    },
-  ];
+  return {
+    onMouseDown: handleMouseDown,
+    onTouchStart: handleTouchStart,
+  };
 }

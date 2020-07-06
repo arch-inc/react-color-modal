@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState, useMemo } from "react";
 import styled from "styled-components";
-import tinycolor from "tinycolor2";
+import tinycolor, { ColorFormats } from "tinycolor2";
 
 import { useResize, Size } from "./utils";
 import { Cursor } from "./Cursor";
@@ -35,45 +35,40 @@ const StyledDiv = styled.div`
 export interface SaturationBrightnessPanelProps {
   /** optional CSS class name */
   className?: string;
-  /** hue value */
-  hue: number;
-  /** saturation value */
-  saturation: number;
-  /** brightness value */
-  brightness: number;
+  /** color value */
+  hsv: ColorFormats.HSV;
   /** called when saturation or brightness gets updated */
-  onUpdate?(saturation: number, brightness: number): void;
+  onColorUpdate?(saturation: number, brightness: number): void;
 }
 
 export const SaturationBrightnessPanel: FC<SaturationBrightnessPanelProps> = ({
   className,
-  brightness,
-  saturation,
-  hue,
-  onUpdate,
+  hsv,
+  onColorUpdate,
 }) => {
   const [measuredSize, ref] = useResize<HTMLDivElement>();
   const [size, setSize] = useState<Size>({ width: 0, height: 0 });
-  const [s, b, props] = useSaturationBrightnessEventHandler(ref.current, size);
 
   useEffect(() => {
     setSize({ width: measuredSize.width, height: measuredSize.width });
   }, [measuredSize, ref.current]);
 
-  useEffect(() => {
-    onUpdate && onUpdate(s, b);
-  }, [onUpdate, s, b]);
+  const props = useSaturationBrightnessEventHandler(
+    ref.current,
+    size,
+    onColorUpdate
+  );
 
   const hueColor = useMemo(
     () =>
       tinycolor
         .fromRatio({
-          h: hue / 360,
-          s: 1,
-          v: 1,
+          h: hsv.h,
+          s: 1.0,
+          v: 1.0,
         })
         .toHexString(),
-    [hue]
+    [hsv.h]
   );
 
   return (
@@ -83,7 +78,7 @@ export const SaturationBrightnessPanel: FC<SaturationBrightnessPanelProps> = ({
       ref={ref}
       {...props}
     >
-      <Cursor x={saturation} y={1 - brightness} />
+      <Cursor x={hsv.s} y={1 - hsv.v} />
       <div className="saturation"></div>
       <div className="brightness"></div>
     </StyledDiv>

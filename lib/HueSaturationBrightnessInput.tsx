@@ -1,4 +1,5 @@
 import React, { FC, useCallback, useMemo } from "react";
+import { ColorFormats } from "tinycolor2";
 
 import { InputGroups } from "./InputGroups";
 import { NumberInput } from "./NumberInput";
@@ -10,12 +11,8 @@ const wait = 1000 / 60;
 export interface HueSaturationBrightnessInputProps {
   /** optional CSS class name */
   className?: string;
-  /** hue value */
-  hue: number;
-  /** saturation value */
-  saturation: number;
-  /** brightness value */
-  brightness: number;
+  /** color value */
+  hsv: ColorFormats.HSV;
   /** called when hue value gets updated */
   onHueUpdate(hue: number): void;
   /** called when saturation value gets updated */
@@ -26,16 +23,17 @@ export interface HueSaturationBrightnessInputProps {
 
 export const HueSaturationBrightnessInput: FC<HueSaturationBrightnessInputProps> = ({
   className,
-  hue,
-  saturation,
-  brightness,
+  hsv,
   onHueUpdate,
   onSaturationUpdate,
   onBrightnessUpdate,
 }) => {
-  const handleHueChange = useCallback(throttle(onHueUpdate, wait), [
-    onHueUpdate,
-  ]);
+  const handleHueChange = useCallback(
+    throttle((h: number) => {
+      onHueUpdate(h);
+    }, wait),
+    [onHueUpdate]
+  );
   const handleSaturationChange = useCallback(
     throttle((s: number) => {
       onSaturationUpdate(s * 0.01);
@@ -48,8 +46,9 @@ export const HueSaturationBrightnessInput: FC<HueSaturationBrightnessInputProps>
     }, wait),
     [onBrightnessUpdate]
   );
-  const s = useMemo(() => Math.round(saturation * 100), [saturation]);
-  const b = useMemo(() => Math.round(brightness * 100), [brightness]);
+  const h = useMemo(() => Math.round(hsv.h), [hsv]);
+  const s = useMemo(() => Math.round(hsv.s * 100), [hsv]);
+  const b = useMemo(() => Math.round(hsv.v * 100), [hsv]);
 
   return (
     <InputGroups className={"hsb-input " + (className || "")}>
@@ -60,7 +59,7 @@ export const HueSaturationBrightnessInput: FC<HueSaturationBrightnessInputProps>
         <NumberInput
           min={0}
           max={360}
-          value={hue}
+          value={h}
           onValueChange={handleHueChange}
         />
       </div>
