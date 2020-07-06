@@ -10,7 +10,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-interface IProps {
+export interface HueSliderProps {
   /** optional CSS class name */
   className?: string;
   /** whether this slider is disabled or not */
@@ -32,7 +32,7 @@ interface IProps {
   };
 }
 
-export const HueSlider: FC<IProps> = ({
+export const HueSlider: FC<HueSliderProps> = ({
   className,
   disabled,
   hue,

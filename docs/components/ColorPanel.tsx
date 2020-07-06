@@ -4,11 +4,16 @@ import tinycolor from "tinycolor2";
 
 import { HueSlider } from "./HueSlider";
 import { SaturationBrightnessPanel } from "./SaturationBrightnessPanel";
+import { HueSaturationBrightnessInput } from "./HueSaturationBrightnessInput";
+import { throttle } from "./utils";
 
 const StyledSaturationBrightnessPanel = styled(SaturationBrightnessPanel)`
   margin-bottom: 5px;
   user-select: none;
 `;
+
+/** trigger events at 60 fps at maximum */
+const wait = 1000 / 60;
 
 export interface ColorPanelProps {
   /** optional CSS class name */
@@ -34,10 +39,10 @@ export const ColorPanel: FC<ColorPanelProps> = ({
   }, []);
 
   const handleSaturationBrightnessUpdate = useCallback(
-    (s: number, b: number) => {
-      setSaturation(s);
-      setBrightness(b);
-    },
+    throttle((s: number, b: number) => {
+      typeof s === "number" && !isNaN(s) && setSaturation(s);
+      typeof b === "number" && !isNaN(b) && setBrightness(b);
+    }, wait),
     []
   );
 
@@ -65,6 +70,14 @@ export const ColorPanel: FC<ColorPanelProps> = ({
         onUpdate={handleSaturationBrightnessUpdate}
       />
       <HueSlider hue={hue} onHueChange={handleHueUpdate} />
+      <HueSaturationBrightnessInput
+        hue={hue}
+        saturation={saturation}
+        brightness={brightness}
+        onHueUpdate={setHue}
+        onSaturationUpdate={setSaturation}
+        onBrightnessUpdate={setBrightness}
+      />
     </div>
   );
 };

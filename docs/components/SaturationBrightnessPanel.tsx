@@ -30,7 +30,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-interface SaturationBrightnessPanelProps {
+export interface SaturationBrightnessPanelProps {
   /** optional CSS class name */
   className?: string;
   /** hue value */

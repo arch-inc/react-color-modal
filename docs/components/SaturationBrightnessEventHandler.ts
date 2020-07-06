@@ -13,7 +13,7 @@ interface EventHandlers<E extends HTMLElement> {
   onTouchStart: TouchEventHandler<E>;
 }
 
-interface CursorPosition {
+export interface CursorPosition {
   x: number;
   y: number;
 }

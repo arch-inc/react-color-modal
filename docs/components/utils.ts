@@ -43,3 +43,25 @@ export function useResize<E extends HTMLElement>(): [
 
   return [size, ref];
 }
+
+export function throttle(
+  f: (...args: any[]) => any,
+  delay: number
+): (...args: any[]) => any {
+  let handler, args: IArguments;
+  return function () {
+    // update arguments
+    args = arguments;
+
+    // delay the function call
+    if (handler) {
+      return;
+    }
+
+    // call the function with the latest arguments
+    handler = setTimeout(() => {
+      f.apply(f, Array.prototype.slice.call(args));
+      handler = null;
+    }, delay);
+  };
+}
