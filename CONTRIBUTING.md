@@ -1,7 +1,7 @@
 ### react-color-modal
 
 [![build](https://github.com/arch-inc/react-color-modal/workflows/npm-publish/badge.svg)](https://github.com/arch-inc/react-color-modal/actions?query=workflow%3Anpm-publish)
-[![npm version](https://img.shields.io/npm/v/@arch-inc/react-color-modal)](https://www.npmjs.com/package/@arch-inc/react-color-modal)
+[![npm version](https://img.shields.io/npm/v/react-color-modal)](https://www.npmjs.com/package/react-color-modal)
 
 #### How to contribute
 

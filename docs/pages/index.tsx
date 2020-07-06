@@ -59,7 +59,7 @@ const Index: NextPage = () => {
             header="How to install"
             content={
               <>
-                <pre>npm i @arch-inc/{packageName}</pre>
+                <pre>npm i {packageName}</pre>
                 <p>
                   For more details on how to use this library, please refer to
                   the following documents.
@@ -70,12 +70,12 @@ const Index: NextPage = () => {
           <div className="ui selection divided list">
             <a
               className="item"
-              href={`https://www.npmjs.com/package/@arch-inc/${packageName}`}
+              href={`https://www.npmjs.com/package/${packageName}`}
             >
               <i className="npm icon"></i>
               <div className="content">
                 <div className="header">NPM package registry</div>
-                <div className="description">@arch-inc/{packageName}</div>
+                <div className="description">{packageName}</div>
               </div>
             </a>
             <a
@@ -85,7 +85,7 @@ const Index: NextPage = () => {
               <i className="github icon"></i>
               <div className="content">
                 <div className="header">GitHub repository</div>
-                <div className="description">@arch-inc/{packageName}</div>
+                <div className="description">{packageName}</div>
               </div>
             </a>
             <a
