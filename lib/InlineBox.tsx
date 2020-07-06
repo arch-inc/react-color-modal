@@ -7,4 +7,6 @@ export const InlineBox = styled.span`
   height: 2.208em;
   border: 1px solid rgba(34, 36, 38, 0.15);
   border-radius: 2px;
+  user-select: none;
+  cursor: pointer;
 `;

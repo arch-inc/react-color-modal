@@ -8,6 +8,7 @@ import React, {
 import tinycolor from "tinycolor2";
 
 import { Input } from "./Input";
+import { ColorTextFormat } from "./ColorTextFormats";
 
 export interface ColorInputProps {
   /** optional CSS class name */
@@ -16,6 +17,8 @@ export interface ColorInputProps {
   disabled?: boolean;
   /** color value */
   color?: tinycolor.Instance;
+  /** color text format */
+  format?: ColorTextFormat;
   /** called when color gets updated */
   onColorUpdate?(color: tinycolor.Instance): void;
 }
@@ -24,6 +27,7 @@ export const ColorInput: FC<ColorInputProps> = ({
   className,
   disabled,
   color,
+  format = "hex6",
   onColorUpdate,
 }) => {
   const [text, setText] = useState<string>(null);
@@ -32,8 +36,8 @@ export const ColorInput: FC<ColorInputProps> = ({
     if (!color) {
       return;
     }
-    setText(color.toHexString());
-  }, [color]);
+    setText(color.toString(format));
+  }, [color, format]);
 
   const handleValueChange = useCallback(
     (ev: ChangeEvent<HTMLInputElement>) => {
