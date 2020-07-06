@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ColorPanelProps | react-color-modal</title>
+	<title>RedGreenBluePanelProps | react-color-modal</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,10 +52,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="colorpanelprops.html">ColorPanelProps</a>
+					<a href="redgreenbluepanelprops.html">RedGreenBluePanelProps</a>
 				</li>
 			</ul>
-			<h1>Interface ColorPanelProps</h1>
+			<h1>Interface RedGreenBluePanelProps</h1>
 		</div>
 	</div>
 </header>
@@ -66,7 +66,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ColorPanelProps</span>
+						<span class="target">RedGreenBluePanelProps</span>
 					</li>
 				</ul>
 			</section>
@@ -77,14 +77,15 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="colorpanelprops.html#classname" class="tsd-kind-icon">class<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="colorpanelprops.html#color" class="tsd-kind-icon">color</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="redgreenbluepanelprops.html#classname" class="tsd-kind-icon">class<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="redgreenbluepanelprops.html#disabled" class="tsd-kind-icon">disabled</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="redgreenbluepanelprops.html#rgb" class="tsd-kind-icon">rgb</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="colorpanelprops.html#oncolorupdate" class="tsd-kind-icon">on<wbr>Color<wbr>Update</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="redgreenbluepanelprops.html#oncolorupdate" class="tsd-kind-icon">on<wbr>Color<wbr>Update</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,7 +99,7 @@
 					<div class="tsd-signature tsd-kind-icon">class<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/84cb2b1/lib/ColorPanel.tsx#L10">lib/ColorPanel.tsx:10</a></li>
+							<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/84cb2b1/lib/RedGreenBluePanel.tsx#L24">lib/RedGreenBluePanel.tsx:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -108,12 +109,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="color" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> color</h3>
-					<div class="tsd-signature tsd-kind-icon">color<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Instance</span></div>
+					<a name="disabled" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> disabled</h3>
+					<div class="tsd-signature tsd-kind-icon">disabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/84cb2b1/lib/ColorPanel.tsx#L12">lib/ColorPanel.tsx:12</a></li>
+							<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/84cb2b1/lib/RedGreenBluePanel.tsx#L26">lib/RedGreenBluePanel.tsx:26</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>whether this input is disabled or not</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="rgb" class="tsd-anchor"></a>
+					<h3>rgb</h3>
+					<div class="tsd-signature tsd-kind-icon">rgb<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RGB</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/84cb2b1/lib/RedGreenBluePanel.tsx#L28">lib/RedGreenBluePanel.tsx:28</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -127,15 +143,15 @@
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="oncolorupdate" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Color<wbr>Update</h3>
+					<h3>on<wbr>Color<wbr>Update</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Color<wbr>Update<span class="tsd-signature-symbol">(</span>color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Color<wbr>Update<span class="tsd-signature-symbol">(</span>rgb<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RGB</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/84cb2b1/lib/ColorPanel.tsx#L14">lib/ColorPanel.tsx:14</a></li>
+									<li>Defined in <a href="https://github.com/arch-inc/react-color-modal/blob/84cb2b1/lib/RedGreenBluePanel.tsx#L30">lib/RedGreenBluePanel.tsx:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -146,7 +162,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>color: <span class="tsd-signature-type">Instance</span></h5>
+									<h5>rgb: <span class="tsd-signature-type">RGB</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -165,24 +181,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface">
+					<li class=" tsd-kind-interface">
 						<a href="colorpanelprops.html" class="tsd-kind-icon">Color<wbr>Panel<wbr>Props</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="colorpanelprops.html#classname" class="tsd-kind-icon">class<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="colorpanelprops.html#color" class="tsd-kind-icon">color</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="colorpanelprops.html#oncolorupdate" class="tsd-kind-icon">on<wbr>Color<wbr>Update</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="huesaturationbrightnessinputprops.html" class="tsd-kind-icon">Hue<wbr>Saturation<wbr>Brightness<wbr>Input<wbr>Props</a>
 					</li>
@@ -198,9 +199,27 @@
 					<li class=" tsd-kind-interface">
 						<a href="redgreenblueinputprops.html" class="tsd-kind-icon">Red<wbr>Green<wbr>Blue<wbr>Input<wbr>Props</a>
 					</li>
-					<li class=" tsd-kind-interface">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
 						<a href="redgreenbluepanelprops.html" class="tsd-kind-icon">Red<wbr>Green<wbr>Blue<wbr>Panel<wbr>Props</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="redgreenbluepanelprops.html#classname" class="tsd-kind-icon">class<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="redgreenbluepanelprops.html#disabled" class="tsd-kind-icon">disabled</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="redgreenbluepanelprops.html#rgb" class="tsd-kind-icon">rgb</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="redgreenbluepanelprops.html#oncolorupdate" class="tsd-kind-icon">on<wbr>Color<wbr>Update</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="saturationbrightnesspanelprops.html" class="tsd-kind-icon">Saturation<wbr>Brightness<wbr>Panel<wbr>Props</a>
 					</li>
