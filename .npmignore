@@ -1,0 +1,12 @@
+
+# Visual Studio Code configurations
+.vscode/
+
+# source code
+lib/
+types/
+.babelrc
+.editorconfig
+.gitignore
+rollup.config.js
+tsconfig.json
