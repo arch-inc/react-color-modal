@@ -1,5 +1,7 @@
 // export utils
 export * from "./utils";
+export * from "./InlineBox";
+export * from "./Input";
 export * from "./NumberInput";
 export * from "./InputWithSlider";
 export * from "./Hr";
@@ -12,4 +14,5 @@ export * from "./HueSaturationBrightnessInput";
 export * from "./HueSaturationBrightnessPanel";
 export * from "./RedGreenBlueInput";
 export * from "./RedGreenBluePanel";
+export * from "./ColorInput";
 export * from "./ColorPanel";
