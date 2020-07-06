@@ -1,12 +1,15 @@
-import { MutableRefObject, useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, MutableRefObject } from "react";
 
 export interface Size {
   width: number;
   height: number;
 }
 
-export function useResize(): [Size, MutableRefObject<HTMLElement>] {
-  const ref = useRef<HTMLElement>(null);
+export function useResize<E extends HTMLElement>(): [
+  Size,
+  MutableRefObject<E>
+] {
+  const ref = useRef<E>(null);
   const [size, setSize] = useState<Size>({ width: 0, height: 0 });
 
   useEffect(() => {

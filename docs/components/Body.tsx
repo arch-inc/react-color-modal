@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+
 import { ColorPanel } from "./ColorPanel";
 
 export const Body: FC = () => {
