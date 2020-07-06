@@ -2,7 +2,7 @@ import { FC, useMemo, useState, useEffect, useCallback } from "react";
 import InputSlider, { InputSliderProps } from "react-input-slider";
 import styled from "styled-components";
 
-const Slider = styled.div`
+const StyledDiv = styled.div`
   width: 100%;
   & > div {
     width: 100%;
@@ -10,6 +10,8 @@ const Slider = styled.div`
 `;
 
 interface IProps {
+  /** optional CSS class name */
+  className?: string;
   /** whether this slider is disabled or not */
   disabled?: boolean;
   /** current value of the hue slider [ms] */
@@ -25,6 +27,7 @@ interface IProps {
 }
 
 export const HueSlider: FC<IProps> = ({
+  className,
   disabled,
   hue,
   onHueChangeStart,
@@ -88,7 +91,7 @@ export const HueSlider: FC<IProps> = ({
   }, [styles]);
 
   return (
-    <Slider className="hue-slider">
+    <StyledDiv className={className}>
       <InputSlider
         disabled={disabled}
         axis="x"
@@ -100,6 +103,6 @@ export const HueSlider: FC<IProps> = ({
         onDragEnd={handleDragEnd}
         onChange={handleChange}
       />
-    </Slider>
+    </StyledDiv>
   );
 };

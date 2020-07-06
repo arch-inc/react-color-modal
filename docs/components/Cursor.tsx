@@ -1,12 +1,12 @@
 import { FC } from "react";
 import styled from "styled-components";
 
-const CursorWrapper = styled.div`
+const StyledDiv = styled.div`
   position: absolute;
   pointer-events: none;
 `;
 
-const CursorContent = styled.span`
+const StyledSpan = styled.span`
   position: relative;
   z-index: 5;
   display: block;
@@ -25,7 +25,7 @@ interface CursorProps {
 }
 
 export const Cursor: FC<CursorProps> = ({ x, y }) => (
-  <CursorWrapper style={{ top: `${y * 100}%`, left: `${x * 100}%` }}>
-    <CursorContent />
-  </CursorWrapper>
+  <StyledDiv style={{ top: `${y * 100}%`, left: `${x * 100}%` }}>
+    <StyledSpan />
+  </StyledDiv>
 );

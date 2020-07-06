@@ -6,7 +6,7 @@ import { useResize, Size } from "./utils";
 import { Cursor } from "./Cursor";
 import { useSaturationBrightnessEventHandler } from "./SaturationBrightnessEventHandler";
 
-const Panel = styled.div`
+const StyledDiv = styled.div`
   position: relative;
   width: 100%;
   line-height: 0;
@@ -31,13 +31,20 @@ const Panel = styled.div`
 `;
 
 interface SaturationBrightnessPanelProps {
+  /** optional CSS class name */
+  className?: string;
+  /** hue value */
   hue: number;
+  /** saturation value */
   saturation: number;
+  /** brightness value */
   brightness: number;
+  /** called when saturation or brightness gets updated */
   onUpdate?(saturation: number, brightness: number): void;
 }
 
 export const SaturationBrightnessPanel: FC<SaturationBrightnessPanelProps> = ({
+  className,
   brightness,
   saturation,
   hue,
@@ -71,8 +78,8 @@ export const SaturationBrightnessPanel: FC<SaturationBrightnessPanelProps> = ({
   );
 
   return (
-    <Panel
-      className="panel"
+    <StyledDiv
+      className={className}
       style={{ height: `${size.height}px`, backgroundColor: hueColor }}
       ref={ref}
       {...props}
@@ -80,6 +87,6 @@ export const SaturationBrightnessPanel: FC<SaturationBrightnessPanelProps> = ({
       <Cursor x={saturation} y={1 - brightness} />
       <div className="saturation"></div>
       <div className="brightness"></div>
-    </Panel>
+    </StyledDiv>
   );
 };

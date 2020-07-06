@@ -5,17 +5,25 @@ import tinycolor from "tinycolor2";
 import { HueSlider } from "./HueSlider";
 import { SaturationBrightnessPanel } from "./SaturationBrightnessPanel";
 
-const Panel = styled.div`
+const StyledSaturationBrightnessPanel = styled(SaturationBrightnessPanel)`
   margin-bottom: 5px;
   user-select: none;
 `;
 
 export interface ColorPanelProps {
+  /** optional CSS class name */
+  className?: string;
+  /** width of this panel */
   width?: string;
+  /** called when color gets updated */
   onColorUpdate?(color: tinycolor.Instance): void;
 }
 
-export const ColorPanel: FC<ColorPanelProps> = ({ width, onColorUpdate }) => {
+export const ColorPanel: FC<ColorPanelProps> = ({
+  className,
+  width,
+  onColorUpdate,
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   const [hue, setHue] = useState<number>(0);
   const [saturation, setSaturation] = useState<number>(0);
@@ -44,20 +52,18 @@ export const ColorPanel: FC<ColorPanelProps> = ({ width, onColorUpdate }) => {
 
   return (
     <div
-      className="color-panel"
+      className={className}
       style={{
         width: width || "100%",
       }}
       ref={ref}
     >
-      <Panel>
-        <SaturationBrightnessPanel
-          hue={hue}
-          saturation={saturation}
-          brightness={brightness}
-          onUpdate={handleSaturationBrightnessUpdate}
-        />
-      </Panel>
+      <StyledSaturationBrightnessPanel
+        hue={hue}
+        saturation={saturation}
+        brightness={brightness}
+        onUpdate={handleSaturationBrightnessUpdate}
+      />
       <HueSlider hue={hue} onHueChange={handleHueUpdate} />
     </div>
   );
