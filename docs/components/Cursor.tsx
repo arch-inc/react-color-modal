@@ -20,12 +20,16 @@ const StyledSpan = styled.span`
 `;
 
 interface CursorProps {
+  className?: string;
   x: number;
   y: number;
 }
 
-export const Cursor: FC<CursorProps> = ({ x, y }) => (
-  <StyledDiv style={{ top: `${y * 100}%`, left: `${x * 100}%` }}>
+export const Cursor: FC<CursorProps> = ({ className, x, y }) => (
+  <StyledDiv
+    className={"cursor " + (className || "")}
+    style={{ top: `${y * 100}%`, left: `${x * 100}%` }}
+  >
     <StyledSpan />
   </StyledDiv>
 );

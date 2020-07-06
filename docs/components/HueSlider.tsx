@@ -91,7 +91,7 @@ export const HueSlider: FC<IProps> = ({
   }, [styles]);
 
   return (
-    <StyledDiv className={className}>
+    <StyledDiv className={"hue-slider " + (className || "")}>
       <InputSlider
         disabled={disabled}
         axis="x"

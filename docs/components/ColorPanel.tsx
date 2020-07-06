@@ -52,7 +52,7 @@ export const ColorPanel: FC<ColorPanelProps> = ({
 
   return (
     <div
-      className={className}
+      className={"color-panel " + (className || "")}
       style={{
         width: width || "100%",
       }}

@@ -79,7 +79,7 @@ export const SaturationBrightnessPanel: FC<SaturationBrightnessPanelProps> = ({
 
   return (
     <StyledDiv
-      className={className}
+      className={"saturation-brightness-panel " + (className || "")}
       style={{ height: `${size.height}px`, backgroundColor: hueColor }}
       ref={ref}
       {...props}
