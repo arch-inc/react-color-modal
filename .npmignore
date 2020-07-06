@@ -2,6 +2,9 @@
 # Visual Studio Code configurations
 .vscode/
 
+# GitHub workflows
+.github/
+
 # source code
 lib/
 types/
