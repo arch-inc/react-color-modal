@@ -53,9 +53,9 @@ export const ColorInput: FC<ColorInputProps> = ({
 
   return (
     <Input
-      className={className}
+      className={"color-input " + (className || "")}
       disabled={disabled}
-      value={text}
+      value={text || ""}
       onChange={handleValueChange}
     />
   );

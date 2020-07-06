@@ -57,7 +57,7 @@ export const RedGreenBluePanel: FC<RedGreenBluePanelProps> = ({
   const { r, g, b } = rgb;
 
   return (
-    <div className={"rgb-input-panel " + (className || "")}>
+    <div className={"rgb-panel " + (className || "")}>
       <StyledInputWithSlider
         disabled={disabled}
         label={

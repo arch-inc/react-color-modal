@@ -18,3 +18,4 @@ export * from "./RedGreenBluePanel";
 export * from "./BasicColorPanel";
 export * from "./ColorInput";
 export * from "./ColorPanel";
+export * from "./HorizontalColorPanel";

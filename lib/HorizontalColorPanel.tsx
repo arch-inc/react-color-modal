@@ -1,0 +1,148 @@
+import React, { FC, useCallback, useEffect, useState, useMemo } from "react";
+import tinycolor, { ColorInputWithoutInstance } from "tinycolor2";
+import styled from "styled-components";
+
+import { ColorTextFormat, ColorTextFormats } from "./ColorTextFormats";
+import { ColorInput } from "./ColorInput";
+import { InlineBox } from "./InlineBox";
+import { Hr } from "./Hr";
+import { Panel } from "./Panel";
+import { HueSaturationBrightnessPanel } from "./HueSaturationBrightnessPanel";
+import { RedGreenBluePanel } from "./RedGreenBluePanel";
+
+const StyledInlineBox = styled(InlineBox)`
+  margin-right: 0.5em;
+`;
+
+const StyledPanel = styled(Panel)`
+  display: flexbox;
+  flex-wrap: wrap;
+
+  & > .left {
+    width: 256px;
+    flex-grow: 0;
+    padding-right: 20px;
+    display: flex;
+    align-items: center;
+  }
+  & > .right {
+    min-width: 256px;
+    flex-grow: 1;
+    overflow-x: auto;
+  }
+`;
+
+export interface HorizontalColorPanelProps {
+  /** optional CSS class name */
+  className?: string;
+  /** color value */
+  color?: tinycolor.Instance;
+  /** called when color gets updated */
+  onColorUpdate?(color: tinycolor.Instance): void;
+}
+
+export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
+  className,
+  color,
+  onColorUpdate,
+  children,
+}) => {
+  const [currentColor, setCurrentColor] = useState<tinycolor.Instance>(color);
+  const [format, setFormat] = useState<ColorTextFormat>("hex6");
+
+  useEffect(() => {
+    if (!color) {
+      return;
+    }
+    setCurrentColor(color);
+  }, [color]);
+
+  const handleClick = useCallback(() => {
+    setFormat(
+      ColorTextFormats[
+        (ColorTextFormats.indexOf(format) + 1) % ColorTextFormats.length
+      ]
+    );
+  }, [format]);
+
+  const handleColorUpdate = useCallback(
+    (color: tinycolor.Instance) => {
+      if (!color || tinycolor.equals(color, currentColor)) {
+        return;
+      }
+      setCurrentColor(color);
+      onColorUpdate && onColorUpdate(color);
+    },
+    [onColorUpdate]
+  );
+
+  const handleRawColorUpdate = useCallback(
+    (colorData: ColorInputWithoutInstance) => {
+      const col = tinycolor.fromRatio(colorData);
+      if (!colorData || tinycolor.equals(col, currentColor)) {
+        return;
+      }
+      setCurrentColor(col);
+      onColorUpdate && onColorUpdate(col);
+    },
+    [onColorUpdate]
+  );
+
+  const hsv = useMemo(
+      () =>
+        currentColor
+          ? currentColor.toHsv()
+          : {
+              h: 0,
+              s: 0,
+              v: 0,
+            },
+      [currentColor]
+    ),
+    rgb = useMemo(
+      () =>
+        currentColor
+          ? currentColor.toRgb()
+          : {
+              r: 0,
+              g: 0,
+              b: 0,
+            },
+      [currentColor]
+    );
+
+  return (
+    <StyledPanel className={"horizontal-color-panel " + (className || "")}>
+      <div className="left">
+        <HueSaturationBrightnessPanel
+          hideSlider={true}
+          hideInput={true}
+          hsv={hsv}
+          onColorUpdate={handleRawColorUpdate}
+        />
+      </div>
+      <div className="right">
+        <HueSaturationBrightnessPanel
+          hidePanel={true}
+          hsv={hsv}
+          onColorUpdate={handleRawColorUpdate}
+        />
+        <Hr />
+        <RedGreenBluePanel rgb={rgb} onColorUpdate={handleRawColorUpdate} />
+        <Hr />
+        <p>
+          <StyledInlineBox
+            style={{ backgroundColor: color.toHexString() }}
+            onClick={handleClick}
+          />
+          <ColorInput
+            color={color}
+            format={format}
+            onColorUpdate={handleColorUpdate}
+          />
+          {children}
+        </p>
+      </div>
+    </StyledPanel>
+  );
+};

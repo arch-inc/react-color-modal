@@ -15,7 +15,6 @@ const StyledDiv = styled.div`
 `;
 const StyledSaturationBrightnessPanel = styled(SaturationBrightnessPanel)`
   margin-bottom: 16px;
-  user-select: none;
 `;
 const StyledHueSlider = styled(HueSlider)`
   margin-bottom: 12px;
@@ -24,6 +23,12 @@ const StyledHueSlider = styled(HueSlider)`
 export interface HueSaturationBrightnessPanelProps {
   /** optional CSS class name */
   className?: string;
+  /** hide panel */
+  hidePanel?: boolean;
+  /** hide slider */
+  hideSlider?: boolean;
+  /** hide text input */
+  hideInput?: boolean;
   /** color value */
   hsv?: ColorFormats.HSV;
   /** called when color gets updated */
@@ -32,6 +37,9 @@ export interface HueSaturationBrightnessPanelProps {
 
 export const HueSaturationBrightnessPanel: FC<HueSaturationBrightnessPanelProps> = ({
   className,
+  hidePanel,
+  hideSlider,
+  hideInput,
   hsv,
   onColorUpdate,
 }) => {
@@ -74,32 +82,38 @@ export const HueSaturationBrightnessPanel: FC<HueSaturationBrightnessPanelProps>
   );
 
   return (
-    <StyledDiv className={"color-panel " + (className || "")} ref={ref}>
-      <StyledSaturationBrightnessPanel
-        hsv={hsv}
-        onColorUpdate={handleSaturationBrightnessUpdate}
-      />
-      <StyledHueSlider
-        hue={hsv.h}
-        onHueChange={handleHueUpdate}
-        styles={{
-          track: {
-            height: "20px",
-            borderRadius: "2px",
-          },
-          thumb: {
-            width: "24px",
-            height: "24px",
-            borderWidth: "8px",
-          },
-        }}
-      />
-      <HueSaturationBrightnessInput
-        hsv={hsv}
-        onHueUpdate={handleHueUpdate}
-        onSaturationUpdate={handleSaturationUpdate}
-        onBrightnessUpdate={handleBrightnessUpdate}
-      />
+    <StyledDiv className={"hsb-panel " + (className || "")} ref={ref}>
+      {!hidePanel && (
+        <StyledSaturationBrightnessPanel
+          hsv={hsv}
+          onColorUpdate={handleSaturationBrightnessUpdate}
+        />
+      )}
+      {!hideSlider && (
+        <StyledHueSlider
+          hue={hsv.h}
+          onHueChange={handleHueUpdate}
+          styles={{
+            track: {
+              height: "20px",
+              borderRadius: "2px",
+            },
+            thumb: {
+              width: "24px",
+              height: "24px",
+              borderWidth: "8px",
+            },
+          }}
+        />
+      )}
+      {!hideInput && (
+        <HueSaturationBrightnessInput
+          hsv={hsv}
+          onHueUpdate={handleHueUpdate}
+          onSaturationUpdate={handleSaturationUpdate}
+          onBrightnessUpdate={handleBrightnessUpdate}
+        />
+      )}
     </StyledDiv>
   );
 };

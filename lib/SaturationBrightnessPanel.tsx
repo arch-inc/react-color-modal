@@ -11,6 +11,7 @@ const StyledDiv = styled.div`
   width: 100%;
   line-height: 0;
   border-radius: 2px;
+  user-select: none;
   z-index: 1;
 
   & > .saturation,
@@ -73,7 +74,7 @@ export const SaturationBrightnessPanel: FC<SaturationBrightnessPanelProps> = ({
 
   return (
     <StyledDiv
-      className={"saturation-brightness-panel " + (className || "")}
+      className={"sb-panel " + (className || "")}
       style={{ height: `${size.height}px`, backgroundColor: hueColor }}
       ref={ref}
       {...props}
