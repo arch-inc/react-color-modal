@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect, useCallback, useMemo } from "react";
-import tinycolor, { ColorFormats } from "tinycolor2";
+import tinycolor, { ColorInputWithoutInstance } from "tinycolor2";
 
 import { HueSaturationBrightnessPanel } from "./HueSaturationBrightnessPanel";
 import { RedGreenBlueInput } from "./RedGreenBlueInput";
@@ -24,44 +24,47 @@ export const ColorPanel: FC<ColorPanelProps> = ({ color, onColorUpdate }) => {
   }, [color]);
 
   const handleColorUpdate = useCallback(
-    (c: tinycolor.Instance) => {
-      if (!c || tinycolor.equals(c, currentColor)) {
+    (colorData: ColorInputWithoutInstance) => {
+      const color = tinycolor.fromRatio(colorData);
+      if (!colorData || tinycolor.equals(color, currentColor)) {
         return;
       }
-      setCurrentColor(c);
-      onColorUpdate && onColorUpdate(c);
+      setCurrentColor(color);
+      onColorUpdate && onColorUpdate(color);
     },
-    [currentColor, onColorUpdate]
+    []
   );
 
-  const rgb = useMemo(
-    () =>
-      currentColor
-        ? currentColor.toRgb()
-        : {
-            r: 0,
-            g: 0,
-            b: 0,
-          },
-    [currentColor]
-  );
-
-  const handleRgbUpdate = useCallback((rgb: ColorFormats.RGB) => {
-    const color = tinycolor.fromRatio(rgb);
-    if (!rgb || tinycolor.equals(color, currentColor)) {
-      return;
-    }
-    setCurrentColor(color);
-    onColorUpdate && onColorUpdate(color);
-  }, []);
+  const hsv = useMemo(
+      () =>
+        currentColor
+          ? currentColor.toHsv()
+          : {
+              h: 0,
+              s: 0,
+              v: 0,
+            },
+      [currentColor]
+    ),
+    rgb = useMemo(
+      () =>
+        currentColor
+          ? currentColor.toRgb()
+          : {
+              r: 0,
+              g: 0,
+              b: 0,
+            },
+      [currentColor]
+    );
 
   return (
     <>
       <HueSaturationBrightnessPanel
-        color={currentColor}
+        hsv={hsv}
         onColorUpdate={handleColorUpdate}
       />
-      <RedGreenBlueInput rgb={rgb} onColorUpdate={handleRgbUpdate} />
+      <RedGreenBlueInput rgb={rgb} onColorUpdate={handleColorUpdate} />
     </>
   );
 };

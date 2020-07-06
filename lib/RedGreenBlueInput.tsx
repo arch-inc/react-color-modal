@@ -1,9 +1,9 @@
-import React, { FC, useCallback, useMemo } from "react";
+import React, { FC, useCallback } from "react";
 import { ColorFormats } from "tinycolor2";
 
+import { throttle } from "./utils";
 import { InputGroups } from "./InputGroups";
 import { NumberInput } from "./NumberInput";
-import { throttle } from "./utils";
 
 /** trigger events at 60 fps at maximum */
 const wait = 1000 / 60;

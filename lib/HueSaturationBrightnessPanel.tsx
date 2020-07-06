@@ -1,10 +1,14 @@
-import React, { FC, useState, useCallback, useRef, useEffect } from "react";
+import React, { FC, useCallback, useRef } from "react";
 import styled from "styled-components";
-import tinycolor, { ColorFormats } from "tinycolor2";
+import { ColorFormats } from "tinycolor2";
 
+import { throttle } from "./utils";
 import { HueSlider } from "./HueSlider";
 import { SaturationBrightnessPanel } from "./SaturationBrightnessPanel";
 import { HueSaturationBrightnessInput } from "./HueSaturationBrightnessInput";
+
+/** trigger events at 60 fps at maximum */
+const wait = 1000 / 60;
 
 const StyledDiv = styled.div`
   width: 100%;
@@ -21,61 +25,52 @@ export interface HueSaturationBrightnessPanelProps {
   /** optional CSS class name */
   className?: string;
   /** color value */
-  color?: tinycolor.Instance;
+  hsv?: ColorFormats.HSV;
   /** called when color gets updated */
-  onColorUpdate?(color: tinycolor.Instance): void;
+  onColorUpdate?(hsv: ColorFormats.HSV): void;
 }
 
 export const HueSaturationBrightnessPanel: FC<HueSaturationBrightnessPanelProps> = ({
   className,
-  color,
+  hsv,
   onColorUpdate,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [hsv, setHsv] = useState<ColorFormats.HSV>(
-    (color && color.toHsv()) || {
-      h: 0,
-      s: 0,
-      v: 0,
-    }
-  );
 
-  useEffect(() => {
-    if (!color || tinycolor.equals(hsv, color)) {
-      return;
-    }
-    setHsv(color.toHsv());
-  }, [color]);
-
-  const handleHsvUpdate = useCallback(
-    (hsv: ColorFormats.HSV) => {
-      const color = tinycolor.fromRatio(hsv);
-      onColorUpdate && onColorUpdate(color);
-    },
-    [onColorUpdate]
-  );
   const handleHueUpdate = useCallback(
-    (h: number) => hsv.h !== h && handleHsvUpdate({ ...hsv, h }),
-    [hsv, handleHsvUpdate]
+    throttle(
+      (h: number) =>
+        hsv.h !== h && onColorUpdate && onColorUpdate({ ...hsv, h }),
+      wait
+    ),
+    [hsv, onColorUpdate]
   );
   const handleSaturationUpdate = useCallback(
-    (s: number) => hsv.s !== s && handleHsvUpdate({ ...hsv, s }),
-    [hsv, handleHsvUpdate]
+    throttle(
+      (s: number) =>
+        hsv.s !== s && onColorUpdate && onColorUpdate({ ...hsv, s }),
+      wait
+    ),
+    [hsv, onColorUpdate]
   );
   const handleBrightnessUpdate = useCallback(
-    (v: number) => hsv.v !== v && handleHsvUpdate({ ...hsv, v }),
-    [hsv, handleHsvUpdate]
+    throttle(
+      (v: number) =>
+        hsv.v !== v && onColorUpdate && onColorUpdate({ ...hsv, v }),
+      wait
+    ),
+    [hsv, onColorUpdate]
   );
   const handleSaturationBrightnessUpdate = useCallback(
-    (s: number, v: number) => {
+    throttle((s: number, v: number) => {
       const val = {
         ...hsv,
         s: typeof s === "number" && !isNaN(s) ? s : hsv.s,
         v: typeof v === "number" && !isNaN(v) ? v : hsv.v,
       };
-      (hsv.s !== s || hsv.v !== v) && handleHsvUpdate(val);
-    },
-    [hsv, handleHsvUpdate]
+      (hsv.s !== s || hsv.v !== v) && onColorUpdate && onColorUpdate(val);
+    }, wait),
+    [hsv, onColorUpdate]
   );
 
   return (
