@@ -5,6 +5,9 @@
 # GitHub workflows
 .github/
 
+# documentations
+docs/
+
 # source code
 lib/
 types/
