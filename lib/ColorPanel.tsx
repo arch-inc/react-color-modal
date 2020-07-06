@@ -1,8 +1,9 @@
 import React, { FC, useState, useEffect, useCallback, useMemo } from "react";
 import tinycolor, { ColorInputWithoutInstance } from "tinycolor2";
 
+import { Hr } from "./Hr";
 import { HueSaturationBrightnessPanel } from "./HueSaturationBrightnessPanel";
-import { RedGreenBlueInput } from "./RedGreenBlueInput";
+import { RedGreenBluePanel } from "./RedGreenBluePanel";
 
 export interface ColorPanelProps {
   /** optional CSS class name */
@@ -64,7 +65,8 @@ export const ColorPanel: FC<ColorPanelProps> = ({ color, onColorUpdate }) => {
         hsv={hsv}
         onColorUpdate={handleColorUpdate}
       />
-      <RedGreenBlueInput rgb={rgb} onColorUpdate={handleColorUpdate} />
+      <Hr />
+      <RedGreenBluePanel rgb={rgb} onColorUpdate={handleColorUpdate} />
     </>
   );
 };

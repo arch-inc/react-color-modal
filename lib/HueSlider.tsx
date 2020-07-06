@@ -1,7 +1,7 @@
 import React, { FC, useMemo, useState, useEffect, useCallback } from "react";
 import InputSlider from "react-input-slider";
-import { Interpolation } from "@emotion/serialize";
 import styled from "styled-components";
+import { SliderStyles } from "./SliderStyles";
 
 const StyledDiv = styled.div`
   width: 100%;
@@ -15,7 +15,7 @@ export interface HueSliderProps {
   className?: string;
   /** whether this slider is disabled or not */
   disabled?: boolean;
-  /** current value of the hue slider [ms] */
+  /** current value of the hue slider */
   hue: number;
   /** called when the current value is updated */
   onHueChange?: (position: number) => void;
@@ -23,13 +23,8 @@ export interface HueSliderProps {
   onHueChangeStart?: () => void;
   /** called when drag ends */
   onHueChangeEnd?: () => void;
-  /** CSS style values for the seekbar */
-  styles?: {
-    track?: Interpolation;
-    active?: Interpolation;
-    thumb?: Interpolation;
-    disabled?: Interpolation;
-  };
+  /** CSS style values for the slider */
+  styles?: SliderStyles;
 }
 
 export const HueSlider: FC<HueSliderProps> = ({
@@ -39,7 +34,7 @@ export const HueSlider: FC<HueSliderProps> = ({
   onHueChangeStart,
   onHueChange,
   onHueChangeEnd,
-  styles,
+  styles = {},
 }) => {
   const [currentHue, setCurrentHue] = useState<number>(hue || 0);
   const [isDragging, setDragging] = useState<boolean>(false);

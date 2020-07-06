@@ -11,6 +11,8 @@ const wait = 1000 / 60;
 export interface RedGreenBlueInputProps {
   /** optional CSS class name */
   className?: string;
+  /** whether this input is disabled or not */
+  disabled?: boolean;
   /** color value */
   rgb: ColorFormats.RGB;
   /** called when color gets updated */
@@ -19,6 +21,7 @@ export interface RedGreenBlueInputProps {
 
 export const RedGreenBlueInput: FC<RedGreenBlueInputProps> = ({
   className,
+  disabled,
   rgb,
   onColorUpdate,
 }) => {
@@ -49,6 +52,7 @@ export const RedGreenBlueInput: FC<RedGreenBlueInputProps> = ({
           R <span className="range">[0-255]</span>
         </label>
         <NumberInput
+          disabled={disabled}
           min={0}
           max={255}
           value={r}
@@ -60,6 +64,7 @@ export const RedGreenBlueInput: FC<RedGreenBlueInputProps> = ({
           G <span className="range">[0-255]</span>
         </label>
         <NumberInput
+          disabled={disabled}
           min={0}
           max={255}
           value={g}
@@ -71,6 +76,7 @@ export const RedGreenBlueInput: FC<RedGreenBlueInputProps> = ({
           B <span className="range">[0-255]</span>
         </label>
         <NumberInput
+          disabled={disabled}
           min={0}
           max={255}
           value={b}

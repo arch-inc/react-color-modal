@@ -1,12 +1,15 @@
 // export utils
 export * from "./utils";
 export * from "./NumberInput";
-export * from "./InputGroups";
+export * from "./InputWithSlider";
+export * from "./Hr";
+export * from "./Panel";
 
 // export main components
 export * from "./SaturationBrightnessPanel";
 export * from "./HueSlider";
 export * from "./HueSaturationBrightnessInput";
 export * from "./HueSaturationBrightnessPanel";
-export * from "./ColorPanel";
 export * from "./RedGreenBlueInput";
+export * from "./RedGreenBluePanel";
+export * from "./ColorPanel";

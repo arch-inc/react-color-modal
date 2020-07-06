@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 
-import { ColorPanel } from "../../";
+import { Panel, ColorPanel, Hr } from "../../";
 
 export const Body: FC = () => {
   const [color, setColor] = useState<tinycolor.Instance>(null);
@@ -8,16 +8,16 @@ export const Body: FC = () => {
   return (
     <div className="demo body">
       <style jsx>{`
-        .panel-wrapper {
-          max-width: 480px;
-          background: #fff;
-          margin: 10px auto;
-          padding: 15px;
-          border-radius: 5px;
-          box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
+        .demo.body :global(> .panel-wrapper) {
+          max-width: 480px !important;
+          margin: 2em auto 0 auto;
         }
         p {
           margin-top: 1em;
+        }
+        label {
+          font-weight: bold;
+          margin-right: 0.5em;
         }
         span {
           display: inline-block;
@@ -27,16 +27,19 @@ export const Body: FC = () => {
           border: 1px solid rgba(34, 36, 38, 0.15);
         }
       `}</style>
-      <div className="panel-wrapper">
+      <Panel className="panel-wrapper">
         <ColorPanel onColorUpdate={setColor} />
         {color && (
-          <p>
-            Selected color:{" "}
-            <span style={{ backgroundColor: color.toHexString() }} />{" "}
-            <code>{color.toHexString()}</code>
-          </p>
+          <>
+            <Hr />
+            <p>
+              <label>Selected color:</label>
+              <span style={{ backgroundColor: color.toHexString() }} />{" "}
+              <code>{color.toHexString()}</code>
+            </p>
+          </>
         )}
-      </div>
+      </Panel>
     </div>
   );
 };
