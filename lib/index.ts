@@ -7,6 +7,7 @@ export * from "./NumberInput";
 export * from "./InputWithSlider";
 export * from "./Hr";
 export * from "./Panel";
+export * from "./Dimmer";
 
 // export main components
 export * from "./SaturationBrightnessPanel";
@@ -19,3 +20,4 @@ export * from "./BasicColorPanel";
 export * from "./ColorInput";
 export * from "./ColorPanel";
 export * from "./HorizontalColorPanel";
+export * from "./ColorButton";

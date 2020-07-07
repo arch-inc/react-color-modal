@@ -1,9 +1,9 @@
-import React, { FC, useState, useCallback, useEffect } from "react";
+import React, { FC, useState, useCallback, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import tinycolor from "tinycolor2";
 
 import { ColorTextFormat, ColorTextFormats } from "./ColorTextFormats";
-import { Panel } from "./Panel";
+import { Panel, RaisedPanel } from "./Panel";
 import { Hr } from "./Hr";
 import { BasicColorPanel } from "./BasicColorPanel";
 import { InlineBox } from "./InlineBox";
@@ -16,6 +16,8 @@ const StyledInlineBox = styled(InlineBox)`
 export interface ColorPanelProps {
   /** optional CSS class name */
   className?: string;
+  /** whether this panel looks raised or not */
+  raised?: boolean;
   /** color value */
   color?: tinycolor.Instance;
   /** called when color gets updated */
@@ -24,6 +26,7 @@ export interface ColorPanelProps {
 
 export const ColorPanel: FC<ColorPanelProps> = ({
   className,
+  raised,
   color,
   onColorUpdate,
   children,
@@ -57,8 +60,10 @@ export const ColorPanel: FC<ColorPanelProps> = ({
     [onColorUpdate]
   );
 
+  const Wrapper = useMemo(() => (raised ? RaisedPanel : Panel), [raised]);
+
   return (
-    <Panel className={"color-panel " + (className || "")}>
+    <Wrapper className={"color-panel " + (className || "")}>
       <BasicColorPanel color={color} onColorUpdate={handleColorUpdate} />
       <Hr />
       <p>
@@ -73,6 +78,6 @@ export const ColorPanel: FC<ColorPanelProps> = ({
         />
         {children}
       </p>
-    </Panel>
+    </Wrapper>
   );
 };

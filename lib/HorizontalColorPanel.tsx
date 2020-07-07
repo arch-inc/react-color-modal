@@ -6,7 +6,7 @@ import { ColorTextFormat, ColorTextFormats } from "./ColorTextFormats";
 import { ColorInput } from "./ColorInput";
 import { InlineBox } from "./InlineBox";
 import { Hr } from "./Hr";
-import { Panel } from "./Panel";
+import { Panel, RaisedPanel } from "./Panel";
 import { HueSaturationBrightnessPanel } from "./HueSaturationBrightnessPanel";
 import { RedGreenBluePanel } from "./RedGreenBluePanel";
 
@@ -14,27 +14,36 @@ const StyledInlineBox = styled(InlineBox)`
   margin-right: 0.5em;
 `;
 
-const StyledPanel = styled(Panel)`
-  display: flexbox;
-  flex-wrap: wrap;
+const panelStyle = `
+display: flexbox;
+flex-wrap: wrap;
 
-  & > .left {
-    width: 256px;
-    flex-grow: 0;
-    padding-right: 20px;
-    display: flex;
-    align-items: center;
-  }
-  & > .right {
-    min-width: 256px;
-    flex-grow: 1;
-    overflow-x: auto;
-  }
+& > .left {
+  width: 256px;
+  flex-grow: 0;
+  padding-right: 20px;
+  display: flex;
+  align-items: center;
+}
+& > .right {
+  min-width: 256px;
+  flex-grow: 1;
+  overflow-x: auto;
+}
+`;
+
+const StyledPanel = styled(Panel)`
+  ${panelStyle}
+`;
+const StyledRaisedPanel = styled(RaisedPanel)`
+  ${panelStyle}
 `;
 
 export interface HorizontalColorPanelProps {
   /** optional CSS class name */
   className?: string;
+  /** whether this panel looks raised or not */
+  raised?: boolean;
   /** color value */
   color?: tinycolor.Instance;
   /** called when color gets updated */
@@ -43,6 +52,7 @@ export interface HorizontalColorPanelProps {
 
 export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
   className,
+  raised,
   color,
   onColorUpdate,
   children,
@@ -111,8 +121,12 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
       [currentColor]
     );
 
+  const Wrapper = useMemo(() => (raised ? StyledRaisedPanel : StyledPanel), [
+    raised,
+  ]);
+
   return (
-    <StyledPanel className={"horizontal-color-panel " + (className || "")}>
+    <Wrapper className={"horizontal-color-panel " + (className || "")}>
       <div className="left">
         <HueSaturationBrightnessPanel
           hideSlider={true}
@@ -143,6 +157,6 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
           {children}
         </p>
       </div>
-    </StyledPanel>
+    </Wrapper>
   );
 };
