@@ -14,29 +14,28 @@ const StyledInlineBox = styled(InlineBox)`
   margin-right: 0.5em;
 `;
 
-const panelStyle = `
-display: flexbox;
-flex-wrap: wrap;
-
-& > .left {
+const LeftDiv = styled.div`
   width: 256px;
   flex-grow: 0;
   padding-right: 20px;
   display: flex;
   align-items: center;
-}
-& > .right {
+`;
+
+const RightDiv = styled.div`
   min-width: 256px;
   flex-grow: 1;
   overflow-x: auto;
-}
 `;
 
 const StyledPanel = styled(Panel)`
-  ${panelStyle}
+  display: flexbox;
+  flex-wrap: wrap;
 `;
+
 const StyledRaisedPanel = styled(RaisedPanel)`
-  ${panelStyle}
+  display: flexbox;
+  flex-wrap: wrap;
 `;
 
 export interface HorizontalColorPanelProps {
@@ -127,15 +126,15 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
 
   return (
     <Wrapper className={"horizontal-color-panel " + (className || "")}>
-      <div className="left">
+      <LeftDiv className="left">
         <HueSaturationBrightnessPanel
           hideSlider={true}
           hideInput={true}
           hsv={hsv}
           onColorUpdate={handleRawColorUpdate}
         />
-      </div>
-      <div className="right">
+      </LeftDiv>
+      <RightDiv className="right">
         <HueSaturationBrightnessPanel
           hidePanel={true}
           hsv={hsv}
@@ -156,7 +155,7 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
           />
           {children}
         </p>
-      </div>
+      </RightDiv>
     </Wrapper>
   );
 };
