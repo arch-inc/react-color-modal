@@ -26,6 +26,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["lib/**/*", "types/**/*"],
+  "include": ["lib/**/*"],
   "exclude": ["node_modules", "dist"]
 }
