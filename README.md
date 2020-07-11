@@ -58,7 +58,7 @@ All of the exported classes and interfaces are listed in [TypeDoc](https://arch-
 ### Dependencies / 依存パッケージ
 
 - [React](https://reactjs.org)
-- [react-input-slider](https://github.com/swiftcarrot/react-input-slider)
+- [react-input-slider](https://github.com/arch-inc/react-input-slider)
 - [styled-components](https://styled-components.com)
 - [tinycolor2](http://bgrins.github.io/TinyColor)
 
