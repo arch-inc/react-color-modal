@@ -25,7 +25,6 @@ const LeftDiv = styled.div`
 const RightDiv = styled.div`
   min-width: 256px;
   flex-grow: 1;
-  overflow-x: auto;
 `;
 
 const StyledPanel = styled(Panel)`
