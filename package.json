@@ -1,6 +1,6 @@
 {
   "name": "react-color-modal",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Yet another color picker component for React",
   "main": "dist/index.js",
   "browser": "dist/index.js",
