@@ -16,6 +16,7 @@ const StyledSpan = styled.span`
   height: 24px;
   border-radius: 12px;
   border: 3px solid #fff;
+  box-sizing: border-box;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 `;
 

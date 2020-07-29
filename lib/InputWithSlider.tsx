@@ -18,7 +18,7 @@ const StyledDiv = styled.div`
     margin: 0 16px;
   }
   & > input {
-    width: 70px !important;
+    width: 3.5em;
     flex-grow: 0;
   }
 `;

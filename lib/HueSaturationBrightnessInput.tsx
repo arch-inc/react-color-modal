@@ -4,6 +4,11 @@ import { ColorFormats } from "tinycolor2";
 import { throttle } from "./utils";
 import { InputGroups } from "./InputGroups";
 import { NumberInput } from "./NumberInput";
+import styled from "styled-components";
+
+const StyledNumberInput = styled(NumberInput)`
+  width: 3.5em;
+`;
 
 /** trigger events at 60 fps at maximum */
 const wait = 1000 / 60;
@@ -56,7 +61,7 @@ export const HueSaturationBrightnessInput: FC<HueSaturationBrightnessInputProps>
         <label>
           H <span className="range">[0-360]</span>
         </label>
-        <NumberInput
+        <StyledNumberInput
           min={0}
           max={360}
           value={h}
@@ -67,13 +72,13 @@ export const HueSaturationBrightnessInput: FC<HueSaturationBrightnessInputProps>
         <label>
           S <span className="range">[0-100]</span>
         </label>
-        <NumberInput value={s} onValueChange={handleSaturationChange} />
+        <StyledNumberInput value={s} onValueChange={handleSaturationChange} />
       </div>
       <div className="input group">
         <label>
           B <span className="range">[0-100]</span>
         </label>
-        <NumberInput value={b} onValueChange={handleBrightnessChange} />
+        <StyledNumberInput value={b} onValueChange={handleBrightnessChange} />
       </div>
     </InputGroups>
   );

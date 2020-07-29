@@ -13,6 +13,11 @@ const StyledInlineBox = styled(InlineBox)`
   margin-right: 0.5em;
 `;
 
+const P = styled.p`
+  margin: 0;
+  padding: 0;
+`;
+
 export interface ColorPanelProps {
   /** optional CSS class name */
   className?: string;
@@ -66,7 +71,7 @@ export const ColorPanel: FC<ColorPanelProps> = ({
     <Wrapper className={"color-panel " + (className || "")}>
       <BasicColorPanel color={color} onColorUpdate={handleColorUpdate} />
       <Hr />
-      <p>
+      <P>
         <StyledInlineBox
           style={{ backgroundColor: color.toHexString() }}
           onClick={handleClick}
@@ -77,7 +82,7 @@ export const ColorPanel: FC<ColorPanelProps> = ({
           onColorUpdate={handleColorUpdate}
         />
         {children}
-      </p>
+      </P>
     </Wrapper>
   );
 };
