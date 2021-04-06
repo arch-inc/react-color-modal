@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useMemo, ReactNode } from "react";
-import InputSlider from "@arch-inc/react-input-slider";
+import InputSlider from "react-input-slider";
 import styled from "styled-components";
 
 import { NumberInput } from "./NumberInput";

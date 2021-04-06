@@ -38,7 +38,7 @@
   },
   "homepage": "https://github.com/arch-inc/react-color-modal#readme",
   "dependencies": {
-    "@arch-inc/react-input-slider": "^5.1.8",
+    "react-input-slider": "^6.0.0",
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
