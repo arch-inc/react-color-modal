@@ -1,5 +1,5 @@
 import React, { FC, useMemo, useState, useEffect, useCallback } from "react";
-import InputSlider from "@arch-inc/react-input-slider";
+import InputSlider from "react-input-slider";
 import styled from "styled-components";
 import { SliderStyles } from "./SliderStyles";
 
