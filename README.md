@@ -1,6 +1,7 @@
 ### react-color-modal
 
-[![build](https://github.com/arch-inc/react-color-modal/workflows/npm-publish/badge.svg)](https://github.com/arch-inc/react-color-modal/actions?query=workflow%3Anpm-publish)
+[![build](https://github.com/arch-inc/react-color-modal/workflows/npm-publish/badge.svg)](https://github.com/arch-inc/react-color-modal/actions?query=workflow%3Anpm-publish)[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Farch-inc%2Freact-color-modal.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Farch-inc%2Freact-color-modal?ref=badge_shield)
+
 [![npm version](https://img.shields.io/npm/v/react-color-modal)](https://www.npmjs.com/package/react-color-modal)
 
 **react-color-modal** is yet another color picker component for React.
@@ -75,3 +76,7 @@ Twitter [@ArchResearchJp](https://twitter.com/ArchResearchJp) で連絡がつき
 ---
 
 Copyright (c) 2020 Arch Inc. (Jun Kato)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Farch-inc%2Freact-color-modal.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Farch-inc%2Freact-color-modal?ref=badge_large)
