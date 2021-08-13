@@ -17,6 +17,7 @@
     "clean:docs": "del-cli docs/out",
     "clean:lib": "del-cli dist",
     "dev": "run-p next:dev watch",
+    "next": "run-s next:build next:export",
     "next:build": "next build ./docs",
     "next:dev": "next ./docs",
     "next:export": "next export ./docs",
