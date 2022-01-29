@@ -2,6 +2,7 @@ import React, { FC, useCallback, useEffect, useState, useMemo } from "react";
 import tinycolor, { ColorInputWithoutInstance } from "tinycolor2";
 import styled from "styled-components";
 
+import { TinyColorInstance } from "./TinyColorInstance";
 import { ColorTextFormat, ColorTextFormats } from "./ColorTextFormats";
 import { ColorInput } from "./ColorInput";
 import { InlineBox } from "./InlineBox";
@@ -43,9 +44,9 @@ export interface HorizontalColorPanelProps {
   /** whether this panel looks raised or not */
   raised?: boolean;
   /** color value */
-  color?: tinycolor.Instance;
+  color?: TinyColorInstance;
   /** called when color gets updated */
-  onColorUpdate?(color: tinycolor.Instance): void;
+  onColorUpdate?(color: TinyColorInstance): void;
 }
 
 export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
@@ -55,7 +56,7 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
   onColorUpdate,
   children,
 }) => {
-  const [currentColor, setCurrentColor] = useState<tinycolor.Instance>(color);
+  const [currentColor, setCurrentColor] = useState<TinyColorInstance>(color);
   const [format, setFormat] = useState<ColorTextFormat>("hex6");
 
   useEffect(() => {
@@ -74,7 +75,7 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
   }, [format]);
 
   const handleColorUpdate = useCallback(
-    (color: tinycolor.Instance) => {
+    (color: TinyColorInstance) => {
       if (!color || tinycolor.equals(color, currentColor)) {
         return;
       }

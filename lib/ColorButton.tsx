@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import tinycolor from "tinycolor2";
+
+import { TinyColorInstance } from "./TinyColorInstance";
 
 const StyledButton = styled.button`
   /* size */
@@ -42,7 +43,7 @@ export interface ColorButtonProps
   /** optional CSS class name */
   className?: string;
   /** color value */
-  borderColor?: tinycolor.Instance;
+  borderColor?: TinyColorInstance;
 }
 
 export const ColorButton: FC<ColorButtonProps> = (props) => {

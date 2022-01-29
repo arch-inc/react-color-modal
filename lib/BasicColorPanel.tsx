@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect, useCallback, useMemo } from "react";
 import tinycolor, { ColorInputWithoutInstance } from "tinycolor2";
 
+import { TinyColorInstance } from "./TinyColorInstance";
 import { Hr } from "./Hr";
 import { HueSaturationBrightnessPanel } from "./HueSaturationBrightnessPanel";
 import { RedGreenBluePanel } from "./RedGreenBluePanel";
@@ -9,9 +10,9 @@ export interface BasicColorPanelProps {
   /** optional CSS class name */
   className?: string;
   /** color value */
-  color?: tinycolor.Instance;
+  color?: TinyColorInstance;
   /** called when color gets updated */
-  onColorUpdate?(color: tinycolor.Instance): void;
+  onColorUpdate?(color: TinyColorInstance): void;
 }
 
 export const BasicColorPanel: FC<BasicColorPanelProps> = ({
@@ -19,7 +20,7 @@ export const BasicColorPanel: FC<BasicColorPanelProps> = ({
   color,
   onColorUpdate,
 }) => {
-  const [currentColor, setCurrentColor] = useState<tinycolor.Instance>(color);
+  const [currentColor, setCurrentColor] = useState<TinyColorInstance>(color);
 
   useEffect(() => {
     if (!color) {

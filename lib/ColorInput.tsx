@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import tinycolor from "tinycolor2";
 
+import { TinyColorInstance } from "./TinyColorInstance";
 import { Input } from "./Input";
 import { ColorTextFormat } from "./ColorTextFormats";
 
@@ -16,11 +17,11 @@ export interface ColorInputProps {
   /** whether this input is disabled or not */
   disabled?: boolean;
   /** color value */
-  color?: tinycolor.Instance;
+  color?: TinyColorInstance;
   /** color text format */
   format?: ColorTextFormat;
   /** called when color gets updated */
-  onColorUpdate?(color: tinycolor.Instance): void;
+  onColorUpdate?(color: TinyColorInstance): void;
 }
 
 export const ColorInput: FC<ColorInputProps> = ({

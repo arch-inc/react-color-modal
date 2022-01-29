@@ -8,11 +8,12 @@ import {
   Panel,
   ColorInput,
   Dimmer,
+  TinyColorInstance,
 } from "../../";
 import { List } from "semantic-ui-react";
 
 export const Body: FC = () => {
-  const [color, setColor] = useState<tinycolor.Instance>(tinycolor("#008c8c"));
+  const [color, setColor] = useState<TinyColorInstance>(tinycolor("#008c8c"));
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
 

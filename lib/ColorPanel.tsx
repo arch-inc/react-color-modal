@@ -2,6 +2,7 @@ import React, { FC, useState, useCallback, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import tinycolor from "tinycolor2";
 
+import { TinyColorInstance } from "./TinyColorInstance";
 import { ColorTextFormat, ColorTextFormats } from "./ColorTextFormats";
 import { Panel, RaisedPanel } from "./Panel";
 import { Hr } from "./Hr";
@@ -24,9 +25,9 @@ export interface ColorPanelProps {
   /** whether this panel looks raised or not */
   raised?: boolean;
   /** color value */
-  color?: tinycolor.Instance;
+  color?: TinyColorInstance;
   /** called when color gets updated */
-  onColorUpdate?(color: tinycolor.Instance): void;
+  onColorUpdate?(color: TinyColorInstance): void;
 }
 
 export const ColorPanel: FC<ColorPanelProps> = ({
@@ -36,7 +37,7 @@ export const ColorPanel: FC<ColorPanelProps> = ({
   onColorUpdate,
   children,
 }) => {
-  const [currentColor, setCurrentColor] = useState<tinycolor.Instance>(color);
+  const [currentColor, setCurrentColor] = useState<TinyColorInstance>(color);
   const [format, setFormat] = useState<ColorTextFormat>("hex6");
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export const ColorPanel: FC<ColorPanelProps> = ({
   }, [format]);
 
   const handleColorUpdate = useCallback(
-    (color: tinycolor.Instance) => {
+    (color: TinyColorInstance) => {
       if (!color || tinycolor.equals(color, currentColor)) {
         return;
       }
