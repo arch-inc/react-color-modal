@@ -74,6 +74,16 @@ export const Body: FC = () => {
           left: 0;
         }
 
+        // smaller font size
+        section.small :global(> div) {
+          font-size: 72%;
+        }
+
+        // larger font size
+        section.large :global(> div) {
+          font-size: 140%;
+        }
+
         // horizontal panel
         section :global(> div.horizontal-color-panel) {
           max-width: 720px !important;
@@ -126,6 +136,18 @@ export const Body: FC = () => {
       <section>
         <p>
           <code>ColorPanel</code>
+        </p>
+        <ColorPanel color={color} onColorUpdate={setColor} />
+      </section>
+      <section className="small">
+        <p>
+          <code>ColorPanel (smaller font size)</code>
+        </p>
+        <ColorPanel color={color} onColorUpdate={setColor} />
+      </section>
+      <section className="large">
+        <p>
+          <code>ColorPanel (larger font size)</code>
         </p>
         <ColorPanel color={color} onColorUpdate={setColor} />
       </section>
