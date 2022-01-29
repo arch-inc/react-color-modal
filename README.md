@@ -8,8 +8,8 @@
 **react-color-modal** は React 用の軽量なカラーパレットです。
 
 - npm package: https://www.npmjs.com/package/react-color-modal
-- API document: https://arch-inc.github.io/react-color-modal/api/globals.html
-- Demo site: https://arch-inc.github.io/react-color-modal/
+- API document: https://research.archinc.jp/react-color-modal/api/modules.html
+- Demo site: https://research.archinc.jp/react-color-modal/
 
 ### Usage / 使い方
 
@@ -47,9 +47,9 @@ export const Body = () => {
 
 ### API Documentation / API ドキュメント
 
-All of the exported classes and interfaces are listed in [TypeDoc](https://arch-inc.github.io/react-color-modal/api/globals.html).
+All of the exported classes and interfaces are listed in [TypeDoc](https://research.archinc.jp/react-color-modal/api/modules.html).
 
-このモジュールが export しているすべてのクラスとインタフェースは [TypeDoc](https://arch-inc.github.io/react-color-modal/api/globals.html) で閲覧できます。
+このモジュールが export しているすべてのクラスとインタフェースは [TypeDoc](https://research.archinc.jp/react-color-modal/api/modules.html) で閲覧できます。
 
 ### Credits / 開発者
 
@@ -70,8 +70,8 @@ Twitter [@ArchResearchJp](https://twitter.com/ArchResearchJp) で連絡がつき
 
 ### Library in action / 利用例
 
-- [Demo site](https://arch-inc.github.io/react-color-modal/): GitHub Pages accompanied with this library
+- [Demo site](https://research.archinc.jp/react-color-modal/): GitHub Pages accompanied with this library
 
 ---
 
-Copyright (c) 2020 Arch Inc. (Jun Kato)
+Copyright (c) 2020-2022 Arch Inc. (Jun Kato)

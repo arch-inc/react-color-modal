@@ -117,7 +117,7 @@ const Index: NextPage = () => {
             <List.Item
               content={
                 <>
-                  &copy; <a href="//research.archinc.jp">Arch Inc.</a> 2020
+                  &copy; <a href="//research.archinc.jp">Arch Inc.</a> 2020-2022
                 </>
               }
             />
