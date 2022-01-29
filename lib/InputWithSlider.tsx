@@ -23,7 +23,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-interface IProps {
+export interface InputWithSliderProps {
   /** optional CSS class name */
   className?: string;
   /** whether this input is disabled or not */
@@ -42,7 +42,7 @@ interface IProps {
   styles?: SliderStyles;
 }
 
-export const InputWithSlider: FC<IProps> = ({
+export const InputWithSlider: FC<InputWithSliderProps> = ({
   className,
   disabled,
   label,
