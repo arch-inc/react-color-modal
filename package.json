@@ -23,7 +23,7 @@
     "next:export": "next export ./docs",
     "next:start": "next start ./docs",
     "prettify": "prettier --write ./**/*.{ts,tsx}",
-    "typedoc": "typedoc --mode library --excludeExternals --excludeNotExported --excludePrivate --excludeProtected --out ./docs/out/api ./lib/index.ts",
+    "typedoc": "typedoc --excludeInternal --excludeExternals --excludePrivate --excludeProtected --out ./docs/out/api ./lib/index.ts",
     "watch": "rollup -cw"
   },
   "repository": {
@@ -59,18 +59,18 @@
     "babel-plugin-styled-components": "^1.10.7",
     "cross-env": "^7.0.2",
     "del-cli": "^3.0.1",
-    "next": "^10.2.3",
+    "next": "^12.0.9",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "rollup": "^2.19.0",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-terser": "^6.1.0",
     "semantic-ui-react": "^0.88.2",
     "styled-components": "^5.1.1",
-    "typedoc": "^0.17.0-3",
-    "typescript": "^4.3.5"
+    "typedoc": "^0.22.11",
+    "typescript": "^4.5.5"
   },
   "peerDependencies": {
     "react": ">=16.8",
