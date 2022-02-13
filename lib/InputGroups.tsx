@@ -5,6 +5,7 @@ export const InputGroups = styled.div`
   margin: 0.5em 0;
   & > .input.group {
     margin-right: 0.5em;
+    flex-grow: 1;
   }
   & > .input.group:last-child {
     margin-right: 0;

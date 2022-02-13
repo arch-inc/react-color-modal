@@ -18,9 +18,13 @@ const StyledInlineBox = styled(InlineBox)`
 const LeftDiv = styled.div`
   width: 256px;
   flex-grow: 0;
-  padding-right: 20px;
+  margin-right: 20px;
   display: flex;
   align-items: center;
+  & .hsb-panel > div {
+    margin-bottom: 0;
+    height: 256px;
+  }
 `;
 
 const RightDiv = styled.div`
