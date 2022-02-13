@@ -56,6 +56,7 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
   onColorUpdate,
   children,
 }) => {
+  const [hue, setHue] = useState(color?.toHsl().h || 0);
   const [currentColor, setCurrentColor] = useState<TinyColorInstance>(color);
   const [format, setFormat] = useState<ColorTextFormat>("hex6");
 
@@ -65,6 +66,12 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
     }
     setCurrentColor(color);
   }, [color]);
+
+  useEffect(() => {
+    if (currentColor?.toHsv().s !== 0) {
+      setHue(currentColor.toHsv().h);
+    }
+  }, [currentColor]);
 
   const handleClick = useCallback(() => {
     setFormat(
@@ -87,6 +94,10 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
 
   const handleRawColorUpdate = useCallback(
     (colorData: ColorInputWithoutInstance) => {
+      if (typeof colorData === "object" && "h" in colorData) {
+        setHue(colorData.h);
+      }
+
       const col = tinycolor.fromRatio(colorData);
       if (!colorData || tinycolor.equals(col, currentColor)) {
         return;
@@ -100,13 +111,13 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
   const hsv = useMemo(
       () =>
         currentColor
-          ? currentColor.toHsv()
+          ? { ...currentColor.toHsv(), h: hue }
           : {
-              h: 0,
+              h: hue,
               s: 0,
               v: 0,
             },
-      [currentColor]
+      [currentColor, hue]
     ),
     rgb = useMemo(
       () =>

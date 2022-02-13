@@ -20,6 +20,7 @@ export const BasicColorPanel: FC<BasicColorPanelProps> = ({
   color,
   onColorUpdate,
 }) => {
+  const [hue, setHue] = useState(color?.toHsl().h || 0);
   const [currentColor, setCurrentColor] = useState<TinyColorInstance>(color);
 
   useEffect(() => {
@@ -29,8 +30,18 @@ export const BasicColorPanel: FC<BasicColorPanelProps> = ({
     setCurrentColor(color);
   }, [color]);
 
+  useEffect(() => {
+    if (currentColor?.toHsv().s !== 0) {
+      setHue(currentColor.toHsv().h);
+    }
+  }, [currentColor]);
+
   const handleColorUpdate = useCallback(
     (colorData: ColorInputWithoutInstance) => {
+      if (typeof colorData === "object" && "h" in colorData) {
+        setHue(colorData.h);
+      }
+
       const col = tinycolor.fromRatio(colorData);
       if (!colorData || tinycolor.equals(col, currentColor)) {
         return;
@@ -44,13 +55,13 @@ export const BasicColorPanel: FC<BasicColorPanelProps> = ({
   const hsv = useMemo(
       () =>
         currentColor
-          ? currentColor.toHsv()
+          ? { ...currentColor.toHsv(), h: hue }
           : {
-              h: 0,
+              h: hue,
               s: 0,
               v: 0,
             },
-      [currentColor]
+      [currentColor, hue]
     ),
     rgb = useMemo(
       () =>
