@@ -54,6 +54,10 @@ export const Body: FC = () => {
         section :global(> div) {
           max-width: 480px !important;
         }
+        section.scrollable .content {
+          max-width: 720px !important;
+          overflow-x: auto;
+        }
 
         // modal
         :global(.modal) {
@@ -83,11 +87,6 @@ export const Body: FC = () => {
         // larger font size
         section.large :global(> div) {
           font-size: 140%;
-        }
-
-        // horizontal panel
-        section :global(> div.horizontal-color-panel) {
-          max-width: 720px !important;
         }
       `}</style>
       <section>
@@ -152,11 +151,13 @@ export const Body: FC = () => {
         </p>
         <ColorPanel color={color} onColorUpdate={setColor} />
       </section>
-      <section>
+      <section className="scrollable">
         <p>
           <code>HorizontalColorPanel</code>
         </p>
-        <HorizontalColorPanel color={color} onColorUpdate={setColor} />
+        <div className="content">
+          <HorizontalColorPanel color={color} onColorUpdate={setColor} />
+        </div>
       </section>
       <section>
         <p>
