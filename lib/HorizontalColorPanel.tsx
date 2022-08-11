@@ -20,7 +20,7 @@ const LeftDiv = styled.div`
   flex-grow: 0;
   margin-right: 20px;
   display: flex;
-  align-items: center;
+  align-items: start;
   & .hsb-panel > div {
     margin-bottom: 0;
     height: 256px;
@@ -34,12 +34,13 @@ const RightDiv = styled.div`
 
 const StyledPanel = styled(Panel)`
   display: flexbox;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  min-width: 564px;
 `;
 
 const StyledRaisedPanel = styled(RaisedPanel)`
   display: flexbox;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 `;
 
 export interface HorizontalColorPanelProps {
