@@ -75,8 +75,8 @@
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
-    "react": ">=16.8",
-    "react-dom": ">=16.8",
-    "styled-components": ">=3"
+    "react": ">=18",
+    "react-dom": ">=18",
+    "styled-components": ">=5"
   }
 }
