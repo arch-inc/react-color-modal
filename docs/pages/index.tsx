@@ -20,7 +20,7 @@ const Index: NextPage = () => {
     <>
       <Head>
         <title key="title">
-          {packageName} | {description}
+          {`${packageName} | ${description}`}
         </title>
         <link
           rel="stylesheet"

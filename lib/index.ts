@@ -21,6 +21,7 @@ export * from "./ColorInput";
 export * from "./ColorPanel";
 export * from "./HorizontalColorPanel";
 export * from "./ColorButton";
+export * from "./SliderStyles";
 
 // export tinycolor instance type
 export * from "./TinyColorInstance";
