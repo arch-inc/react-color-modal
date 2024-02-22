@@ -1,14 +1,21 @@
-import React, { FC, useState, useCallback, useEffect, useMemo } from "react";
+import {
+  FC,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import styled from "styled-components";
 import tinycolor from "tinycolor2";
 
-import { TinyColorInstance } from "./TinyColorInstance";
-import { ColorTextFormat, ColorTextFormats } from "./ColorTextFormats";
-import { Panel, RaisedPanel } from "./Panel";
-import { Hr } from "./Hr";
 import { BasicColorPanel } from "./BasicColorPanel";
-import { InlineBox } from "./InlineBox";
 import { ColorInput } from "./ColorInput";
+import { ColorTextFormat, ColorTextFormats } from "./ColorTextFormats";
+import { Hr } from "./Hr";
+import { InlineBox } from "./InlineBox";
+import { Panel, RaisedPanel } from "./Panel";
+import { TinyColorInstance } from "./TinyColorInstance";
 
 const StyledInlineBox = styled(InlineBox)`
   margin-right: 0.5em;
@@ -28,6 +35,8 @@ export interface ColorPanelProps {
   color?: TinyColorInstance;
   /** called when color gets updated */
   onColorUpdate?(color: TinyColorInstance): void;
+  /** optional child elements */
+  children?: ReactNode;
 }
 
 export const ColorPanel: FC<ColorPanelProps> = ({

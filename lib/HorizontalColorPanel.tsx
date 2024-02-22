@@ -1,15 +1,22 @@
-import React, { FC, useCallback, useEffect, useState, useMemo } from "react";
-import tinycolor, { ColorInputWithoutInstance } from "tinycolor2";
+import {
+  FC,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import styled from "styled-components";
+import tinycolor, { ColorInputWithoutInstance } from "tinycolor2";
 
-import { TinyColorInstance } from "./TinyColorInstance";
-import { ColorTextFormat, ColorTextFormats } from "./ColorTextFormats";
 import { ColorInput } from "./ColorInput";
-import { InlineBox } from "./InlineBox";
+import { ColorTextFormat, ColorTextFormats } from "./ColorTextFormats";
 import { Hr } from "./Hr";
-import { Panel, RaisedPanel } from "./Panel";
 import { HueSaturationBrightnessPanel } from "./HueSaturationBrightnessPanel";
+import { InlineBox } from "./InlineBox";
+import { Panel, RaisedPanel } from "./Panel";
 import { RedGreenBluePanel } from "./RedGreenBluePanel";
+import { TinyColorInstance } from "./TinyColorInstance";
 
 const StyledInlineBox = styled(InlineBox)`
   margin-right: 0.5em;
@@ -52,6 +59,8 @@ export interface HorizontalColorPanelProps {
   color?: TinyColorInstance;
   /** called when color gets updated */
   onColorUpdate?(color: TinyColorInstance): void;
+  /** optional child elements */
+  children?: ReactNode;
 }
 
 export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({

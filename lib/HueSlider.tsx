@@ -60,7 +60,7 @@ export const HueSlider: FC<HueSliderProps> = ({
   }, [onHueChangeEnd]);
 
   const handleChange = useCallback(
-    ({ x }) => {
+    ({ x }: { x: number }) => {
       onHueChange && onHueChange(x);
       setCurrentHue(x);
     },

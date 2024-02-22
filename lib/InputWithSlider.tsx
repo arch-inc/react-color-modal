@@ -53,7 +53,7 @@ export const InputWithSlider: FC<InputWithSliderProps> = ({
   styles = {},
 }) => {
   const handleSliderChange = useCallback(
-    ({ x }) => {
+    ({ x }: { x: number }) => {
       onValueChange && onValueChange(x);
     },
     [onValueChange]
