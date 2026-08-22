@@ -10,11 +10,10 @@ export const DimmerDiv = styled.div`
   z-index: 100;
 `;
 
-export interface DimmerProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > {
+export interface DimmerProps extends React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> {
   background?: string;
 }
 

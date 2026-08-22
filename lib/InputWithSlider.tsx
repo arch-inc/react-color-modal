@@ -1,8 +1,8 @@
-import React, { FC, useCallback, useMemo, ReactNode } from "react";
-import InputSlider from "react-input-slider";
+import { FC, useCallback, useMemo, ReactNode } from "react";
 import styled from "styled-components";
 
 import { NumberInput } from "./NumberInput";
+import { RangeSlider } from "./RangeSlider";
 import { SliderStyles } from "./SliderStyles";
 
 const StyledDiv = styled.div`
@@ -53,19 +53,19 @@ export const InputWithSlider: FC<InputWithSliderProps> = ({
   styles = {},
 }) => {
   const handleSliderChange = useCallback(
-    ({ x }: { x: number }) => {
-      onValueChange && onValueChange(x);
+    (nextValue: number) => {
+      onValueChange && onValueChange(nextValue);
     },
-    [onValueChange]
+    [onValueChange],
   );
 
   const minimum = useMemo(
     () => (typeof min === "number" && !isNaN(min) ? min : 0),
-    [min]
+    [min],
   );
   const maximum = useMemo(
     () => (typeof max === "number" && !isNaN(max) ? max : 100),
-    [max]
+    [max],
   );
 
   const computedStyles = useMemo(() => {
@@ -74,19 +74,19 @@ export const InputWithSlider: FC<InputWithSliderProps> = ({
         {
           backgroundColor: "#ddd",
         },
-        styles.track
+        styles.track,
       ),
       active: Object.assign(
         {
           backgroundColor: "#556",
         },
-        styles.active
+        styles.active,
       ),
       thumb: Object.assign(
         {
           boxShadow: "0 1px 1px rgba(0,0,0,.5)",
         },
-        styles.thumb
+        styles.thumb,
       ),
       disabled: styles.disabled,
     };
@@ -95,12 +95,12 @@ export const InputWithSlider: FC<InputWithSliderProps> = ({
   return (
     <StyledDiv className={"slider " + (className || "")}>
       {label && <label>{label}</label>}
-      <InputSlider
+      <RangeSlider
+        ariaLabel={typeof label === "string" ? label : "Value"}
         disabled={disabled}
-        axis="x"
-        x={value}
-        xmin={minimum}
-        xmax={maximum}
+        value={value}
+        min={minimum}
+        max={maximum}
         styles={computedStyles}
         onChange={handleSliderChange}
       />

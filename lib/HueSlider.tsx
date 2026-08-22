@@ -1,6 +1,6 @@
-import React, { FC, useMemo, useState, useEffect, useCallback } from "react";
-import InputSlider from "react-input-slider";
+import { FC, useMemo, useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
+import { RangeSlider } from "./RangeSlider";
 import { SliderStyles } from "./SliderStyles";
 
 const StyledDiv = styled.div`
@@ -60,11 +60,11 @@ export const HueSlider: FC<HueSliderProps> = ({
   }, [onHueChangeEnd]);
 
   const handleChange = useCallback(
-    ({ x }: { x: number }) => {
-      onHueChange && onHueChange(x);
-      setCurrentHue(x);
+    (value: number) => {
+      onHueChange && onHueChange(value);
+      setCurrentHue(value);
     },
-    [onHueChange]
+    [onHueChange],
   );
 
   const computedStyles = useMemo(() => {
@@ -73,13 +73,13 @@ export const HueSlider: FC<HueSliderProps> = ({
         {
           backgroundImage: hueGradation,
         },
-        styles.track
+        styles.track,
       ),
       active: Object.assign(
         {
           backgroundColor: "transparent",
         },
-        styles.active
+        styles.active,
       ),
       thumb: Object.assign(
         {
@@ -87,7 +87,7 @@ export const HueSlider: FC<HueSliderProps> = ({
           border: "6px solid #fff",
           boxShadow: "0 1px 1px rgba(0,0,0,.5)",
         },
-        styles.thumb
+        styles.thumb,
       ),
       disabled: styles.disabled,
     };
@@ -95,12 +95,12 @@ export const HueSlider: FC<HueSliderProps> = ({
 
   return (
     <StyledDiv className={"hue-slider " + (className || "")}>
-      <InputSlider
+      <RangeSlider
+        ariaLabel="Hue"
         disabled={disabled}
-        axis="x"
-        x={currentHue}
-        xmin={0}
-        xmax={359}
+        value={currentHue}
+        min={0}
+        max={359}
         styles={computedStyles}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}

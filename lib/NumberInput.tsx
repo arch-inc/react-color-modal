@@ -1,7 +1,6 @@
-import React, { FC, useCallback, ChangeEvent, useMemo } from "react";
-import { Interpolation } from "@emotion/serialize";
-
+import { FC, useCallback, ChangeEvent, useMemo } from "react";
 import { Input } from "./Input";
+import { SliderStyles } from "./SliderStyles";
 
 export interface NumberInputProps {
   /** optional CSS class name */
@@ -17,12 +16,7 @@ export interface NumberInputProps {
   /** called when value changes */
   onValueChange: (value: number) => void;
   /** CSS style values for the seekbar */
-  styles?: {
-    track?: Interpolation;
-    active?: Interpolation;
-    thumb?: Interpolation;
-    disabled?: Interpolation;
-  };
+  styles?: SliderStyles;
 }
 
 export const NumberInput: FC<NumberInputProps> = ({
@@ -35,17 +29,17 @@ export const NumberInput: FC<NumberInputProps> = ({
 }) => {
   const minimum = useMemo(
     () => (typeof min === "number" && !isNaN(min) ? min : 0),
-    [min]
+    [min],
   );
   const maximum = useMemo(
     () => (typeof max === "number" && !isNaN(max) ? max : 100),
-    [max]
+    [max],
   );
 
   const handleValueChange = useCallback(
     (ev: ChangeEvent<HTMLInputElement>) =>
       onValueChange(ev.target.valueAsNumber),
-    [onValueChange]
+    [onValueChange],
   );
 
   return (

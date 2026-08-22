@@ -1,10 +1,15 @@
-import { useCallback, MouseEventHandler, TouchEventHandler } from "react";
-
-import { Size } from "./utils";
+import {
+  MutableRefObject,
+  PointerEventHandler,
+  useCallback,
+  useRef,
+} from "react";
 
 interface EventHandlers<E extends HTMLElement> {
-  onMouseDown: MouseEventHandler<E>;
-  onTouchStart: TouchEventHandler<E>;
+  onPointerCancel: PointerEventHandler<E>;
+  onPointerDown: PointerEventHandler<E>;
+  onPointerMove: PointerEventHandler<E>;
+  onPointerUp: PointerEventHandler<E>;
 }
 
 export interface CursorPosition {
@@ -12,85 +17,78 @@ export interface CursorPosition {
   y: number;
 }
 
+export function calculateSaturationBrightness(
+  position: CursorPosition,
+  rect: Pick<DOMRect, "left" | "top" | "width" | "height">,
+): CursorPosition {
+  if (rect.width <= 0 || rect.height <= 0) return { x: 0, y: 1 };
+  return {
+    x: Math.max(0, Math.min(1, (position.x - rect.left) / rect.width)),
+    y: Math.max(0, Math.min(1, 1 - (position.y - rect.top) / rect.height)),
+  };
+}
+
 export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
-  el: E,
-  elSize: Size,
-  onUpdate: (saturation: number, brightness: number) => void
+  ref: MutableRefObject<E>,
+  onUpdate: (saturation: number, brightness: number) => void,
 ): EventHandlers<E> {
+  const activePointer = useRef<number | null>(null);
   const handleCursorPositionUpdate = useCallback(
     ({ x, y }: CursorPosition) => {
+      const el = ref.current;
       if (!el) {
         return;
       }
-      const rect = el.getBoundingClientRect();
-      const cursorPosition = { x: x - rect.left, y: y - rect.top };
-      const saturation = elSize
-        ? Math.max(0, Math.min(1, cursorPosition.x / elSize.width))
-        : 0;
-      const brightness = elSize
-        ? Math.max(0, Math.min(1, 1 - cursorPosition.y / elSize.height))
-        : 1;
-      onUpdate(saturation, brightness);
+      const next = calculateSaturationBrightness(
+        { x, y },
+        el.getBoundingClientRect(),
+      );
+      onUpdate(next.x, next.y);
     },
-    [el, elSize, onUpdate]
+    [onUpdate, ref],
   );
 
-  const handleMouseMove = useCallback(
-    (ev: MouseEvent | React.MouseEvent) => {
-      const { buttons } = ev;
-      if (buttons !== 1) {
-        return;
+  const handlePointerDown: PointerEventHandler<E> = useCallback(
+    (event) => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      event.preventDefault();
+      activePointer.current = event.pointerId;
+      event.currentTarget.setPointerCapture?.(event.pointerId);
+      handleCursorPositionUpdate({ x: event.clientX, y: event.clientY });
+    },
+    [handleCursorPositionUpdate],
+  );
+
+  const handlePointerMove: PointerEventHandler<E> = useCallback(
+    (event) => {
+      if (activePointer.current !== event.pointerId) return;
+      event.preventDefault();
+      handleCursorPositionUpdate({ x: event.clientX, y: event.clientY });
+    },
+    [handleCursorPositionUpdate],
+  );
+
+  const handlePointerEnd: PointerEventHandler<E> = useCallback(
+    (event) => {
+      if (activePointer.current !== event.pointerId) return;
+      handleCursorPositionUpdate({ x: event.clientX, y: event.clientY });
+      activePointer.current = null;
+      if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
+        event.currentTarget.releasePointerCapture(event.pointerId);
       }
-      handleCursorPositionUpdate({ x: ev.clientX, y: ev.clientY });
     },
-    [handleCursorPositionUpdate]
+    [handleCursorPositionUpdate],
   );
 
-  const handleMouseDown = useCallback(
-    (ev: MouseEvent | React.MouseEvent) => {
-      handleMouseMove(ev);
-      const handleMouseUp = (ev: MouseEvent) => {
-        handleMouseMove(ev);
-        window.removeEventListener("mousemove", handleMouseMove);
-        window.removeEventListener("mouseup", handleMouseUp);
-      };
-      window.addEventListener("mousemove", handleMouseMove);
-      window.addEventListener("mouseup", handleMouseUp);
-    },
-    [handleMouseMove]
-  );
-
-  const handleTouchMove = useCallback(
-    (ev: TouchEvent | React.TouchEvent) => {
-      const { targetTouches } = ev;
-      if (targetTouches.length <= 0) {
-        return;
-      }
-      ev.preventDefault();
-      handleCursorPositionUpdate({
-        x: targetTouches[0].clientX,
-        y: targetTouches[0].clientY,
-      });
-    },
-    [handleCursorPositionUpdate]
-  );
-
-  const handleTouchStart = useCallback(
-    (ev: TouchEvent | React.TouchEvent) => {
-      handleTouchMove(ev);
-      const handleTouchEnd = (ev: TouchEvent) => {
-        handleTouchMove(ev);
-        window.removeEventListener("touchmove", handleTouchMove);
-        window.removeEventListener("touchend", handleTouchEnd);
-      };
-      window.addEventListener("touchmove", handleTouchMove, { passive: false });
-      window.addEventListener("touchend", handleTouchEnd);
-    },
-    [handleTouchMove]
-  );
+  const handlePointerCancel: PointerEventHandler<E> = useCallback((event) => {
+    if (activePointer.current !== event.pointerId) return;
+    activePointer.current = null;
+  }, []);
 
   return {
-    onMouseDown: handleMouseDown,
-    onTouchStart: handleTouchStart,
+    onPointerCancel: handlePointerCancel,
+    onPointerDown: handlePointerDown,
+    onPointerMove: handlePointerMove,
+    onPointerUp: handlePointerEnd,
   };
 }

@@ -9,8 +9,7 @@ import {
   ColorInput,
   Dimmer,
   TinyColorInstance,
-} from "../../";
-import { List } from "semantic-ui-react";
+} from "../../lib";
 
 export const Body: FC = () => {
   const [color, setColor] = useState<TinyColorInstance>(tinycolor("#008c8c"));
@@ -26,7 +25,7 @@ export const Body: FC = () => {
         console.log("ignore event from", ev.target);
       }
     },
-    [modalOpen]
+    [modalOpen],
   );
 
   const toggleDropdown = useCallback(() => {
@@ -94,18 +93,18 @@ export const Body: FC = () => {
           <code>ColorButton</code>
         </p>
         <Panel>
-          <List horizontal>
-            <List.Item>
+          <div className="button-list">
+            <span>
               <ColorButton onClick={toggleModal} borderColor={color}>
                 Button with modal
               </ColorButton>
-            </List.Item>
-            <List.Item>
+            </span>
+            <span>
               <ColorButton onClick={toggleDropdown} borderColor={color}>
                 Button with dropdown
               </ColorButton>
-            </List.Item>
-          </List>
+            </span>
+          </div>
           {modalOpen && (
             <Dimmer
               className="modal"

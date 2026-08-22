@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useCallback, useMemo } from "react";
+import { FC, useState, useEffect, useCallback, useMemo } from "react";
 import tinycolor, { ColorInputWithoutInstance } from "tinycolor2";
 
 import { TinyColorInstance } from "./TinyColorInstance";
@@ -49,7 +49,7 @@ export const BasicColorPanel: FC<BasicColorPanelProps> = ({
       setCurrentColor(col);
       onColorUpdate && onColorUpdate(col);
     },
-    [onColorUpdate]
+    [currentColor, onColorUpdate],
   );
 
   const hsv = useMemo(
@@ -61,7 +61,7 @@ export const BasicColorPanel: FC<BasicColorPanelProps> = ({
               s: 0,
               v: 0,
             },
-      [currentColor, hue]
+      [currentColor, hue],
     ),
     rgb = useMemo(
       () =>
@@ -72,7 +72,7 @@ export const BasicColorPanel: FC<BasicColorPanelProps> = ({
               g: 0,
               b: 0,
             },
-      [currentColor]
+      [currentColor],
     );
 
   return (

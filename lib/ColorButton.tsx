@@ -21,7 +21,9 @@ const StyledButton = styled.button`
 
   /* color */
   border-radius: 0.25rem;
-  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  box-shadow:
+    0 0 0 1px transparent inset,
+    0 0 0 0 rgba(34, 36, 38, 0.15) inset;
   background-color: #e0e1e2;
   color: rgba(0, 0, 0, 0.6);
 
@@ -35,11 +37,10 @@ const StyledButton = styled.button`
   }
 `;
 
-export interface ColorButtonProps
-  extends React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  > {
+export interface ColorButtonProps extends React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+> {
   /** optional CSS class name */
   className?: string;
   /** color value */

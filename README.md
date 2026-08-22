@@ -51,6 +51,10 @@ All of the exported classes and interfaces are listed in [TypeDoc](https://arch-
 
 このモジュールが export しているすべてのクラスとインタフェースは [TypeDoc](https://arch-inc.github.io/react-color-modal/api/) で閲覧できます。
 
+`ColorPanel` はレイアウト調整用に安定した `.color-panel-footer`、
+`.color-panel-swatch` クラスと `data-slot` 属性を公開しています。フッターの
+コントロール高さは `--color-panel-control-height`（既定値 `2.208em`）で変更できます。
+
 ### Credits / 開発者
 
 - [Jun Kato](https://junkato.jp), developer
@@ -58,7 +62,6 @@ All of the exported classes and interfaces are listed in [TypeDoc](https://arch-
 ### Dependencies / 依存パッケージ
 
 - [React](https://reactjs.org)
-- [react-input-slider](https://github.com/arch-inc/react-input-slider)
 - [styled-components](https://styled-components.com)
 - [tinycolor2](http://bgrins.github.io/TinyColor)
 

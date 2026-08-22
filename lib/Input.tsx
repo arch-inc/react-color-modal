@@ -6,7 +6,7 @@ export const Input = styled.input`
   border-radius: 2px;
   font-size: 1.2em;
 
-  & :focus {
+  &:focus {
     outline-color: rgba(34, 36, 38, 0.4);
   }
 `;

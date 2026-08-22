@@ -1,8 +1,8 @@
-import { Interpolation } from "@emotion/serialize";
+import { CSSProperties } from "react";
 
 export interface SliderStyles {
-  track?: Interpolation;
-  active?: Interpolation;
-  thumb?: Interpolation;
-  disabled?: Interpolation;
+  track?: CSSProperties;
+  active?: CSSProperties;
+  thumb?: CSSProperties;
+  disabled?: CSSProperties;
 }

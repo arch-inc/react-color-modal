@@ -7,7 +7,7 @@ export interface Size {
 
 export function useResize<E extends HTMLElement>(): [
   Size,
-  MutableRefObject<E>
+  MutableRefObject<E>,
 ] {
   const ref = useRef<E>(null);
   const [size, setSize] = useState<Size>({ width: 0, height: 0 });
@@ -33,7 +33,7 @@ export function useResize<E extends HTMLElement>(): [
 
 export function throttle(
   f: (...args: any[]) => any,
-  delay: number
+  delay: number,
 ): (...args: any[]) => any {
   let handler: any, args: IArguments;
   return function () {

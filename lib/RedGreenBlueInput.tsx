@@ -1,12 +1,8 @@
-import React, { FC, useCallback } from "react";
+import { FC, useCallback } from "react";
 import { ColorFormats } from "tinycolor2";
 
-import { throttle } from "./utils";
 import { InputGroups } from "./InputGroups";
 import { NumberInput } from "./NumberInput";
-
-/** trigger events at 60 fps at maximum */
-const wait = 1000 / 60;
 
 export interface RedGreenBlueInputProps {
   /** optional CSS class name */
@@ -26,22 +22,22 @@ export const RedGreenBlueInput: FC<RedGreenBlueInputProps> = ({
   onColorUpdate,
 }) => {
   const handleRedChange = useCallback(
-    throttle((r: number) => {
+    (r: number) => {
       onColorUpdate({ ...rgb, r });
-    }, wait),
-    [rgb, onColorUpdate]
+    },
+    [rgb, onColorUpdate],
   );
   const handleGreenChange = useCallback(
-    throttle((g: number) => {
+    (g: number) => {
       onColorUpdate({ ...rgb, g });
-    }, wait),
-    [rgb, onColorUpdate]
+    },
+    [rgb, onColorUpdate],
   );
   const handleBlueChange = useCallback(
-    throttle((b: number) => {
+    (b: number) => {
       onColorUpdate({ ...rgb, b });
-    }, wait),
-    [rgb, onColorUpdate]
+    },
+    [rgb, onColorUpdate],
   );
   const { r, g, b } = rgb;
 

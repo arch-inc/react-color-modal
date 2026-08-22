@@ -1,17 +1,18 @@
-import React, { FC, useEffect, useState, useMemo } from "react";
+import { FC, useMemo, useRef } from "react";
 import styled from "styled-components";
 import tinycolor, { ColorFormats } from "tinycolor2";
 
-import { useResize, Size } from "./utils";
 import { Cursor } from "./Cursor";
 import { useSaturationBrightnessEventHandler } from "./SaturationBrightnessEventHandler";
 
 const StyledDiv = styled.div`
   position: relative;
   width: 100%;
+  aspect-ratio: 1 / 1;
   line-height: 0;
   border-radius: 2px;
   user-select: none;
+  touch-action: none;
   z-index: 1;
 
   & > .saturation,
@@ -47,18 +48,8 @@ export const SaturationBrightnessPanel: FC<SaturationBrightnessPanelProps> = ({
   hsv,
   onColorUpdate,
 }) => {
-  const [measuredSize, ref] = useResize<HTMLDivElement>();
-  const [size, setSize] = useState<Size>({ width: 0, height: 0 });
-
-  useEffect(() => {
-    setSize({ width: measuredSize.width, height: measuredSize.width });
-  }, [measuredSize, ref.current]);
-
-  const props = useSaturationBrightnessEventHandler(
-    ref.current,
-    size,
-    onColorUpdate
-  );
+  const ref = useRef<HTMLDivElement>(null);
+  const props = useSaturationBrightnessEventHandler(ref, onColorUpdate);
 
   const hueColor = useMemo(
     () =>
@@ -69,13 +60,13 @@ export const SaturationBrightnessPanel: FC<SaturationBrightnessPanelProps> = ({
           v: 1.0,
         })
         .toHexString(),
-    [hsv.h]
+    [hsv.h],
   );
 
   return (
     <StyledDiv
       className={"sb-panel " + (className || "")}
-      style={{ height: `${size.height}px`, backgroundColor: hueColor }}
+      style={{ backgroundColor: hueColor }}
       ref={ref}
       {...props}
     >

@@ -13,17 +13,43 @@ import { BasicColorPanel } from "./BasicColorPanel";
 import { ColorInput } from "./ColorInput";
 import { ColorTextFormat, ColorTextFormats } from "./ColorTextFormats";
 import { Hr } from "./Hr";
-import { InlineBox } from "./InlineBox";
 import { Panel, RaisedPanel } from "./Panel";
 import { TinyColorInstance } from "./TinyColorInstance";
 
-const StyledInlineBox = styled(InlineBox)`
+const Swatch = styled.button`
   margin-right: 0.5em;
+  font: inherit;
+  flex: 0 0 auto;
+  width: var(--color-panel-control-height);
+  height: 100%;
+  border: 1px solid rgba(34, 36, 38, 0.15);
+  border-radius: 2px;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 0;
+  user-select: none;
+
+  &:focus-visible {
+    outline: 2px solid rgba(34, 36, 38, 0.55);
+    outline-offset: 2px;
+  }
 `;
 
-const P = styled.p`
+const Footer = styled.div`
+  --color-panel-control-height: 2.208em;
+
+  display: flex;
+  align-items: stretch;
+  height: var(--color-panel-control-height);
   margin: 0;
   padding: 0;
+`;
+
+const StyledColorInput = styled(ColorInput)`
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  height: 100%;
+  min-width: 0;
 `;
 
 export interface ColorPanelProps {
@@ -58,11 +84,12 @@ export const ColorPanel: FC<ColorPanelProps> = ({
 
   const handleClick = useCallback(() => {
     setFormat(
-      ColorTextFormats[
-        (ColorTextFormats.indexOf(format) + 1) % ColorTextFormats.length
-      ]
+      (current) =>
+        ColorTextFormats[
+          (ColorTextFormats.indexOf(current) + 1) % ColorTextFormats.length
+        ],
     );
-  }, [format]);
+  }, []);
 
   const handleColorUpdate = useCallback(
     (color: TinyColorInstance) => {
@@ -72,27 +99,31 @@ export const ColorPanel: FC<ColorPanelProps> = ({
       setCurrentColor(color);
       onColorUpdate && onColorUpdate(color);
     },
-    [onColorUpdate]
+    [currentColor, onColorUpdate],
   );
 
   const Wrapper = useMemo(() => (raised ? RaisedPanel : Panel), [raised]);
 
   return (
     <Wrapper className={"color-panel " + (className || "")}>
-      <BasicColorPanel color={color} onColorUpdate={handleColorUpdate} />
+      <BasicColorPanel color={currentColor} onColorUpdate={handleColorUpdate} />
       <Hr />
-      <P>
-        <StyledInlineBox
-          style={{ backgroundColor: color.toHexString() }}
+      <Footer className="color-panel-footer" data-slot="footer">
+        <Swatch
+          aria-label="Change color text format"
+          className="color-panel-swatch"
+          data-slot="swatch"
+          style={{ backgroundColor: currentColor?.toHexString() }}
+          type="button"
           onClick={handleClick}
         />
-        <ColorInput
-          color={color}
+        <StyledColorInput
+          color={currentColor}
           format={format}
           onColorUpdate={handleColorUpdate}
         />
         {children}
-      </P>
+      </Footer>
     </Wrapper>
   );
 };

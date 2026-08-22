@@ -1,10 +1,4 @@
-import React, {
-  FC,
-  useState,
-  useEffect,
-  useCallback,
-  ChangeEvent,
-} from "react";
+import { FC, useState, useEffect, useCallback, ChangeEvent } from "react";
 import tinycolor from "tinycolor2";
 
 import { TinyColorInstance } from "./TinyColorInstance";
@@ -49,7 +43,7 @@ export const ColorInput: FC<ColorInputProps> = ({
       }
       setText(value);
     },
-    [onColorUpdate]
+    [onColorUpdate],
   );
 
   return (

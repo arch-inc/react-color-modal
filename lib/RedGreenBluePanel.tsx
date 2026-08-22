@@ -1,8 +1,7 @@
-import React, { FC, useCallback } from "react";
+import { FC, useCallback } from "react";
 import styled from "styled-components";
 import { ColorFormats } from "tinycolor2";
 
-import { throttle } from "./utils";
 import { InputWithSlider } from "./InputWithSlider";
 
 const StyledSpan = styled.span`
@@ -15,9 +14,6 @@ const StyledInputWithSlider = styled(InputWithSlider)`
     margin-bottom: 0.5em;
   }
 `;
-
-/** trigger events at 60 fps at maximum */
-const wait = 1000 / 60;
 
 export interface RedGreenBluePanelProps {
   /** optional CSS class name */
@@ -37,22 +33,22 @@ export const RedGreenBluePanel: FC<RedGreenBluePanelProps> = ({
   onColorUpdate,
 }) => {
   const handleRedChange = useCallback(
-    throttle((r: number) => {
+    (r: number) => {
       onColorUpdate({ ...rgb, r });
-    }, wait),
-    [rgb, onColorUpdate]
+    },
+    [rgb, onColorUpdate],
   );
   const handleGreenChange = useCallback(
-    throttle((g: number) => {
+    (g: number) => {
       onColorUpdate({ ...rgb, g });
-    }, wait),
-    [rgb, onColorUpdate]
+    },
+    [rgb, onColorUpdate],
   );
   const handleBlueChange = useCallback(
-    throttle((b: number) => {
+    (b: number) => {
       onColorUpdate({ ...rgb, b });
-    }, wait),
-    [rgb, onColorUpdate]
+    },
+    [rgb, onColorUpdate],
   );
   const { r, g, b } = rgb;
 

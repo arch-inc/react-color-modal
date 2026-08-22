@@ -14,5 +14,5 @@ types/
 .babelrc
 .editorconfig
 .gitignore
-rollup.config.js
+rollup.config.mjs
 tsconfig.json

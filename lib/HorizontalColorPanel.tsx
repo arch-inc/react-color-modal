@@ -91,7 +91,7 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
     setFormat(
       ColorTextFormats[
         (ColorTextFormats.indexOf(format) + 1) % ColorTextFormats.length
-      ]
+      ],
     );
   }, [format]);
 
@@ -103,7 +103,7 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
       setCurrentColor(color);
       onColorUpdate && onColorUpdate(color);
     },
-    [onColorUpdate]
+    [currentColor, onColorUpdate],
   );
 
   const handleRawColorUpdate = useCallback(
@@ -119,7 +119,7 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
       setCurrentColor(col);
       onColorUpdate && onColorUpdate(col);
     },
-    [onColorUpdate]
+    [currentColor, onColorUpdate],
   );
 
   const hsv = useMemo(
@@ -131,7 +131,7 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
               s: 0,
               v: 0,
             },
-      [currentColor, hue]
+      [currentColor, hue],
     ),
     rgb = useMemo(
       () =>
@@ -142,12 +142,13 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
               g: 0,
               b: 0,
             },
-      [currentColor]
+      [currentColor],
     );
 
-  const Wrapper = useMemo(() => (raised ? StyledRaisedPanel : StyledPanel), [
-    raised,
-  ]);
+  const Wrapper = useMemo(
+    () => (raised ? StyledRaisedPanel : StyledPanel),
+    [raised],
+  );
 
   return (
     <Wrapper className={"horizontal-color-panel " + (className || "")}>

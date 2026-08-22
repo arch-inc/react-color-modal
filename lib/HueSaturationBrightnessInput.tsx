@@ -1,7 +1,6 @@
-import React, { FC, useCallback, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { ColorFormats } from "tinycolor2";
 
-import { throttle } from "./utils";
 import { InputGroups } from "./InputGroups";
 import { NumberInput } from "./NumberInput";
 import styled from "styled-components";
@@ -9,9 +8,6 @@ import styled from "styled-components";
 const StyledNumberInput = styled(NumberInput)`
   width: 3.5em;
 `;
-
-/** trigger events at 60 fps at maximum */
-const wait = 1000 / 60;
 
 export interface HueSaturationBrightnessInputProps {
   /** optional CSS class name */
@@ -26,7 +22,9 @@ export interface HueSaturationBrightnessInputProps {
   onBrightnessUpdate(brightness: number): void;
 }
 
-export const HueSaturationBrightnessInput: FC<HueSaturationBrightnessInputProps> = ({
+export const HueSaturationBrightnessInput: FC<
+  HueSaturationBrightnessInputProps
+> = ({
   className,
   hsv,
   onHueUpdate,
@@ -34,22 +32,22 @@ export const HueSaturationBrightnessInput: FC<HueSaturationBrightnessInputProps>
   onBrightnessUpdate,
 }) => {
   const handleHueChange = useCallback(
-    throttle((h: number) => {
+    (h: number) => {
       onHueUpdate(h);
-    }, wait),
-    [onHueUpdate]
+    },
+    [onHueUpdate],
   );
   const handleSaturationChange = useCallback(
-    throttle((s: number) => {
+    (s: number) => {
       onSaturationUpdate(s * 0.01);
-    }, wait),
-    [onSaturationUpdate]
+    },
+    [onSaturationUpdate],
   );
   const handleBrightnessChange = useCallback(
-    throttle((b: number) => {
+    (b: number) => {
       onBrightnessUpdate(b * 0.01);
-    }, wait),
-    [onBrightnessUpdate]
+    },
+    [onBrightnessUpdate],
   );
   const h = useMemo(() => Math.round(hsv.h), [hsv]);
   const s = useMemo(() => Math.round(hsv.s * 100), [hsv]);
