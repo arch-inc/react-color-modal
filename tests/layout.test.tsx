@@ -1,4 +1,4 @@
-import { fireEvent, render } from "@testing-library/react";
+import { act, fireEvent, render } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { ServerStyleSheet } from "styled-components";
 import tinycolor from "tinycolor2";
@@ -63,6 +63,7 @@ describe("SaturationBrightnessPanel", () => {
   });
 
   test("coalesces pointer moves to one update per animation frame", () => {
+    vi.spyOn(performance, "now").mockReturnValue(0);
     const callbacks: FrameRequestCallback[] = [];
     vi.stubGlobal("requestAnimationFrame", (callback: FrameRequestCallback) => {
       callbacks.push(callback);
@@ -70,7 +71,7 @@ describe("SaturationBrightnessPanel", () => {
     });
     vi.stubGlobal("cancelAnimationFrame", vi.fn());
     const onColorUpdate = vi.fn();
-    const { container, unmount } = render(
+    const { container, rerender, unmount } = render(
       <SaturationBrightnessPanel
         hsv={{ h: 0, s: 0.5, v: 0.5 }}
         onColorUpdate={onColorUpdate}
@@ -94,8 +95,25 @@ describe("SaturationBrightnessPanel", () => {
 
     expect(onColorUpdate).toHaveBeenCalledTimes(1);
     expect(callbacks).toHaveLength(1);
-    callbacks[0](0);
-    expect(onColorUpdate).toHaveBeenLastCalledWith(0.8, 0.8);
+    act(() => callbacks[0](16));
+    const cursor = container.querySelector(".cursor") as HTMLDivElement;
+    expect(cursor.style.left).toBe("80%");
+    expect(parseFloat(cursor.style.top)).toBeCloseTo(20);
+    expect(onColorUpdate).toHaveBeenCalledTimes(1);
+
+    rerender(
+      <SaturationBrightnessPanel
+        hsv={{ h: 0, s: 0.1, v: 0.1 }}
+        onColorUpdate={onColorUpdate}
+      />,
+    );
+    expect(cursor.style.left).toBe("80%");
+    expect(parseFloat(cursor.style.top)).toBeCloseTo(20);
+
+    fireEvent.pointerMove(panel, { pointerId: 1, clientX: 60, clientY: 40 });
+    act(() => callbacks[1](41));
+    expect(onColorUpdate).toHaveBeenLastCalledWith(0.6, 0.6);
+    expect(onColorUpdate).toHaveBeenCalledTimes(2);
     expect(getBounds).toHaveBeenCalledTimes(1);
     unmount();
     vi.unstubAllGlobals();

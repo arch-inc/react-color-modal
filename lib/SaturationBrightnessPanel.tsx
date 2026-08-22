@@ -1,4 +1,4 @@
-import { FC, useMemo, useRef } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import tinycolor, { ColorFormats } from "tinycolor2";
 
@@ -49,7 +49,40 @@ export const SaturationBrightnessPanel: FC<SaturationBrightnessPanelProps> = ({
   onColorUpdate,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const props = useSaturationBrightnessEventHandler(ref, onColorUpdate);
+  const dragging = useRef(false);
+  const hsvRef = useRef(hsv);
+  hsvRef.current = hsv;
+  const [preview, setPreview] = useState(() => ({ s: hsv.s, v: hsv.v }));
+
+  useEffect(() => {
+    if (dragging.current) return;
+    setPreview((current) =>
+      current.s === hsv.s && current.v === hsv.v
+        ? current
+        : { s: hsv.s, v: hsv.v },
+    );
+  }, [hsv.s, hsv.v]);
+
+  const handlePreview = useCallback((s: number, v: number) => {
+    setPreview((current) =>
+      current.s === s && current.v === v ? current : { s, v },
+    );
+  }, []);
+  const handleInteractionStart = useCallback(() => {
+    dragging.current = true;
+  }, []);
+  const handleInteractionEnd = useCallback((cancelled: boolean) => {
+    dragging.current = false;
+    if (cancelled) {
+      const current = hsvRef.current;
+      setPreview({ s: current.s, v: current.v });
+    }
+  }, []);
+  const props = useSaturationBrightnessEventHandler(ref, onColorUpdate, {
+    onPreview: handlePreview,
+    onInteractionStart: handleInteractionStart,
+    onInteractionEnd: handleInteractionEnd,
+  });
 
   const hueColor = useMemo(
     () =>
@@ -70,7 +103,7 @@ export const SaturationBrightnessPanel: FC<SaturationBrightnessPanelProps> = ({
       ref={ref}
       {...props}
     >
-      <Cursor x={hsv.s} y={1 - hsv.v} />
+      <Cursor x={preview.s} y={1 - preview.v} />
       <div className="saturation"></div>
       <div className="brightness"></div>
     </StyledDiv>

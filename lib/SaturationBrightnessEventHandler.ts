@@ -13,6 +13,14 @@ interface EventHandlers<E extends HTMLElement> {
   onPointerUp: PointerEventHandler<E>;
 }
 
+const EXTERNAL_UPDATE_INTERVAL_MS = 40;
+
+export interface SaturationBrightnessInteractionOptions {
+  onPreview?(saturation: number, brightness: number): void;
+  onInteractionStart?(): void;
+  onInteractionEnd?(cancelled: boolean): void;
+}
+
 export interface CursorPosition {
   x: number;
   y: number;
@@ -32,13 +40,17 @@ export function calculateSaturationBrightness(
 export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
   ref: MutableRefObject<E>,
   onUpdate: (saturation: number, brightness: number) => void,
+  options: SaturationBrightnessInteractionOptions = {},
 ): EventHandlers<E> {
   const activePointer = useRef<number | null>(null);
   const dragRect = useRef<DOMRect | null>(null);
   const pendingPosition = useRef<CursorPosition | null>(null);
   const animationFrame = useRef<number | null>(null);
+  const lastExternalUpdate = useRef(0);
   const onUpdateRef = useRef(onUpdate);
+  const optionsRef = useRef(options);
   onUpdateRef.current = onUpdate;
+  optionsRef.current = options;
 
   const cancelScheduledUpdate = useCallback(() => {
     if (animationFrame.current !== null) {
@@ -51,7 +63,7 @@ export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
   useEffect(() => cancelScheduledUpdate, [cancelScheduledUpdate]);
 
   const handleCursorPositionUpdate = useCallback(
-    ({ x, y }: CursorPosition) => {
+    ({ x, y }: CursorPosition, propagate: boolean) => {
       const el = ref.current;
       if (!el) {
         return;
@@ -60,7 +72,8 @@ export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
         { x, y },
         dragRect.current ?? el.getBoundingClientRect(),
       );
-      onUpdateRef.current(next.x, next.y);
+      optionsRef.current.onPreview?.(next.x, next.y);
+      if (propagate) onUpdateRef.current(next.x, next.y);
     },
     [ref],
   );
@@ -69,11 +82,16 @@ export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
     (position: CursorPosition) => {
       pendingPosition.current = position;
       if (animationFrame.current !== null) return;
-      animationFrame.current = requestAnimationFrame(() => {
+      animationFrame.current = requestAnimationFrame((timestamp) => {
         animationFrame.current = null;
         const pending = pendingPosition.current;
         pendingPosition.current = null;
-        if (pending) handleCursorPositionUpdate(pending);
+        if (!pending) return;
+        const propagate =
+          timestamp - lastExternalUpdate.current >=
+          EXTERNAL_UPDATE_INTERVAL_MS;
+        if (propagate) lastExternalUpdate.current = timestamp;
+        handleCursorPositionUpdate(pending, propagate);
       });
     },
     [handleCursorPositionUpdate],
@@ -85,8 +103,13 @@ export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
       event.preventDefault();
       activePointer.current = event.pointerId;
       dragRect.current = event.currentTarget.getBoundingClientRect();
+      lastExternalUpdate.current = performance.now();
+      optionsRef.current.onInteractionStart?.();
       event.currentTarget.setPointerCapture?.(event.pointerId);
-      handleCursorPositionUpdate({ x: event.clientX, y: event.clientY });
+      handleCursorPositionUpdate(
+        { x: event.clientX, y: event.clientY },
+        true,
+      );
     },
     [handleCursorPositionUpdate],
   );
@@ -106,9 +129,13 @@ export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
     (event) => {
       if (activePointer.current !== event.pointerId) return;
       cancelScheduledUpdate();
-      handleCursorPositionUpdate({ x: event.clientX, y: event.clientY });
+      handleCursorPositionUpdate(
+        { x: event.clientX, y: event.clientY },
+        true,
+      );
       activePointer.current = null;
       dragRect.current = null;
+      optionsRef.current.onInteractionEnd?.(false);
       if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
         event.currentTarget.releasePointerCapture(event.pointerId);
       }
@@ -122,6 +149,7 @@ export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
       cancelScheduledUpdate();
       activePointer.current = null;
       dragRect.current = null;
+      optionsRef.current.onInteractionEnd?.(true);
     },
     [cancelScheduledUpdate],
   );

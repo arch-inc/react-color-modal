@@ -1,4 +1,4 @@
-import { fireEvent, render } from "@testing-library/react";
+import { act, fireEvent, render } from "@testing-library/react";
 import { expect, test, vi } from "vitest";
 
 import { HueSlider } from "../lib/HueSlider";
@@ -19,6 +19,7 @@ test("HueSlider responds immediately to accessible keyboard input", () => {
 });
 
 test("HueSlider coalesces pointer moves to one update per animation frame", () => {
+  vi.spyOn(performance, "now").mockReturnValue(0);
   const callbacks: FrameRequestCallback[] = [];
   vi.stubGlobal("requestAnimationFrame", (callback: FrameRequestCallback) => {
     callbacks.push(callback);
@@ -46,8 +47,14 @@ test("HueSlider coalesces pointer moves to one update per animation frame", () =
 
   expect(onHueChange).toHaveBeenCalledTimes(1);
   expect(callbacks).toHaveLength(1);
-  callbacks[0](0);
-  expect(onHueChange).toHaveBeenLastCalledWith(239);
+  act(() => callbacks[0](16));
+  expect(slider.getAttribute("aria-valuenow")).toBe("239");
+  expect(onHueChange).toHaveBeenCalledTimes(1);
+
+  fireEvent.pointerMove(slider, { pointerId: 1, clientX: 180 });
+  act(() => callbacks[1](41));
+  expect(onHueChange).toHaveBeenLastCalledWith(180);
+  expect(onHueChange).toHaveBeenCalledTimes(2);
   expect(getBounds).toHaveBeenCalledTimes(1);
   unmount();
   vi.unstubAllGlobals();

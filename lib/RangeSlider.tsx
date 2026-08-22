@@ -6,6 +6,7 @@ import {
   useCallback,
   useEffect,
   useRef,
+  useState,
 } from "react";
 
 import { SliderStyles } from "./SliderStyles";
@@ -64,6 +65,8 @@ function normalize(value: number, min: number, max: number): number {
   return ((clamp(value, min, max) - min) / (max - min)) * 100;
 }
 
+const EXTERNAL_UPDATE_INTERVAL_MS = 40;
+
 export const RangeSlider: FC<RangeSliderProps> = ({
   disabled = false,
   value,
@@ -80,8 +83,14 @@ export const RangeSlider: FC<RangeSliderProps> = ({
   const dragRect = useRef<DOMRect | null>(null);
   const pendingClientX = useRef<number | null>(null);
   const animationFrame = useRef<number | null>(null);
+  const lastExternalUpdate = useRef(0);
   const onChangeRef = useRef(onChange);
+  const [previewValue, setPreviewValue] = useState(value);
   onChangeRef.current = onChange;
+
+  useEffect(() => {
+    if (activePointer.current === null) setPreviewValue(value);
+  }, [value]);
 
   const cancelScheduledUpdate = useCallback(() => {
     if (animationFrame.current !== null) {
@@ -96,27 +105,41 @@ export const RangeSlider: FC<RangeSliderProps> = ({
   const updateFromClientX = useCallback(
     (element: HTMLDivElement, clientX: number) => {
       const rect = dragRect.current ?? element.getBoundingClientRect();
-      if (rect.width <= 0) return;
+      if (rect.width <= 0) return null;
       const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
       const raw = min + ratio * (max - min);
-      const next = clamp(min + Math.round((raw - min) / step) * step, min, max);
-      onChangeRef.current?.(next);
+      return clamp(min + Math.round((raw - min) / step) * step, min, max);
     },
     [max, min, step],
+  );
+
+  const applyFromClientX = useCallback(
+    (element: HTMLDivElement, clientX: number, propagate: boolean) => {
+      const next = updateFromClientX(element, clientX);
+      if (next === null) return;
+      setPreviewValue(next);
+      if (propagate) onChangeRef.current?.(next);
+    },
+    [updateFromClientX],
   );
 
   const scheduleFromClientX = useCallback(
     (element: HTMLDivElement, clientX: number) => {
       pendingClientX.current = clientX;
       if (animationFrame.current !== null) return;
-      animationFrame.current = requestAnimationFrame(() => {
+      animationFrame.current = requestAnimationFrame((timestamp) => {
         animationFrame.current = null;
         const pending = pendingClientX.current;
         pendingClientX.current = null;
-        if (pending !== null) updateFromClientX(element, pending);
+        if (pending === null) return;
+        const propagate =
+          timestamp - lastExternalUpdate.current >=
+          EXTERNAL_UPDATE_INTERVAL_MS;
+        if (propagate) lastExternalUpdate.current = timestamp;
+        applyFromClientX(element, pending, propagate);
       });
     },
-    [updateFromClientX],
+    [applyFromClientX],
   );
 
   const handlePointerDown = useCallback(
@@ -127,11 +150,12 @@ export const RangeSlider: FC<RangeSliderProps> = ({
       event.preventDefault();
       activePointer.current = event.pointerId;
       dragRect.current = event.currentTarget.getBoundingClientRect();
+      lastExternalUpdate.current = performance.now();
       event.currentTarget.setPointerCapture?.(event.pointerId);
       onDragStart?.();
-      updateFromClientX(event.currentTarget, event.clientX);
+      applyFromClientX(event.currentTarget, event.clientX, true);
     },
-    [disabled, onDragStart, updateFromClientX],
+    [applyFromClientX, disabled, onDragStart],
   );
 
   const handlePointerMove = useCallback(
@@ -149,7 +173,7 @@ export const RangeSlider: FC<RangeSliderProps> = ({
     (event: PointerEvent<HTMLDivElement>) => {
       if (activePointer.current !== event.pointerId) return;
       cancelScheduledUpdate();
-      updateFromClientX(event.currentTarget, event.clientX);
+      applyFromClientX(event.currentTarget, event.clientX, true);
       activePointer.current = null;
       dragRect.current = null;
       if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
@@ -157,7 +181,7 @@ export const RangeSlider: FC<RangeSliderProps> = ({
       }
       onDragEnd?.();
     },
-    [cancelScheduledUpdate, onDragEnd, updateFromClientX],
+    [applyFromClientX, cancelScheduledUpdate, onDragEnd],
   );
 
   const cancelPointer = useCallback(
@@ -166,9 +190,10 @@ export const RangeSlider: FC<RangeSliderProps> = ({
       cancelScheduledUpdate();
       activePointer.current = null;
       dragRect.current = null;
+      setPreviewValue(value);
       onDragEnd?.();
     },
-    [cancelScheduledUpdate, onDragEnd],
+    [cancelScheduledUpdate, onDragEnd, value],
   );
 
   const handleKeyDown = useCallback(
@@ -193,19 +218,21 @@ export const RangeSlider: FC<RangeSliderProps> = ({
       }
       if (next === undefined) return;
       event.preventDefault();
-      onChange?.(clamp(next, min, max));
+      const clamped = clamp(next, min, max);
+      setPreviewValue(clamped);
+      onChangeRef.current?.(clamped);
     },
-    [disabled, max, min, onChange, step, value],
+    [disabled, max, min, step, value],
   );
 
-  const position = normalize(value, min, max);
+  const position = normalize(previewValue, min, max);
   return (
     <div
       aria-disabled={disabled}
       aria-label={ariaLabel}
       aria-valuemax={max}
       aria-valuemin={min}
-      aria-valuenow={clamp(value, min, max)}
+      aria-valuenow={clamp(previewValue, min, max)}
       role="slider"
       tabIndex={disabled ? -1 : 0}
       style={{
