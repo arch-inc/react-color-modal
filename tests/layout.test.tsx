@@ -5,6 +5,7 @@ import tinycolor from "tinycolor2";
 import { describe, expect, test, vi } from "vitest";
 
 import { ColorPanel } from "../lib/ColorPanel";
+import { InlineBox } from "../lib/InlineBox";
 import { SaturationBrightnessPanel } from "../lib/SaturationBrightnessPanel";
 import { calculateSaturationBrightness } from "../lib/SaturationBrightnessEventHandler";
 
@@ -130,4 +131,23 @@ test("ColorPanel exposes a semantic, stable footer and swatch", () => {
   expect(
     getByRole("button", { name: "Change color text format" }),
   ).toBeTruthy();
+});
+
+test("structural spacing uses root-relative units without nesting font size", () => {
+  const sheet = new ServerStyleSheet();
+  renderToString(
+    sheet.collectStyles(
+      <>
+        <ColorPanel color={tinycolor("#336699")} />
+        <InlineBox />
+      </>,
+    ),
+  );
+  const css = sheet.getStyleTags();
+  sheet.seal();
+
+  expect(css).toContain("padding:1rem");
+  expect(css).toContain("margin-bottom:1rem");
+  expect(css).toContain("margin-bottom:0.75rem");
+  expect(css).toContain("var(--color-panel-control-height, 2.208em)");
 });

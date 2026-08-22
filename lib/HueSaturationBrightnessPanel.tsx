@@ -10,10 +10,10 @@ const StyledDiv = styled.div`
   width: 100%;
 `;
 const StyledSaturationBrightnessPanel = styled(SaturationBrightnessPanel)`
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 `;
 const StyledHueSlider = styled(HueSlider)`
-  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
 `;
 
 export interface HueSaturationBrightnessPanelProps {

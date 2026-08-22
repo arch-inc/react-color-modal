@@ -15,7 +15,7 @@ const StyledDiv = styled.div`
   }
   & > div {
     flex-grow: 1;
-    margin: 0 16px;
+    margin: 0 1rem;
   }
   & > input {
     width: 3.5em;

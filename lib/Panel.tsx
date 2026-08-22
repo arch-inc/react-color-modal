@@ -5,7 +5,7 @@ export const RaisedPanelShadow = "0 1px 7px 2px rgba(34, 36, 38, 0.15)";
 
 export const BasePanel = styled.div`
   background: #fff;
-  padding: 16px;
+  padding: 1rem;
   border-radius: 7px;
   z-index: 101;
 `;

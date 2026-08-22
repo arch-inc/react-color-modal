@@ -47,3 +47,19 @@ Unit tests verify immediate pointer-down feedback, animation-frame local
 feedback, controlled-prop isolation during a drag, 25 Hz external delivery,
 exact pointer-up delivery, latest-sample delivery, and one bounds measurement
 per gesture for both the saturation/brightness panel and hue slider.
+
+## CSS unit policy
+
+Structural spacing uses `rem`, so browser root-font accessibility settings are
+respected without compounding a consumer's local panel `font-size`. Text and
+form-control proportions use `em` intentionally, while one-pixel borders and
+pointer geometry remain `px` for stable visual and hit-area dimensions.
+Percentage values are reserved for fluid panel geometry and color positions.
+
+The footer control height is a single `--color-panel-control-height` token.
+`InlineBox` uses the same token when inherited and retains `2.208em` as its
+standalone fallback. Fixed 256px geometry in `HorizontalColorPanel` remains
+intentional because it defines that variant's visualization size rather than
+typographic spacing. These choices preserve Griffith's compact local
+`font-size`: structural gaps stay stable, while labeled controls still scale
+with the panel typography.
