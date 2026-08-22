@@ -79,7 +79,9 @@ export const ColorPanel: FC<ColorPanelProps> = ({
     if (!color) {
       return;
     }
-    setCurrentColor(color);
+    setCurrentColor((current) =>
+      tinycolor.equals(color, current) ? current : color,
+    );
   }, [color]);
 
   const handleClick = useCallback(() => {

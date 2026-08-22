@@ -4,6 +4,7 @@ import {
   KeyboardEvent,
   PointerEvent,
   useCallback,
+  useEffect,
   useRef,
 } from "react";
 
@@ -76,17 +77,46 @@ export const RangeSlider: FC<RangeSliderProps> = ({
   onDragEnd,
 }) => {
   const activePointer = useRef<number | null>(null);
+  const dragRect = useRef<DOMRect | null>(null);
+  const pendingClientX = useRef<number | null>(null);
+  const animationFrame = useRef<number | null>(null);
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
+
+  const cancelScheduledUpdate = useCallback(() => {
+    if (animationFrame.current !== null) {
+      cancelAnimationFrame(animationFrame.current);
+      animationFrame.current = null;
+    }
+    pendingClientX.current = null;
+  }, []);
+
+  useEffect(() => cancelScheduledUpdate, [cancelScheduledUpdate]);
 
   const updateFromClientX = useCallback(
     (element: HTMLDivElement, clientX: number) => {
-      const rect = element.getBoundingClientRect();
+      const rect = dragRect.current ?? element.getBoundingClientRect();
       if (rect.width <= 0) return;
       const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
       const raw = min + ratio * (max - min);
       const next = clamp(min + Math.round((raw - min) / step) * step, min, max);
-      onChange?.(next);
+      onChangeRef.current?.(next);
     },
-    [max, min, onChange, step],
+    [max, min, step],
+  );
+
+  const scheduleFromClientX = useCallback(
+    (element: HTMLDivElement, clientX: number) => {
+      pendingClientX.current = clientX;
+      if (animationFrame.current !== null) return;
+      animationFrame.current = requestAnimationFrame(() => {
+        animationFrame.current = null;
+        const pending = pendingClientX.current;
+        pendingClientX.current = null;
+        if (pending !== null) updateFromClientX(element, pending);
+      });
+    },
+    [updateFromClientX],
   );
 
   const handlePointerDown = useCallback(
@@ -96,6 +126,7 @@ export const RangeSlider: FC<RangeSliderProps> = ({
       }
       event.preventDefault();
       activePointer.current = event.pointerId;
+      dragRect.current = event.currentTarget.getBoundingClientRect();
       event.currentTarget.setPointerCapture?.(event.pointerId);
       onDragStart?.();
       updateFromClientX(event.currentTarget, event.clientX);
@@ -107,31 +138,37 @@ export const RangeSlider: FC<RangeSliderProps> = ({
     (event: PointerEvent<HTMLDivElement>) => {
       if (activePointer.current !== event.pointerId) return;
       event.preventDefault();
-      updateFromClientX(event.currentTarget, event.clientX);
+      const samples = event.nativeEvent.getCoalescedEvents?.();
+      const latest = samples?.[samples.length - 1] ?? event.nativeEvent;
+      scheduleFromClientX(event.currentTarget, latest.clientX);
     },
-    [updateFromClientX],
+    [scheduleFromClientX],
   );
 
   const finishPointer = useCallback(
     (event: PointerEvent<HTMLDivElement>) => {
       if (activePointer.current !== event.pointerId) return;
+      cancelScheduledUpdate();
       updateFromClientX(event.currentTarget, event.clientX);
       activePointer.current = null;
+      dragRect.current = null;
       if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
         event.currentTarget.releasePointerCapture(event.pointerId);
       }
       onDragEnd?.();
     },
-    [onDragEnd, updateFromClientX],
+    [cancelScheduledUpdate, onDragEnd, updateFromClientX],
   );
 
   const cancelPointer = useCallback(
     (event: PointerEvent<HTMLDivElement>) => {
       if (activePointer.current !== event.pointerId) return;
+      cancelScheduledUpdate();
       activePointer.current = null;
+      dragRect.current = null;
       onDragEnd?.();
     },
-    [onDragEnd],
+    [cancelScheduledUpdate, onDragEnd],
   );
 
   const handleKeyDown = useCallback(

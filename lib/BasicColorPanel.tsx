@@ -27,7 +27,9 @@ export const BasicColorPanel: FC<BasicColorPanelProps> = ({
     if (!color) {
       return;
     }
-    setCurrentColor(color);
+    setCurrentColor((current) =>
+      tinycolor.equals(color, current) ? current : color,
+    );
   }, [color]);
 
   useEffect(() => {

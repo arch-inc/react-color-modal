@@ -2,6 +2,7 @@ import {
   MutableRefObject,
   PointerEventHandler,
   useCallback,
+  useEffect,
   useRef,
 } from "react";
 
@@ -33,6 +34,22 @@ export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
   onUpdate: (saturation: number, brightness: number) => void,
 ): EventHandlers<E> {
   const activePointer = useRef<number | null>(null);
+  const dragRect = useRef<DOMRect | null>(null);
+  const pendingPosition = useRef<CursorPosition | null>(null);
+  const animationFrame = useRef<number | null>(null);
+  const onUpdateRef = useRef(onUpdate);
+  onUpdateRef.current = onUpdate;
+
+  const cancelScheduledUpdate = useCallback(() => {
+    if (animationFrame.current !== null) {
+      cancelAnimationFrame(animationFrame.current);
+      animationFrame.current = null;
+    }
+    pendingPosition.current = null;
+  }, []);
+
+  useEffect(() => cancelScheduledUpdate, [cancelScheduledUpdate]);
+
   const handleCursorPositionUpdate = useCallback(
     ({ x, y }: CursorPosition) => {
       const el = ref.current;
@@ -41,11 +58,25 @@ export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
       }
       const next = calculateSaturationBrightness(
         { x, y },
-        el.getBoundingClientRect(),
+        dragRect.current ?? el.getBoundingClientRect(),
       );
-      onUpdate(next.x, next.y);
+      onUpdateRef.current(next.x, next.y);
     },
-    [onUpdate, ref],
+    [ref],
+  );
+
+  const scheduleCursorPositionUpdate = useCallback(
+    (position: CursorPosition) => {
+      pendingPosition.current = position;
+      if (animationFrame.current !== null) return;
+      animationFrame.current = requestAnimationFrame(() => {
+        animationFrame.current = null;
+        const pending = pendingPosition.current;
+        pendingPosition.current = null;
+        if (pending) handleCursorPositionUpdate(pending);
+      });
+    },
+    [handleCursorPositionUpdate],
   );
 
   const handlePointerDown: PointerEventHandler<E> = useCallback(
@@ -53,6 +84,7 @@ export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
       if (event.pointerType === "mouse" && event.button !== 0) return;
       event.preventDefault();
       activePointer.current = event.pointerId;
+      dragRect.current = event.currentTarget.getBoundingClientRect();
       event.currentTarget.setPointerCapture?.(event.pointerId);
       handleCursorPositionUpdate({ x: event.clientX, y: event.clientY });
     },
@@ -63,27 +95,36 @@ export function useSaturationBrightnessEventHandler<E extends HTMLElement>(
     (event) => {
       if (activePointer.current !== event.pointerId) return;
       event.preventDefault();
-      handleCursorPositionUpdate({ x: event.clientX, y: event.clientY });
+      const samples = event.nativeEvent.getCoalescedEvents?.();
+      const latest = samples?.[samples.length - 1] ?? event.nativeEvent;
+      scheduleCursorPositionUpdate({ x: latest.clientX, y: latest.clientY });
     },
-    [handleCursorPositionUpdate],
+    [scheduleCursorPositionUpdate],
   );
 
   const handlePointerEnd: PointerEventHandler<E> = useCallback(
     (event) => {
       if (activePointer.current !== event.pointerId) return;
+      cancelScheduledUpdate();
       handleCursorPositionUpdate({ x: event.clientX, y: event.clientY });
       activePointer.current = null;
+      dragRect.current = null;
       if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
         event.currentTarget.releasePointerCapture(event.pointerId);
       }
     },
-    [handleCursorPositionUpdate],
+    [cancelScheduledUpdate, handleCursorPositionUpdate],
   );
 
-  const handlePointerCancel: PointerEventHandler<E> = useCallback((event) => {
-    if (activePointer.current !== event.pointerId) return;
-    activePointer.current = null;
-  }, []);
+  const handlePointerCancel: PointerEventHandler<E> = useCallback(
+    (event) => {
+      if (activePointer.current !== event.pointerId) return;
+      cancelScheduledUpdate();
+      activePointer.current = null;
+      dragRect.current = null;
+    },
+    [cancelScheduledUpdate],
+  );
 
   return {
     onPointerCancel: handlePointerCancel,

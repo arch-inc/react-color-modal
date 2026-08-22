@@ -61,6 +61,45 @@ describe("SaturationBrightnessPanel", () => {
 
     expect(onColorUpdate).toHaveBeenCalledWith(0.5, 0.75);
   });
+
+  test("coalesces pointer moves to one update per animation frame", () => {
+    const callbacks: FrameRequestCallback[] = [];
+    vi.stubGlobal("requestAnimationFrame", (callback: FrameRequestCallback) => {
+      callbacks.push(callback);
+      return callbacks.length;
+    });
+    vi.stubGlobal("cancelAnimationFrame", vi.fn());
+    const onColorUpdate = vi.fn();
+    const { container, unmount } = render(
+      <SaturationBrightnessPanel
+        hsv={{ h: 0, s: 0.5, v: 0.5 }}
+        onColorUpdate={onColorUpdate}
+      />,
+    );
+    const panel = container.querySelector(".sb-panel") as HTMLDivElement;
+    const getBounds = vi.fn(
+      () => ({ left: 0, top: 0, width: 100, height: 100 }) as DOMRect,
+    );
+    panel.getBoundingClientRect = getBounds;
+
+    fireEvent.pointerDown(panel, {
+      pointerId: 1,
+      pointerType: "mouse",
+      button: 0,
+      clientX: 10,
+      clientY: 90,
+    });
+    fireEvent.pointerMove(panel, { pointerId: 1, clientX: 20, clientY: 80 });
+    fireEvent.pointerMove(panel, { pointerId: 1, clientX: 80, clientY: 20 });
+
+    expect(onColorUpdate).toHaveBeenCalledTimes(1);
+    expect(callbacks).toHaveLength(1);
+    callbacks[0](0);
+    expect(onColorUpdate).toHaveBeenLastCalledWith(0.8, 0.8);
+    expect(getBounds).toHaveBeenCalledTimes(1);
+    unmount();
+    vi.unstubAllGlobals();
+  });
 });
 
 test("ColorPanel exposes a semantic, stable footer and swatch", () => {
