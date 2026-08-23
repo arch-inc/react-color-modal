@@ -24,6 +24,7 @@ npm i react-color-modal
 ```jsx
 import { useState } from "react";
 import { ColorPanel } from "react-color-modal";
+import "react-color-modal/dist/styles.css";
 
 export const Body = () => {
   // tinycolor instance
@@ -62,7 +63,6 @@ All of the exported classes and interfaces are listed in [TypeDoc](https://arch-
 ### Dependencies / 依存パッケージ
 
 - [React](https://reactjs.org)
-- [styled-components](https://styled-components.com)
 - [tinycolor2](http://bgrins.github.io/TinyColor)
 
 ### Staying in touch / 開発者に連絡

@@ -6,51 +6,15 @@ import {
   useMemo,
   useState,
 } from "react";
-import styled from "styled-components";
 import tinycolor from "tinycolor2";
 
 import { BasicColorPanel } from "./BasicColorPanel";
+import { classNames } from "./classNames";
 import { ColorInput } from "./ColorInput";
 import { ColorTextFormat, ColorTextFormats } from "./ColorTextFormats";
 import { Hr } from "./Hr";
 import { Panel, RaisedPanel } from "./Panel";
 import { TinyColorInstance } from "./TinyColorInstance";
-
-const Swatch = styled.button`
-  margin-right: 0.5em;
-  font: inherit;
-  flex: 0 0 auto;
-  width: var(--color-panel-control-height);
-  height: 100%;
-  border: 1px solid rgba(34, 36, 38, 0.15);
-  border-radius: 2px;
-  box-sizing: border-box;
-  cursor: pointer;
-  padding: 0;
-  user-select: none;
-
-  &:focus-visible {
-    outline: 2px solid rgba(34, 36, 38, 0.55);
-    outline-offset: 2px;
-  }
-`;
-
-const Footer = styled.div`
-  --color-panel-control-height: 2.208em;
-
-  display: flex;
-  align-items: stretch;
-  height: var(--color-panel-control-height);
-  margin: 0;
-  padding: 0;
-`;
-
-const StyledColorInput = styled(ColorInput)`
-  box-sizing: border-box;
-  flex: 1 1 auto;
-  height: 100%;
-  min-width: 0;
-`;
 
 export interface ColorPanelProps {
   /** optional CSS class name */
@@ -107,25 +71,29 @@ export const ColorPanel: FC<ColorPanelProps> = ({
   const Wrapper = useMemo(() => (raised ? RaisedPanel : Panel), [raised]);
 
   return (
-    <Wrapper className={"color-panel " + (className || "")}>
+    <Wrapper className={classNames("color-panel", className)}>
       <BasicColorPanel color={currentColor} onColorUpdate={handleColorUpdate} />
       <Hr />
-      <Footer className="color-panel-footer" data-slot="footer">
-        <Swatch
+      <div
+        className="rcm-color-panel-footer color-panel-footer"
+        data-slot="footer"
+      >
+        <button
           aria-label="Change color text format"
-          className="color-panel-swatch"
+          className="rcm-color-panel-swatch color-panel-swatch"
           data-slot="swatch"
           style={{ backgroundColor: currentColor?.toHexString() }}
           type="button"
           onClick={handleClick}
         />
-        <StyledColorInput
+        <ColorInput
+          className="rcm-color-panel-input"
           color={currentColor}
           format={format}
           onColorUpdate={handleColorUpdate}
         />
         {children}
-      </Footer>
+      </div>
     </Wrapper>
   );
 };

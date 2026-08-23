@@ -1,14 +1,7 @@
 import { FC, useMemo, useState, useEffect, useCallback } from "react";
-import styled from "styled-components";
+import { classNames } from "./classNames";
 import { RangeSlider } from "./RangeSlider";
 import { SliderStyles } from "./SliderStyles";
-
-const StyledDiv = styled.div`
-  width: 100%;
-  & > div {
-    width: 100%;
-  }
-`;
 
 const hueGradation =
   "linear-gradient(to right, #ff0000 0%, #ff9900 10%, #cdff00 20%, #35ff00 30%, #00ff66 40%, #00fffd 50%, #0066ff 60%, #3200ff 70%, #cd00ff 80%, #ff0099 90%, #ff0000 100%)";
@@ -94,7 +87,7 @@ export const HueSlider: FC<HueSliderProps> = ({
   }, [styles]);
 
   return (
-    <StyledDiv className={"hue-slider " + (className || "")}>
+    <div className={classNames("rcm-hue-slider", "hue-slider", className)}>
       <RangeSlider
         ariaLabel="Hue"
         disabled={disabled}
@@ -106,6 +99,6 @@ export const HueSlider: FC<HueSliderProps> = ({
         onDragEnd={handleDragEnd}
         onChange={handleChange}
       />
-    </StyledDiv>
+    </div>
   );
 };

@@ -6,9 +6,9 @@ import {
   useMemo,
   useState,
 } from "react";
-import styled from "styled-components";
 import tinycolor, { ColorInputWithoutInstance } from "tinycolor2";
 
+import { classNames } from "./classNames";
 import { ColorInput } from "./ColorInput";
 import { ColorTextFormat, ColorTextFormats } from "./ColorTextFormats";
 import { Hr } from "./Hr";
@@ -17,38 +17,6 @@ import { InlineBox } from "./InlineBox";
 import { Panel, RaisedPanel } from "./Panel";
 import { RedGreenBluePanel } from "./RedGreenBluePanel";
 import { TinyColorInstance } from "./TinyColorInstance";
-
-const StyledInlineBox = styled(InlineBox)`
-  margin-right: 0.5em;
-`;
-
-const LeftDiv = styled.div`
-  width: 256px;
-  flex-grow: 0;
-  margin-right: 20px;
-  display: flex;
-  align-items: start;
-  & .hsb-panel > div {
-    margin-bottom: 0;
-    height: 256px;
-  }
-`;
-
-const RightDiv = styled.div`
-  min-width: 256px;
-  flex-grow: 1;
-`;
-
-const StyledPanel = styled(Panel)`
-  display: flexbox;
-  flex-wrap: nowrap;
-  min-width: 564px;
-`;
-
-const StyledRaisedPanel = styled(RaisedPanel)`
-  display: flexbox;
-  flex-wrap: nowrap;
-`;
 
 export interface HorizontalColorPanelProps {
   /** optional CSS class name */
@@ -145,22 +113,25 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
       [currentColor],
     );
 
-  const Wrapper = useMemo(
-    () => (raised ? StyledRaisedPanel : StyledPanel),
-    [raised],
-  );
+  const Wrapper = useMemo(() => (raised ? RaisedPanel : Panel), [raised]);
 
   return (
-    <Wrapper className={"horizontal-color-panel " + (className || "")}>
-      <LeftDiv className="left">
+    <Wrapper
+      className={classNames(
+        "rcm-horizontal-panel",
+        "horizontal-color-panel",
+        className,
+      )}
+    >
+      <div className="rcm-horizontal-left left">
         <HueSaturationBrightnessPanel
           hideSlider={true}
           hideInput={true}
           hsv={hsv}
           onColorUpdate={handleRawColorUpdate}
         />
-      </LeftDiv>
-      <RightDiv className="right">
+      </div>
+      <div className="rcm-horizontal-right right">
         <HueSaturationBrightnessPanel
           hidePanel={true}
           hsv={hsv}
@@ -169,19 +140,20 @@ export const HorizontalColorPanel: FC<HorizontalColorPanelProps> = ({
         <Hr />
         <RedGreenBluePanel rgb={rgb} onColorUpdate={handleRawColorUpdate} />
         <Hr />
-        <p>
-          <StyledInlineBox
-            style={{ backgroundColor: color.toHexString() }}
+        <p className="rcm-horizontal-color-row">
+          <InlineBox
+            className="rcm-horizontal-swatch"
+            style={{ backgroundColor: currentColor?.toHexString() }}
             onClick={handleClick}
           />
           <ColorInput
-            color={color}
+            color={currentColor}
             format={format}
             onColorUpdate={handleColorUpdate}
           />
           {children}
         </p>
-      </RightDiv>
+      </div>
     </Wrapper>
   );
 };

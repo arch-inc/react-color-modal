@@ -3,11 +3,7 @@ import { ColorFormats } from "tinycolor2";
 
 import { InputGroups } from "./InputGroups";
 import { NumberInput } from "./NumberInput";
-import styled from "styled-components";
-
-const StyledNumberInput = styled(NumberInput)`
-  width: 3.5em;
-`;
+import { classNames } from "./classNames";
 
 export interface HueSaturationBrightnessInputProps {
   /** optional CSS class name */
@@ -54,29 +50,29 @@ export const HueSaturationBrightnessInput: FC<
   const b = useMemo(() => Math.round(hsv.v * 100), [hsv]);
 
   return (
-    <InputGroups className={"hsb-input " + (className || "")}>
-      <div className="input group">
+    <InputGroups className={classNames("hsb-input", className)}>
+      <div className="rcm-input-group input group">
         <label>
           H <span className="range">[0-360]</span>
         </label>
-        <StyledNumberInput
+        <NumberInput
           min={0}
           max={360}
           value={h}
           onValueChange={handleHueChange}
         />
       </div>
-      <div className="input group">
+      <div className="rcm-input-group input group">
         <label>
           S <span className="range">[0-100]</span>
         </label>
-        <StyledNumberInput value={s} onValueChange={handleSaturationChange} />
+        <NumberInput value={s} onValueChange={handleSaturationChange} />
       </div>
-      <div className="input group">
+      <div className="rcm-input-group input group">
         <label>
           B <span className="range">[0-100]</span>
         </label>
-        <StyledNumberInput value={b} onValueChange={handleBrightnessChange} />
+        <NumberInput value={b} onValueChange={handleBrightnessChange} />
       </div>
     </InputGroups>
   );

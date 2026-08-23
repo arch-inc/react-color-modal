@@ -1,19 +1,8 @@
 import { FC, useCallback } from "react";
-import styled from "styled-components";
 import { ColorFormats } from "tinycolor2";
 
+import { classNames } from "./classNames";
 import { InputWithSlider } from "./InputWithSlider";
-
-const StyledSpan = styled.span`
-  font-weight: normal;
-  color: rgba(34, 36, 38, 0.4);
-`;
-const StyledInputWithSlider = styled(InputWithSlider)`
-  margin-top: 0.5em;
-  &:last-child {
-    margin-bottom: 0.5em;
-  }
-`;
 
 export interface RedGreenBluePanelProps {
   /** optional CSS class name */
@@ -53,12 +42,13 @@ export const RedGreenBluePanel: FC<RedGreenBluePanelProps> = ({
   const { r, g, b } = rgb;
 
   return (
-    <div className={"rgb-panel " + (className || "")}>
-      <StyledInputWithSlider
+    <div className={classNames("rgb-panel", className)}>
+      <InputWithSlider
+        className="rcm-rgb-slider"
         disabled={disabled}
         label={
           <>
-            R <StyledSpan>[0-255]</StyledSpan>
+            R <span className="rcm-range">[0-255]</span>
           </>
         }
         value={r}
@@ -66,11 +56,12 @@ export const RedGreenBluePanel: FC<RedGreenBluePanelProps> = ({
         max={255}
         onValueChange={handleRedChange}
       />
-      <StyledInputWithSlider
+      <InputWithSlider
+        className="rcm-rgb-slider"
         disabled={disabled}
         label={
           <>
-            G <StyledSpan>[0-255]</StyledSpan>
+            G <span className="rcm-range">[0-255]</span>
           </>
         }
         value={g}
@@ -78,11 +69,12 @@ export const RedGreenBluePanel: FC<RedGreenBluePanelProps> = ({
         max={255}
         onValueChange={handleGreenChange}
       />
-      <StyledInputWithSlider
+      <InputWithSlider
+        className="rcm-rgb-slider"
         disabled={disabled}
         label={
           <>
-            B <StyledSpan>[0-255]</StyledSpan>
+            B <span className="rcm-range">[0-255]</span>
           </>
         }
         value={b}

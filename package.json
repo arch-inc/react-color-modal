@@ -6,6 +6,7 @@
   "browser": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
+  "style": "dist/styles.css",
   "files": [
     "dist"
   ],
@@ -63,7 +64,6 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@types/tinycolor2": "^1.4.6",
-    "babel-plugin-styled-components": "^2.3.0",
     "cross-env": "^10.1.0",
     "del-cli": "^7.0.0",
     "jsdom": "^30.0.1",
@@ -72,14 +72,12 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "rollup": "^4.62.5",
-    "styled-components": "^6.5.3",
     "typedoc": "^0.28.20",
     "typescript": "^5.9.3",
     "vitest": "^4.1.11"
   },
   "peerDependencies": {
     "react": ">=18",
-    "react-dom": ">=18",
-    "styled-components": ">=5"
+    "react-dom": ">=18"
   }
 }

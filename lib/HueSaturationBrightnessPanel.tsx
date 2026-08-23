@@ -1,20 +1,10 @@
 import { FC, useCallback } from "react";
-import styled from "styled-components";
 import { ColorFormats } from "tinycolor2";
 
+import { classNames } from "./classNames";
 import { HueSlider } from "./HueSlider";
 import { SaturationBrightnessPanel } from "./SaturationBrightnessPanel";
 import { HueSaturationBrightnessInput } from "./HueSaturationBrightnessInput";
-
-const StyledDiv = styled.div`
-  width: 100%;
-`;
-const StyledSaturationBrightnessPanel = styled(SaturationBrightnessPanel)`
-  margin-bottom: 1rem;
-`;
-const StyledHueSlider = styled(HueSlider)`
-  margin-bottom: 0.75rem;
-`;
 
 export interface HueSaturationBrightnessPanelProps {
   /** optional CSS class name */
@@ -59,15 +49,17 @@ export const HueSaturationBrightnessPanel: FC<
   );
 
   return (
-    <StyledDiv className={"hsb-panel " + (className || "")}>
+    <div className={classNames("rcm-hsb-panel", "hsb-panel", className)}>
       {!hidePanel && (
-        <StyledSaturationBrightnessPanel
+        <SaturationBrightnessPanel
+          className="rcm-hsb-saturation-panel"
           hsv={hsv}
           onColorUpdate={handleSaturationBrightnessUpdate}
         />
       )}
       {!hideSlider && (
-        <StyledHueSlider
+        <HueSlider
+          className="rcm-hsb-hue-slider"
           hue={hsv.h}
           onHueChange={handleHueUpdate}
           styles={{
@@ -91,6 +83,6 @@ export const HueSaturationBrightnessPanel: FC<
           onBrightnessUpdate={handleBrightnessUpdate}
         />
       )}
-    </StyledDiv>
+    </div>
   );
 };

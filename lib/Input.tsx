@@ -1,12 +1,11 @@
-import styled from "styled-components";
+import { forwardRef, InputHTMLAttributes } from "react";
 
-export const Input = styled.input`
-  padding: 0.3em;
-  border: 1px solid rgba(34, 36, 38, 0.15);
-  border-radius: 2px;
-  font-size: 1.2em;
+import { classNames } from "./classNames";
 
-  &:focus {
-    outline-color: rgba(34, 36, 38, 0.4);
-  }
-`;
+export const Input = forwardRef<
+  HTMLInputElement,
+  InputHTMLAttributes<HTMLInputElement>
+>(({ className, ...props }, ref) => (
+  <input ref={ref} className={classNames("rcm-input", className)} {...props} />
+));
+Input.displayName = "Input";

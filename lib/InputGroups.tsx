@@ -1,21 +1,15 @@
-import styled from "styled-components";
+import { forwardRef, HTMLAttributes } from "react";
 
-export const InputGroups = styled.div`
-  display: flex;
-  margin: 0.5em 0;
-  & > .input.group {
-    margin-right: 0.5em;
-    flex-grow: 1;
-  }
-  & > .input.group:last-child {
-    margin-right: 0;
-  }
-  & > .input.group > label {
-    padding-right: 0.3em;
-    font-weight: bold;
-  }
-  & > .input.group > label > .range {
-    font-weight: normal;
-    color: rgba(34, 36, 38, 0.4);
-  }
-`;
+import { classNames } from "./classNames";
+
+export const InputGroups = forwardRef<
+  HTMLDivElement,
+  HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={classNames("rcm-input-groups", className)}
+    {...props}
+  />
+));
+InputGroups.displayName = "InputGroups";

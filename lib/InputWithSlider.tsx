@@ -1,27 +1,9 @@
 import { FC, useCallback, useMemo, ReactNode } from "react";
-import styled from "styled-components";
 
+import { classNames } from "./classNames";
 import { NumberInput } from "./NumberInput";
 import { RangeSlider } from "./RangeSlider";
 import { SliderStyles } from "./SliderStyles";
-
-const StyledDiv = styled.div`
-  display: flex;
-  align-items: center;
-
-  & > label {
-    white-space: nowrap;
-    font-weight: bold;
-  }
-  & > div {
-    flex-grow: 1;
-    margin: 0 1rem;
-  }
-  & > input {
-    width: 3.5em;
-    flex-grow: 0;
-  }
-`;
 
 export interface InputWithSliderProps {
   /** optional CSS class name */
@@ -93,7 +75,7 @@ export const InputWithSlider: FC<InputWithSliderProps> = ({
   }, [styles]);
 
   return (
-    <StyledDiv className={"slider " + (className || "")}>
+    <div className={classNames("rcm-input-with-slider", "slider", className)}>
       {label && <label>{label}</label>}
       <RangeSlider
         ariaLabel={typeof label === "string" ? label : "Value"}
@@ -111,6 +93,6 @@ export const InputWithSlider: FC<InputWithSliderProps> = ({
         max={maximum}
         onValueChange={onValueChange}
       />
-    </StyledDiv>
+    </div>
   );
 };

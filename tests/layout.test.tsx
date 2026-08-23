@@ -1,6 +1,7 @@
 import { act, fireEvent, render } from "@testing-library/react";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { renderToString } from "react-dom/server";
-import { ServerStyleSheet } from "styled-components";
 import tinycolor from "tinycolor2";
 import { describe, expect, test, vi } from "vitest";
 
@@ -9,19 +10,17 @@ import { InlineBox } from "../lib/InlineBox";
 import { SaturationBrightnessPanel } from "../lib/SaturationBrightnessPanel";
 import { calculateSaturationBrightness } from "../lib/SaturationBrightnessEventHandler";
 
+const css = readFileSync(resolve("lib/styles.css"), "utf8");
+
 describe("SaturationBrightnessPanel", () => {
   test("is intrinsically square without a zero-height first render", () => {
-    const sheet = new ServerStyleSheet();
     const html = renderToString(
-      sheet.collectStyles(
-        <SaturationBrightnessPanel hsv={{ h: 0, s: 0.5, v: 0.5 }} />,
-      ),
+      <SaturationBrightnessPanel hsv={{ h: 0, s: 0.5, v: 0.5 }} />,
     );
-    const css = sheet.getStyleTags();
-    sheet.seal();
 
     expect(html).not.toContain("height:0px");
-    expect(css).toContain("aspect-ratio:1/1");
+    expect(html).toContain("rcm-sb-panel");
+    expect(css).toMatch(/aspect-ratio:\s*1 \/ 1/);
   });
 
   test("uses current layout bounds and clamps every edge", () => {
@@ -134,20 +133,23 @@ test("ColorPanel exposes a semantic, stable footer and swatch", () => {
 });
 
 test("structural spacing uses root-relative units without nesting font size", () => {
-  const sheet = new ServerStyleSheet();
   renderToString(
-    sheet.collectStyles(
-      <>
-        <ColorPanel color={tinycolor("#336699")} />
-        <InlineBox />
-      </>,
-    ),
+    <>
+      <ColorPanel color={tinycolor("#336699")} />
+      <InlineBox />
+    </>,
   );
-  const css = sheet.getStyleTags();
-  sheet.seal();
 
-  expect(css).toContain("padding:1rem");
-  expect(css).toContain("margin-bottom:1rem");
-  expect(css).toContain("margin-bottom:0.75rem");
+  expect(css).toMatch(/padding:\s*1rem/);
+  expect(css).toMatch(/margin-bottom:\s*1rem/);
+  expect(css).toMatch(/margin-bottom:\s*0\.75rem/);
   expect(css).toContain("var(--color-panel-control-height, 2.208em)");
+});
+
+test("HorizontalColorPanel wraps instead of enforcing a desktop minimum", () => {
+  expect(css).toMatch(/\.rcm-horizontal-panel\s*{[^}]*min-width:\s*0/s);
+  expect(css).toMatch(
+    /@media\s*\(max-width:\s*35\.25rem\)[\s\S]*\.rcm-horizontal-panel\s*{[^}]*flex-direction:\s*column/,
+  );
+  expect(css).not.toMatch(/min-width:\s*564px/);
 });

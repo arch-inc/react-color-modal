@@ -1,12 +1,15 @@
-import styled from "styled-components";
+import { forwardRef, HTMLAttributes } from "react";
 
-export const InlineBox = styled.span`
-  display: inline-block;
-  vertical-align: top;
-  width: var(--color-panel-control-height, 2.208em);
-  height: var(--color-panel-control-height, 2.208em);
-  border: 1px solid rgba(34, 36, 38, 0.15);
-  border-radius: 2px;
-  user-select: none;
-  cursor: pointer;
-`;
+import { classNames } from "./classNames";
+
+export const InlineBox = forwardRef<
+  HTMLSpanElement,
+  HTMLAttributes<HTMLSpanElement>
+>(({ className, ...props }, ref) => (
+  <span
+    ref={ref}
+    className={classNames("rcm-inline-box", className)}
+    {...props}
+  />
+));
+InlineBox.displayName = "InlineBox";

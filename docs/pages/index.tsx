@@ -93,9 +93,7 @@ const Index: NextPage = () => {
             <a href={`https://github.com/arch-inc/${packageName}`}>
               GitHub repository — {packageName}
             </a>
-            <a
-              href={`https://arch-inc.github.io/${packageName}/api/globals.html`}
-            >
+            <a href={`https://arch-inc.github.io/${packageName}/api/`}>
               API document — generated with TypeDoc
             </a>
           </div>

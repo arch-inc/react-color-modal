@@ -1,6 +1,7 @@
 import { FC, useCallback } from "react";
 import { ColorFormats } from "tinycolor2";
 
+import { classNames } from "./classNames";
 import { InputGroups } from "./InputGroups";
 import { NumberInput } from "./NumberInput";
 
@@ -42,8 +43,8 @@ export const RedGreenBlueInput: FC<RedGreenBlueInputProps> = ({
   const { r, g, b } = rgb;
 
   return (
-    <InputGroups className={"rgb-input " + (className || "")}>
-      <div className="input group">
+    <InputGroups className={classNames("rgb-input", className)}>
+      <div className="rcm-input-group input group">
         <label>
           R <span className="range">[0-255]</span>
         </label>
@@ -55,7 +56,7 @@ export const RedGreenBlueInput: FC<RedGreenBlueInputProps> = ({
           onValueChange={handleRedChange}
         />
       </div>
-      <div className="input group">
+      <div className="rcm-input-group input group">
         <label>
           G <span className="range">[0-255]</span>
         </label>
@@ -67,7 +68,7 @@ export const RedGreenBlueInput: FC<RedGreenBlueInputProps> = ({
           onValueChange={handleGreenChange}
         />
       </div>
-      <div className="input group">
+      <div className="rcm-input-group input group">
         <label>
           B <span className="range">[0-255]</span>
         </label>
