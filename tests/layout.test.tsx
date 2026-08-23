@@ -13,12 +13,12 @@ import { calculateSaturationBrightness } from "../lib/SaturationBrightnessEventH
 
 const css = readFileSync(resolve("lib/styles.css"), "utf8");
 
-test("cursor ring stays inside the selectable area at every edge", () => {
+test("cursor center remains aligned with the selected color at every edge", () => {
   const { container } = render(<Cursor x={1} y={0} />);
   const cursor = container.querySelector(".cursor") as HTMLDivElement;
 
-  expect(cursor.style.left).toBe("clamp(12px, 100%, 100% - 12px)");
-  expect(cursor.style.top).toBe("clamp(12px, 0%, 100% - 12px)");
+  expect(cursor.style.left).toBe("100%");
+  expect(cursor.style.top).toBe("0%");
 });
 
 describe("SaturationBrightnessPanel", () => {
@@ -106,8 +106,8 @@ describe("SaturationBrightnessPanel", () => {
     expect(callbacks).toHaveLength(1);
     act(() => callbacks[0](16));
     const cursor = container.querySelector(".cursor") as HTMLDivElement;
-    expect(cursor.style.left).toBe("clamp(12px, 80%, 100% - 12px)");
-    expect(cursor.style.top).toBe("clamp(12px, 20%, 100% - 12px)");
+    expect(cursor.style.left).toBe("80%");
+    expect(parseFloat(cursor.style.top)).toBeCloseTo(20);
     expect(onColorUpdate).toHaveBeenCalledTimes(1);
 
     rerender(
@@ -116,8 +116,8 @@ describe("SaturationBrightnessPanel", () => {
         onColorUpdate={onColorUpdate}
       />,
     );
-    expect(cursor.style.left).toBe("clamp(12px, 80%, 100% - 12px)");
-    expect(cursor.style.top).toBe("clamp(12px, 20%, 100% - 12px)");
+    expect(cursor.style.left).toBe("80%");
+    expect(parseFloat(cursor.style.top)).toBeCloseTo(20);
 
     fireEvent.pointerMove(panel, { pointerId: 1, clientX: 60, clientY: 40 });
     act(() => callbacks[1](41));

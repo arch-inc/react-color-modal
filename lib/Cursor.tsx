@@ -8,17 +8,10 @@ export interface CursorProps {
   y: number;
 }
 
-const cursorRadius = "12px";
-
-function insetPosition(ratio: number): string {
-  const percentage = Number((ratio * 100).toFixed(4));
-  return `clamp(${cursorRadius}, ${percentage}%, calc(100% - ${cursorRadius}))`;
-}
-
 export const Cursor: FC<CursorProps> = ({ className, x, y }) => (
   <div
     className={classNames("rcm-cursor", "cursor", className)}
-    style={{ top: insetPosition(y), left: insetPosition(x) }}
+    style={{ top: `${y * 100}%`, left: `${x * 100}%` }}
   >
     <span className="rcm-cursor-ring" />
   </div>
