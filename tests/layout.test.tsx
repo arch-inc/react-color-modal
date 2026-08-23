@@ -6,11 +6,20 @@ import tinycolor from "tinycolor2";
 import { describe, expect, test, vi } from "vitest";
 
 import { ColorPanel } from "../lib/ColorPanel";
+import { Cursor } from "../lib/Cursor";
 import { InlineBox } from "../lib/InlineBox";
 import { SaturationBrightnessPanel } from "../lib/SaturationBrightnessPanel";
 import { calculateSaturationBrightness } from "../lib/SaturationBrightnessEventHandler";
 
 const css = readFileSync(resolve("lib/styles.css"), "utf8");
+
+test("cursor ring stays inside the selectable area at every edge", () => {
+  const { container } = render(<Cursor x={1} y={0} />);
+  const cursor = container.querySelector(".cursor") as HTMLDivElement;
+
+  expect(cursor.style.left).toBe("clamp(12px, 100%, 100% - 12px)");
+  expect(cursor.style.top).toBe("clamp(12px, 0%, 100% - 12px)");
+});
 
 describe("SaturationBrightnessPanel", () => {
   test("is intrinsically square without a zero-height first render", () => {
@@ -97,8 +106,8 @@ describe("SaturationBrightnessPanel", () => {
     expect(callbacks).toHaveLength(1);
     act(() => callbacks[0](16));
     const cursor = container.querySelector(".cursor") as HTMLDivElement;
-    expect(cursor.style.left).toBe("80%");
-    expect(parseFloat(cursor.style.top)).toBeCloseTo(20);
+    expect(cursor.style.left).toBe("clamp(12px, 80%, 100% - 12px)");
+    expect(cursor.style.top).toBe("clamp(12px, 20%, 100% - 12px)");
     expect(onColorUpdate).toHaveBeenCalledTimes(1);
 
     rerender(
@@ -107,8 +116,8 @@ describe("SaturationBrightnessPanel", () => {
         onColorUpdate={onColorUpdate}
       />,
     );
-    expect(cursor.style.left).toBe("80%");
-    expect(parseFloat(cursor.style.top)).toBeCloseTo(20);
+    expect(cursor.style.left).toBe("clamp(12px, 80%, 100% - 12px)");
+    expect(cursor.style.top).toBe("clamp(12px, 20%, 100% - 12px)");
 
     fireEvent.pointerMove(panel, { pointerId: 1, clientX: 60, clientY: 40 });
     act(() => callbacks[1](41));
